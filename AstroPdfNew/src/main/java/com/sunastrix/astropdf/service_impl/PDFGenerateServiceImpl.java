@@ -21,6 +21,7 @@ import com.sunastrix.astroganitlib.model.BirthDetailBean;
 import com.sunastrix.astroganitlib.model.DateTimeBean;
 import com.sunastrix.astropdf.calculation.AshtakVargaCalculation;
 import com.sunastrix.astropdf.calculation.ChalitCalculation;
+import com.sunastrix.astropdf.calculation.GemstoneCalculation;
 import com.sunastrix.astropdf.calculation.KPPlanetSignificationView2Calculation;
 import com.sunastrix.astropdf.calculation.KarkanshAndSwanshCalcultion;
 import com.sunastrix.astropdf.calculation.KpCilSubCalculation;
@@ -28,6 +29,7 @@ import com.sunastrix.astropdf.calculation.KpCilSubSubCalculation;
 import com.sunastrix.astropdf.calculation.KpKundliCalculation;
 import com.sunastrix.astropdf.calculation.KpNakshtraNadiCalculation;
 import com.sunastrix.astropdf.calculation.KpRulingPlanetCalculation;
+import com.sunastrix.astropdf.calculation.LagnaCalculation;
 import com.sunastrix.astropdf.calculation.PlanetAndSunPlanetPositionCalculation;
 import com.sunastrix.astropdf.calculation.PrashtakVargaCalculation;
 import com.sunastrix.astropdf.calculation.TransitCalculation;
@@ -38,12 +40,14 @@ import com.sunastrix.astropdf.model.BasicPlanetDataModel;
 import com.sunastrix.astropdf.model.BasicPlanetSubDataModel;
 import com.sunastrix.astropdf.model.CharAntaraDashaModel;
 import com.sunastrix.astropdf.model.ChartDetailModel;
+import com.sunastrix.astropdf.model.GemstoneItem;
 import com.sunastrix.astropdf.model.HouseSignificatorsBean;
 import com.sunastrix.astropdf.model.KPCilSubBean;
 import com.sunastrix.astropdf.model.KPCilSubSubBean;
 import com.sunastrix.astropdf.model.KPNakshatraNadiBean;
 import com.sunastrix.astropdf.model.KpRulingPlanetBean;
 import com.sunastrix.astropdf.model.KundliChalitTableModel;
+import com.sunastrix.astropdf.model.PersonalityPrediction;
 import com.sunastrix.astropdf.model.PlanetSignificationBean;
 import com.sunastrix.astropdf.model.PlanetSignificationView2Bean;
 import com.sunastrix.astropdf.model.PrastharashtakvargaModel;
@@ -105,7 +109,7 @@ public class PDFGenerateServiceImpl implements PDFGenerateService {
 		printeleventhPage();
 		printTwelvethPage();
 		printThirteenPage();
-
+		printForteenPage();
 		document.save(byteArrayOutputStream);
 		return byteArrayOutputStream.toByteArray();
 	};
@@ -516,6 +520,24 @@ public class PDFGenerateServiceImpl implements PDFGenerateService {
 			addWatermarkUnderContent(document, page);
 			addPageHeading(pageHeight, pageWidth);
 			printVrashfalPridiction();
+			contentStream.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
+
+	void printForteenPage() {
+		try {
+			PDPage page = new PDPage(PDRectangle.A4);
+			document.addPage(page);
+			contentStream = new PDPageContentStream(document, page);
+			contentStream.setLineWidth(1);
+			contentStream.setStrokingColor(Color.GRAY);
+			contentStream.setNonStrokingColor(Color.BLACK);
+			drawShape.initialize(pageHeight, pageWidth, document, contentStream);
+			addWatermarkUnderContent(document, page);
+			addPageHeading(pageHeight, pageWidth);
+			printLagnaReport();
 			contentStream.close();
 		} catch (Exception e) {
 			System.out.println(e);
@@ -2322,6 +2344,77 @@ public class PDFGenerateServiceImpl implements PDFGenerateService {
 					krutiDevRegularFont);
 			contentStream.setFont(krutiDevRegularFont, 12);
 			y = addParagraph(y - 40, arrayList.get(i).getResult());
+		}
+		y = y - 10;
+		drawShape.drawText(20, y, constantHindi.jeevanRatan, 16, krutiDevRegularFont);
+		float h = 180;
+		float w = 500;
+		y = y - 10;
+		drawShape.drawRoundedRectangle(x, y - h, h, w);
+		drawShape.drawRowAndColoum(x, y - h, h, w, 5, 30);
+		ArrayList<AxisPoint> points = new ArrayList<AxisPoint>();
+		points.add(new AxisPoint(x + w / 4, y, x + w / 4, y - h));
+		drawShape.drawColumn(points);
+		String[] labels = constantHindi.gemstoneLabel;
+		GemstoneCalculation gemstoneCalculation = new GemstoneCalculation(desktopHoro);
+		GemstoneItem lifeStone = gemstoneCalculation.getLifeStone();
+		GemstoneItem beneficStone = gemstoneCalculation.getBeneficStone();
+		GemstoneItem luckyStone = gemstoneCalculation.getLuckyStone();
+		String[] values1 = { lifeStone.getLifeStone(), lifeStone.getFinger(), lifeStone.getMetal(),
+				lifeStone.getQualities(), lifeStone.getMantra(), lifeStone.getDevotee() };
+		printText(drawShape, x + 5, y - 20, labels, krutiDevRegularFont);
+		printText(drawShape, x + (w / 4) + 5, y - 20, values1, krutiDevRegularFont);
+
+		y = y - h - 20;
+		drawShape.drawText(20, y, constantHindi.punyaRatan, 16, krutiDevRegularFont);
+		y = y - 10;
+		drawShape.drawRoundedRectangle(x, y - h, h, w);
+		drawShape.drawRowAndColoum(x, y - h, h, w, 5, 30);
+		points = new ArrayList<AxisPoint>();
+		points.add(new AxisPoint(x + w / 4, y, x + w / 4, y - h));
+		drawShape.drawColumn(points);
+		labels = constantHindi.gemstoneLabel;
+		String[] values2 = { beneficStone.getLifeStone(), beneficStone.getFinger(), beneficStone.getMetal(),
+				beneficStone.getQualities(), beneficStone.getMantra(), beneficStone.getDevotee() };
+		printText(drawShape, x + 5, y - 20, labels, krutiDevRegularFont);
+		printText(drawShape, x + (w / 4) + 5, y - 20, values2, krutiDevRegularFont);
+		y = y - h - 20;
+		drawShape.drawText(20, y, constantHindi.bhagyaRatan, 16, krutiDevRegularFont);
+		y = y - 10;
+		drawShape.drawRoundedRectangle(x, y - h, h, w);
+		drawShape.drawRowAndColoum(x, y - h, h, w, 5, 30);
+		points = new ArrayList<AxisPoint>();
+		points.add(new AxisPoint(x + w / 4, y, x + w / 4, y - h));
+		drawShape.drawColumn(points);
+		labels = constantHindi.gemstoneLabel;
+		String[] values3 = { luckyStone.getLifeStone(), luckyStone.getFinger(), luckyStone.getMetal(),
+				luckyStone.getQualities(), luckyStone.getMantra(), luckyStone.getDevotee() };
+		printText(drawShape, x + 5, y - 20, labels, krutiDevRegularFont);
+		printText(drawShape, x + (w / 4) + 5, y - 20, values3, krutiDevRegularFont);
+
+	}
+
+	void printLagnaReport() throws Exception {
+		float x = 20;
+		LagnaCalculation lagnaCalculation = new LagnaCalculation(desktopHoro);
+		String lagna = lagnaCalculation.getLagna();
+		PersonalityPrediction personalityPrediction = lagnaCalculation.getLagnaReport();
+		float startY = pageHeight - 50;
+		drawShape.drawText(20, startY, "vkidk yXu gS% " + lagna, 16, krutiDevRegularFont);
+		contentStream.setFont(krutiDevRegularFont, 12);
+		float y = addParagraph(startY - 20, constantHindi.lagnaDesc);
+		String[] heading = { "LokLFk; # yXu ds fy,".replace("#", lagna),
+				"LokHkko o O;fäRo # yXu ds fy,".replace("#", lagna),
+				"'kkjhfjd jax :i # yXu ds fy,".replace("#", lagna) };
+		String[] arr = { personalityPrediction.getHealthPrediction(),
+				personalityPrediction.getPhysicalAppearancePrediction(),
+				personalityPrediction.getTemperamentAndPersonalityPrediction() };
+		contentStream.setFont(krutiDevRegularFont, 12);
+
+		for (int i = 0; i < heading.length; i++) {
+			drawShape.drawText(20, y - 20, heading[i], 16, krutiDevRegularFont);
+			contentStream.setFont(krutiDevRegularFont, 12);
+			y = addParagraph(y - 40, arr[i]);
 		}
 
 	}

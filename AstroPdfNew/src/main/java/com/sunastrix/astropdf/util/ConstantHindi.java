@@ -4,6 +4,10 @@ public class ConstantHindi {
 	public String degSymbol = "°";
 	public String minSymbol = "'";
 	public String secSymbol = "\"";
+	public String jeevanRatan = "thou jRu";
+	public String punyaRatan = "iq.; jRu";
+	public String bhagyaRatan = "HkkX; jRu";
+	public String lagnaDesc = "Hkkjrh; T;ksfr\"k esa yXu dk cgqr egRoiw.kZ LFkku gSA O;fä ds tUe ds le; esa tks jkf'k iwohZ; f{krt ij mfnr gks jgh gksrh gS ml jkf'k dks yXu jkf'k dgrs gS yXu O;fä ds thou dh NksVh ls NksVh ?kVuk ds ckjs esa enn djrk gSA";
 
 	public String[] planetNameWithLagna = new String[] { "yXu", "lw;Z", "pUæ", "eaxy", "cq/k", "xq#", "'kqØ", "'kfu",
 			"jkgq", "dsrq", ";wjs", "usi", "IywVks" };
@@ -110,7 +114,7 @@ public class ConstantHindi {
 			"e`x", "okuj", "udqy", "flag" };
 	public static String[] nadi = { "vkfn", "e/;", "vUr" };
 	public static String[] planetPosHeading = { "xzg", "jkf'k", "va'k", "u{k=", "in" };
-	public static String[] varshfalPlanetPosHeading = { "xzg", "jkf'k", "va'k"};
+	public static String[] varshfalPlanetPosHeading = { "xzg", "jkf'k", "va'k" };
 	public static String[] subPlanetPosHeading = { "xzg", "va'k", "jk", "u", "l", "ll" };
 	public static String[] chalitTableHeading = { "Hkko", "jkf'k", "Hkko vkjEHk", "jkf'k", "Hkko e/;" };
 	public static String[] ashatakvargHeading = { "jk", "lw", "p", "ea", "cq", "xq", "'kq", "'k", ";ks" };
@@ -123,5 +127,6 @@ public class ConstantHindi {
 	public static String[] nakshNadiHeading = { "xzg", "u{k= Lokeh", "lc Lokeh" };
 	public static String[] cusperInterLinksHeading = { "Hkko", "ç&1", "ç&2", "ç&3", "ç&4" };
 	public static String[] cusperInterLinksSubHeading = { "xzg", "u{k=", "lc", "lc lc", "fLFkfr" };
+	public static String[] gemstoneLabel = { "jRu", "vaxqyh", "/kkrq", "U;wure otu", "ea=", "nsork" };
 
 }
