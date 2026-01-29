@@ -206,7 +206,7 @@ public class VarshfalCalculation {
 
 			String startTime;
 			if (i == 0) {
-				startTime = startDay + " " + monthNames[Integer.parseInt(startMonth)] + "] " + startYear;
+				startTime = startDay + " " + monthNames[Integer.parseInt(startMonth)-1] + "] " + startYear;
 			} else {
 				startTime = dateArray[i - 1];
 			}

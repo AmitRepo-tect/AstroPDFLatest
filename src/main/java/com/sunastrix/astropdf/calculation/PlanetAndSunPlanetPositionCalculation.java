@@ -42,7 +42,7 @@ public class PlanetAndSunPlanetPositionCalculation {
 			basicPlanetDataModel.setPlaName(plaName[i]);
 			basicPlanetDataModel.setSign(sign[getRasiNumber(plaDeg[i])]);
 			basicPlanetDataModel.setDegree(formatDMSInStringWithSign(plaDeg[i] % 30, degSign, minSign, secSign));
-			basicPlanetDataModel.setNaks(naksh[getNakshatraNumber(plaDeg[i])]);
+			basicPlanetDataModel.setNaks(naksh[getNakshatraNumber(plaDeg[i])].replace("\u200D", ""));
 			basicPlanetDataModel.setPlaCharan("(" + getPlntCharan(plaDeg[i]) + ")");
 
 			arrayList.add(basicPlanetDataModel);

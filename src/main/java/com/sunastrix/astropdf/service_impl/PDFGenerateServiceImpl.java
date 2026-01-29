@@ -30,7 +30,10 @@ import com.sunastrix.astropdf.calculation.KpKundliCalculation;
 import com.sunastrix.astropdf.calculation.KpNakshtraNadiCalculation;
 import com.sunastrix.astropdf.calculation.KpRulingPlanetCalculation;
 import com.sunastrix.astropdf.calculation.LagnaCalculation;
+import com.sunastrix.astropdf.calculation.LifePredictionCalculation;
+import com.sunastrix.astropdf.calculation.NakshtraReportCalculation;
 import com.sunastrix.astropdf.calculation.PlanetAndSunPlanetPositionCalculation;
+import com.sunastrix.astropdf.calculation.PlanetConsiderationCalculation;
 import com.sunastrix.astropdf.calculation.PrashtakVargaCalculation;
 import com.sunastrix.astropdf.calculation.TransitCalculation;
 import com.sunastrix.astropdf.calculation.VarshfalCalculation;
@@ -47,7 +50,10 @@ import com.sunastrix.astropdf.model.KPCilSubSubBean;
 import com.sunastrix.astropdf.model.KPNakshatraNadiBean;
 import com.sunastrix.astropdf.model.KpRulingPlanetBean;
 import com.sunastrix.astropdf.model.KundliChalitTableModel;
+import com.sunastrix.astropdf.model.LifePredictionModel;
+import com.sunastrix.astropdf.model.NakshtraReportBean;
 import com.sunastrix.astropdf.model.PersonalityPrediction;
+import com.sunastrix.astropdf.model.PlanetConsiderationBean;
 import com.sunastrix.astropdf.model.PlanetSignificationBean;
 import com.sunastrix.astropdf.model.PlanetSignificationView2Bean;
 import com.sunastrix.astropdf.model.PrastharashtakvargaModel;
@@ -115,6 +121,10 @@ public class PDFGenerateServiceImpl implements PDFGenerateService {
 		printTwelvethPage(document);
 		printThirteenPage(document);
 		printForteenPage(document);
+		printPage15(document);
+		printPage16(document);
+		printPage17(document);
+
 		document.save(byteArrayOutputStream);
 		return byteArrayOutputStream.toByteArray();
 	};
@@ -240,14 +250,13 @@ public class PDFGenerateServiceImpl implements PDFGenerateService {
 			drawShape.initialize(pageHeight, pageWidth, document, contentStream);
 			addWatermarkUnderContent(document, page);
 			addPageHeading(pageHeight, pageWidth);
-
 			printPersonalDetail(pageHeight, pageWidth);
 			printPanchang(pageHeight, pageWidth);
 			printAvakahadaChakar(pageHeight, pageWidth);
 
 			contentStream.close();
 		} catch (Exception e) {
-
+			System.out.println(e.getMessage());
 		}
 	}
 
@@ -269,6 +278,7 @@ public class PDFGenerateServiceImpl implements PDFGenerateService {
 			printSubPlanetPositionTable();
 			contentStream.close();
 		} catch (Exception e) {
+
 			System.out.println(e);
 		}
 		// addChart();
@@ -578,6 +588,59 @@ public class PDFGenerateServiceImpl implements PDFGenerateService {
 		}
 	}
 
+	void printPage15(PDDocument document) {
+		try {
+			PDPage page = new PDPage(PDRectangle.A4);
+			document.addPage(page);
+			contentStream = new PDPageContentStream(document, page);
+			contentStream.setLineWidth(1);
+			contentStream.setStrokingColor(Color.GRAY);
+			contentStream.setNonStrokingColor(Color.BLACK);
+			drawShape.initialize(pageHeight, pageWidth, document, contentStream);
+			addWatermarkUnderContent(document, page);
+			addPageHeading(pageHeight, pageWidth);
+			printNakshtraReport(document);
+			contentStream.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
+
+	void printPage16(PDDocument document) {
+		try {
+			PDPage page = new PDPage(PDRectangle.A4);
+			document.addPage(page);
+			contentStream = new PDPageContentStream(document, page);
+			contentStream.setLineWidth(1);
+			contentStream.setStrokingColor(Color.GRAY);
+			contentStream.setNonStrokingColor(Color.BLACK);
+			drawShape.initialize(pageHeight, pageWidth, document, contentStream);
+			addWatermarkUnderContent(document, page);
+			addPageHeading(pageHeight, pageWidth);
+			printPlanetConsideration(document);
+			contentStream.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
+	void printPage17(PDDocument document) {
+		try {
+			PDPage page = new PDPage(PDRectangle.A4);
+			document.addPage(page);
+			contentStream = new PDPageContentStream(document, page);
+			contentStream.setLineWidth(1);
+			contentStream.setStrokingColor(Color.GRAY);
+			contentStream.setNonStrokingColor(Color.BLACK);
+			drawShape.initialize(pageHeight, pageWidth, document, contentStream);
+			addWatermarkUnderContent(document, page);
+			addPageHeading(pageHeight, pageWidth);
+			printGeneralPrediction(document);
+			contentStream.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
+
 	void printThirteenPage1(PDDocument document) {
 		try {
 			String text = "mijksä ifjHkk\"kk dk vFkZ gS fd fucU/k ys[kd ds eu dh ço`fÙk ds vuq:i gh gksuk pkfg, vkSj fucU/k dk ys[ku LoPNUn xfr ij vk/kkfjr gks vFkkZr fuca/k ,slk fy[kuk pkfg, fd ys[kd dk fparu] oSpkfjd Lrj] fo\"k; ij mldh Lo;a dh fopkj/kkjk Li\"V gks tkuh pkfg,A";
@@ -652,7 +715,7 @@ public class PDFGenerateServiceImpl implements PDFGenerateService {
 
 	String getBirthDate() {
 		int[] arr = desktopHoro.getBirthDate();
-		return arr[0] + "-" + constantHindi.monthName[arr[1]] + "-" + arr[2];
+		return arr[0] + "-" + constantHindi.monthName[arr[1] - 1] + "-" + arr[2];
 	}
 
 	void printPanchang(float pageHeight, float pageWidth) {
@@ -2485,8 +2548,8 @@ public class PDFGenerateServiceImpl implements PDFGenerateService {
 		String lagna = lagnaCalculation.getLagna();
 		PersonalityPrediction personalityPrediction = lagnaCalculation.getLagnaReport();
 		float startY = pageHeight - 50;
-		drawShape.drawText(20, startY, "vkidk yXu gS%" + lagna, 16, krutiDevRegularFont);
-		drawShape.drawText(20, startY, "vkidk yXu gS%" + lagna, 16, krutiDevRegularFont);
+		drawShape.drawText(20, startY, "vkidk yXu gS% " + lagna, 16, krutiDevRegularFont);
+		drawShape.drawText(20, startY, "vkidk yXu gS% " + lagna, 16, krutiDevRegularFont);
 		contentStream.setFont(krutiDevRegularFont, 12);
 		float y = addParagraph(document, startY - 20, constantHindi.lagnaDesc);
 		String[] heading = { "LokLFk; # yXu ds fy,".replace("#", lagna),
@@ -2498,10 +2561,10 @@ public class PDFGenerateServiceImpl implements PDFGenerateService {
 		contentStream.setFont(krutiDevRegularFont, 12);
 
 		for (int i = 0; i < heading.length; i++) {
-			drawShape.drawText(20, y - 20, heading[i], 16, krutiDevRegularFont);
-			drawShape.drawText(20, y - 20, heading[i], 16, krutiDevRegularFont);
+			drawShape.drawText(20, y - 20, heading[i].replace("\u200D", ""), 16, krutiDevRegularFont);
+			drawShape.drawText(20, y - 20, heading[i].replace("\u200D", ""), 16, krutiDevRegularFont);
 			contentStream.setFont(krutiDevRegularFont, 12);
-			y = addParagraph(document, y - 40, arr[i]);
+			y = addParagraph(document, y - 40, arr[i].replace("\u200D", ""));
 		}
 
 	}
@@ -2509,5 +2572,75 @@ public class PDFGenerateServiceImpl implements PDFGenerateService {
 	String getBalanceOfDasha(int[] arr) {
 		return constantHindi.nakshLord[arr[0]] + " " + arr[1] + constantHindi.year + " " + arr[2] + constantHindi.month
 				+ " " + arr[3] + constantHindi.day;
+	}
+
+	void printNakshtraReport(PDDocument document) throws Exception {
+		float x = 20;
+		NakshtraReportCalculation calculation = new NakshtraReportCalculation(desktopHoro);
+		String nakshtra = calculation.getNakshtra();
+		NakshtraReportBean prediction = calculation.getReport();
+		float startY = pageHeight - 50;
+		drawShape.drawText(20, startY, "vkidk u{k= gS% " + nakshtra, 16, krutiDevRegularFont);
+		drawShape.drawText(20, startY, "vkidk u{k= gS% " + nakshtra, 16, krutiDevRegularFont);
+		contentStream.setFont(krutiDevRegularFont, 12);
+		float y = addParagraph(document, startY - 20, constantHindi.lagnaDesc);
+
+		String[] heading = { "u{k= Qy", "f'k{kk vkSj vk;", "ikfjokfjd thou" };
+		String[] arr = { prediction.getReports(), prediction.getEducation(), prediction.getFamily() };
+		contentStream.setFont(krutiDevRegularFont, 12);
+
+		for (int i = 0; i < arr.length; i++) {
+			drawShape.drawText(20, y - 20, heading[i], 16, krutiDevRegularFont);
+			drawShape.drawText(20, y - 20, heading[i], 16, krutiDevRegularFont);
+			contentStream.setFont(krutiDevRegularFont, 12);
+			y = addParagraph(document, y - 40, arr[i]);
+		}
+	}
+
+	void printPlanetConsideration(PDDocument document) throws Exception {
+		float x = 20;
+		PlanetConsiderationCalculation calculation = new PlanetConsiderationCalculation(desktopHoro);
+		ArrayList<PlanetConsiderationBean> list = calculation.getPlaConsideration();
+		float startY = pageHeight - 50;
+		drawShape.drawText(pageWidth/2-40, startY, "xzg fopkj", 16, krutiDevRegularFont);
+		drawShape.drawText(pageWidth/2-40, startY, "xzg fopkj", 16, krutiDevRegularFont);
+		contentStream.setFont(krutiDevRegularFont, 12);
+		float y = startY ;
+
+		String[] heading = ConstantHindi.plaConsiderationHeading;
+		// String[] arr = { prediction.getReports(), prediction.getEducation(),
+		// prediction.getFamily() };
+		contentStream.setFont(krutiDevRegularFont, 12);
+
+		for (int i = 0; i < list.size(); i++) {
+			drawShape.drawText(20, y - 20, heading[i], 16, krutiDevRegularFont);
+			drawShape.drawText(20, y - 20, heading[i], 16, krutiDevRegularFont);
+			contentStream.setFont(krutiDevRegularFont, 12);
+			y = addParagraph(document, y - 40, list.get(i).getConsideration().replace("\n", " "));
+		}
+
+	}
+	void printGeneralPrediction(PDDocument document) throws Exception {
+		float x = 20;
+		LifePredictionCalculation calculation = new LifePredictionCalculation(desktopHoro);
+		ArrayList<LifePredictionModel> list = calculation.getLifePrediction();
+		float startY = pageHeight - 50;
+		drawShape.drawText(pageWidth/2-40, startY, "lEiw.kZ thou Qykns'k", 16, krutiDevRegularFont);
+		drawShape.drawText(pageWidth/2-40, startY, "lEiw.kZ thou Qykns'k", 16, krutiDevRegularFont);
+		contentStream.setFont(krutiDevRegularFont, 12);
+		float y = startY ;
+
+		String[] heading = ConstantHindi.lifePredictionHeading;
+		// String[] arr = { prediction.getReports(), prediction.getEducation(),
+		// prediction.getFamily() };
+		contentStream.setFont(krutiDevRegularFont, 12);
+
+		for (int i = 0; i < list.size(); i++) {
+			drawShape.drawText(20, y - 20, heading[i], 16, krutiDevRegularFont);
+			drawShape.drawText(20, y - 20, heading[i], 16, krutiDevRegularFont);
+			contentStream.setFont(krutiDevRegularFont, 12);
+			y = addParagraph(document, y - 40, list.get(i).getDetail().replace("\n", " "));
+		}
+
 	}
 }

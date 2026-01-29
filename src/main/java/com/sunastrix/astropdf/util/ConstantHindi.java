@@ -143,4 +143,10 @@ public class ConstantHindi {
 			"lIrfoa'kka'k &¼cy½", "f='kka'k &¼nqHkkZX;½", "[kosnka'k&¼'kqHk Qy½", "v{kosnka'k&¼lkekU; thou½",
 			"\"k\"Vîa'k&¼lkekU; thou½" };
 
+	public static String[] plaConsiderationHeading = { "lw;Z fopkj", "paæ fopkj", "eaxy fopkj", "cq/k fopkj",
+			"xq# fopkj", "'kqØ fopkj", "'kfu fopkj", "jkgq fopkj", "dsrq fopkj" };
+
+	public static String[] lifePredictionHeading = { "pfj=", "lq[k vkSj larks\"k", "thou 'kSyh", "dfj;j ", "is'kk ",
+			"LokLFk", "'kkSd ", "çse lEcU/k", "foÙk", "f'k{kk", };
+
 }
