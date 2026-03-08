@@ -51,8 +51,9 @@ public class LifePredictionCalculation {
 		int laganRashi = getRasiNumber(degArray[0]);
 
 		int bhav = getBhavOfPlant(laganRashi, getRasiNumber(degArray[1])) - 1;
-		System.out.println(bhav);
+		System.out.println(laganRashi+""+bhav);
 		list.add(getList("/json/general_prediction_charater.json").get(bhav));
+		
 		bhav = getBhavOfPlant(laganRashi, getRasiNumber(degArray[4])) - 1;
 		list.add(getList("/json/general_prediction_happiness_and_fulfillment.json").get(bhav));
 		bhav = getBhavOfPlant(laganRashi, getRasiNumber(degArray[2])) - 1;
