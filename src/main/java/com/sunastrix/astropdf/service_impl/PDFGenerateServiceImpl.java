@@ -26,6 +26,7 @@ import com.sunastrix.astroganitlib.model.BirthDetailBean;
 import com.sunastrix.astroganitlib.model.DateTimeBean;
 import com.sunastrix.astropdf.calculation.AshtakVargaCalculation;
 import com.sunastrix.astropdf.calculation.ChalitCalculation;
+import com.sunastrix.astropdf.calculation.CharDashaCalculation;
 import com.sunastrix.astropdf.calculation.DashaCalculation;
 import com.sunastrix.astropdf.calculation.GemstoneCalculation;
 import com.sunastrix.astropdf.calculation.KPPlanetSignificationView2Calculation;
@@ -47,7 +48,9 @@ import com.sunastrix.astropdf.calculation.YoginiDashaCalculation;
 import com.sunastrix.astropdf.model.BasicKundliPlanetSubData;
 import com.sunastrix.astropdf.model.BasicPlanetDataModel;
 import com.sunastrix.astropdf.model.BasicPlanetSubDataModel;
+import com.sunastrix.astropdf.model.CharAntaraDashaBean;
 import com.sunastrix.astropdf.model.CharAntaraDashaModel;
+import com.sunastrix.astropdf.model.CharDashaBean;
 import com.sunastrix.astropdf.model.ChartDetailModel;
 import com.sunastrix.astropdf.model.DasaBean;
 import com.sunastrix.astropdf.model.GemstoneItem;
@@ -93,6 +96,7 @@ public class PDFGenerateServiceImpl implements PDFGenerateService {
 	DashaCalculation calculation;
 	ArrayList<DasaBean> anterDasaList;
 	ArrayList<DasaBean> pratyantraDasaList;
+	ArrayList<CharDashaBean> charDashalist;
 
 	public byte[] generatePDF(BirthDetailBean birthDetailBean) throws IOException {
 		PDDocument document = new PDDocument();
@@ -134,6 +138,7 @@ public class PDFGenerateServiceImpl implements PDFGenerateService {
 		printPage16(document);
 		printPage17(document);
 		printVimshotriDasha(document);
+		// printCharDasha(document);
 		document.save(byteArrayOutputStream);
 		return byteArrayOutputStream.toByteArray();
 	};
@@ -652,6 +657,8 @@ public class PDFGenerateServiceImpl implements PDFGenerateService {
 	}
 
 	void printVimshotriDasha(PDDocument document) {
+		rCount = 0;
+		hCount = 0;
 		printPage18(document);
 		initDasha();
 		printPage19(document);
@@ -689,7 +696,7 @@ public class PDFGenerateServiceImpl implements PDFGenerateService {
 			drawShape.initialize(pageHeight, pageWidth, document, contentStream);
 			addWatermarkUnderContent(document, page);
 			addPageHeading(pageHeight, pageWidth);
-			printPratyantraDasha1(document);
+			printPratyantraDasha(document);
 			contentStream.close();
 		} catch (Exception e) {
 			System.out.println(e);
@@ -707,7 +714,7 @@ public class PDFGenerateServiceImpl implements PDFGenerateService {
 			drawShape.initialize(pageHeight, pageWidth, document, contentStream);
 			addWatermarkUnderContent(document, page);
 			addPageHeading(pageHeight, pageWidth);
-			printPratyantraDasha1(document);
+			printPratyantraDasha(document);
 			contentStream.close();
 		} catch (Exception e) {
 			System.out.println(e);
@@ -725,7 +732,7 @@ public class PDFGenerateServiceImpl implements PDFGenerateService {
 			drawShape.initialize(pageHeight, pageWidth, document, contentStream);
 			addWatermarkUnderContent(document, page);
 			addPageHeading(pageHeight, pageWidth);
-			printPratyantraDasha1(document);
+			printPratyantraDasha(document);
 			contentStream.close();
 		} catch (Exception e) {
 			System.out.println(e);
@@ -743,7 +750,49 @@ public class PDFGenerateServiceImpl implements PDFGenerateService {
 			drawShape.initialize(pageHeight, pageWidth, document, contentStream);
 			addWatermarkUnderContent(document, page);
 			addPageHeading(pageHeight, pageWidth);
-			printPratyantraDasha1(document);
+			printPratyantraDasha(document);
+			contentStream.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
+
+	void printCharDasha(PDDocument document) {
+		initCharDasha();
+		printPage23(document);
+		// printPage24(document);
+	}
+
+	void printPage23(PDDocument document) {
+		try {
+			PDPage page = new PDPage(PDRectangle.A4);
+			document.addPage(page);
+			contentStream = new PDPageContentStream(document, page);
+			contentStream.setLineWidth(1);
+			contentStream.setStrokingColor(Color.GRAY);
+			contentStream.setNonStrokingColor(Color.BLACK);
+			drawShape.initialize(pageHeight, pageWidth, document, contentStream);
+			addWatermarkUnderContent(document, page);
+			addPageHeading(pageHeight, pageWidth);
+			printCharDasa(document);
+			contentStream.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
+
+	void printPage24(PDDocument document) {
+		try {
+			PDPage page = new PDPage(PDRectangle.A4);
+			document.addPage(page);
+			contentStream = new PDPageContentStream(document, page);
+			contentStream.setLineWidth(1);
+			contentStream.setStrokingColor(Color.GRAY);
+			contentStream.setNonStrokingColor(Color.BLACK);
+			drawShape.initialize(pageHeight, pageWidth, document, contentStream);
+			addWatermarkUnderContent(document, page);
+			addPageHeading(pageHeight, pageWidth);
+			printCharDasa2(document);
 			contentStream.close();
 		} catch (Exception e) {
 			System.out.println(e);
@@ -870,7 +919,7 @@ public class PDFGenerateServiceImpl implements PDFGenerateService {
 			drawShape.drawColumn(points);
 			String[] panchangLabels = constantHindi.avakahadaChakarLabel;
 			printText(drawShape, x + 5, pageHeight - 80, panchangLabels, krutiDevRegularFont);
-			System.out.println("Balance" + desktopHoro.getBalanceOfDasha());
+
 			String[] values = { desktopHoro.getPayaName(), desktopHoro.getVarnaName(), desktopHoro.getYoniName(),
 					desktopHoro.getGanaName(), desktopHoro.getVasyaName(), desktopHoro.getNadiName(),
 					getBalanceOfDasha(desktopHoro.getBalanceOfDashaIntArr()), desktopHoro.getLagnaSign(),
@@ -1666,7 +1715,7 @@ public class PDFGenerateServiceImpl implements PDFGenerateService {
 		float y = pageHeight - 800;
 		float h = 340;
 		float w = 282;
-		System.out.println("width" + pageWidth);
+
 		drawShape.drawRoundedRectangle(307, pageHeight - 800, 340, 275);
 		drawShape.drawRowAndColoum(307, pageHeight - 800, 340, 275, 16, 20);
 		ArrayList<AxisPoint> points = new ArrayList<AxisPoint>();
@@ -2032,7 +2081,7 @@ public class PDFGenerateServiceImpl implements PDFGenerateService {
 				pageHeight - 430f + 40, pageHeight - 430f + 80, pageHeight - 430f + 122, pageHeight - 430f + 132 };
 		int[] planetArray = new KpKundliCalculation(desktopHoro).getKPLagnaRashiKundliPlanetsRashiArray();
 		drawRashiInBhav(x1, y1, planetArray[12]);
-		System.out.println(planetArray[12] + "--" + planetArray[0]);
+
 		printPlanetsInHouse(20f, pageHeight - 430f, planetArray, planetArray[12]);
 	}
 
@@ -2760,6 +2809,9 @@ public class PDFGenerateServiceImpl implements PDFGenerateService {
 		float hy = pageHeight - 80;
 		float h = 200;
 		float w = 178;
+		float txtWdth = getTextWidth("foa'kksÙkjh varj n'kk ", krutiDevRegularFont, 16);
+		drawShape.drawText(pageWidth / 2 - txtWdth / 2, ty, "foa'kksÙkjh varj n'kk ", 16, krutiDevRegularFont);
+		drawShape.drawText(pageWidth / 2 - txtWdth / 2, ty, "foa'kksÙkjh varj n'kk ", 16, krutiDevRegularFont);
 		for (int j = 0; j < 3; j++) {
 			x = 20;
 			for (int i = 0; i < 3; i++) {
@@ -2774,7 +2826,7 @@ public class PDFGenerateServiceImpl implements PDFGenerateService {
 			ty = y - 20;
 			hy = y - 50;
 			y = y - 230;
-			
+
 		}
 		x = 25;
 		ty = pageHeight - 75;
@@ -2795,8 +2847,8 @@ public class PDFGenerateServiceImpl implements PDFGenerateService {
 				timeRange = list.get(i - 1).getDasaTimeStr() + " - " + list.get(i).getDasaTimeStr();
 			}
 			float textWidth = getTextWidth(list.get(i).getPlanetName(), krutiDevRegularFont, 16);
-			drawShape.drawText(x, ty, list.get(i).getPlanetName() , 16, krutiDevRegularFont);
-			drawShape.drawText(x + textWidth + 3, ty, "- "+timeRange, 10, poppinsRegularFont);
+			drawShape.drawText(x, ty, list.get(i).getPlanetName(), 16, krutiDevRegularFont);
+			drawShape.drawText(x + textWidth + 3, ty, "- " + timeRange, 10, poppinsRegularFont);
 			vy = ty;
 			for (int j = 0; j < innerlist.size(); j++) {
 				vy = vy - 20;
@@ -2832,21 +2884,22 @@ public class PDFGenerateServiceImpl implements PDFGenerateService {
 				pratyantraDasaList.addAll(list2);
 			}
 		}
-		for (int i = 0; i < pratyantraDasaList.size(); i++) {
-			System.out.println(i + "--" + pratyantraDasaList.get(i).getPlanetName());
-		}
+
 	}
 
 	int rCount = 0;
 	int hCount = 0;
 
-	void printPratyantraDasha1(PDDocument document) throws Exception {
+	void printPratyantraDasha(PDDocument document) throws Exception {
 		float ty = pageHeight - 50;
-		float hy = pageHeight - 73;
+		float hy = pageHeight - 88;
 		float x = 5;
-		float y = pageHeight - 235;
+		float y = pageHeight - 250;
 		float h = 190;
 		float w = 114;
+		float txtWdth = getTextWidth("foa'kksÙkjh çR;arj n'kk", krutiDevRegularFont, 16);
+		drawShape.drawText(pageWidth / 2 - txtWdth / 2, ty, "foa'kksÙkjh çR;arj n'kk", 16, krutiDevRegularFont);
+		drawShape.drawText(pageWidth / 2 - txtWdth / 2, ty, "foa'kksÙkjh çR;arj n'kk", 16, krutiDevRegularFont);
 		for (int j = 0; j < 4; j++) {
 			x = 5;
 			for (int i = 0; i < 5; i++) {
@@ -2863,7 +2916,7 @@ public class PDFGenerateServiceImpl implements PDFGenerateService {
 		}
 
 		x = 5;
-		ty = pageHeight - 58;
+		ty = pageHeight - 73;
 		float vx = x;
 		float vy = pageHeight - 85;
 
@@ -2871,7 +2924,8 @@ public class PDFGenerateServiceImpl implements PDFGenerateService {
 			String timeRange = dashaStartDate + " - " + anterDasaList.get(hCount).getDasaTimeStr();
 			float textWidth = getTextWidth(anterDasaList.get(hCount).getPlanetSubPlaName(), krutiDevRegularFont, 15);
 			drawShape.drawText(x + (114 - textWidth) / 2, ty,
-					anterDasaList.get(hCount).getPlanetSubPlaName() + "  " + "" /* timeRange */, 15, krutiDevRegularFont);
+					anterDasaList.get(hCount).getPlanetSubPlaName() + "  " + "" /* timeRange */, 15,
+					krutiDevRegularFont);
 			textWidth = getTextWidth(timeRange, poppinsRegularFont, 8);
 			drawShape.drawText(x + (114 - textWidth) / 2, ty - 10, timeRange + "  " + "" /* timeRange */, 8,
 					poppinsRegularFont);
@@ -2897,63 +2951,124 @@ public class PDFGenerateServiceImpl implements PDFGenerateService {
 
 	}
 
-	/*
-	 * void printPratyantraDasha2(PDDocument document) throws Exception { float ty =
-	 * pageHeight - 50; float hy = pageHeight - 73; float x = 5; float y =
-	 * pageHeight - 235; float h = 190; float w = 114; for (int j = 0; j < 4; j++) {
-	 * x = 5; for (int i = 0; i < 5; i++) { drawShape.drawTableHeader(x, hy, 28, w);
-	 * drawShape.drawRoundedRectangle(x, y, h, w); drawShape.drawRowAndColoum(x, y,
-	 * h, w, 9, 18); ArrayList<AxisPoint> points = new ArrayList<AxisPoint>();
-	 * points.add(new AxisPoint(x + w / 2 - 20, y, x + w / 2 - 20, y + h - 28));
-	 * drawShape.drawColumn(points); x = w + x + 3; } hy = y - 33; y = y - 195; }
-	 * 
-	 * x = 5; ty = pageHeight - 58; float vx = x; float vy = pageHeight - 85; for
-	 * (int i = 0; i < 20; i++) { String timeRange = dashaStartDate + " - " +
-	 * anterDasaList.get(hCount).getDasaTimeStr(); float textWidth =
-	 * getTextWidth(anterDasaList.get(i).getPlanetName(), poppinsRegularFont, 12);
-	 * drawShape.drawText(x + (114 - textWidth) / 2, ty,
-	 * anterDasaList.get(hCount).getPlanetName() + "  " + "" timeRange , 12,
-	 * poppinsRegularFont); textWidth = getTextWidth(timeRange, poppinsRegularFont,
-	 * 8); drawShape.drawText(x + (114 - textWidth) / 2, ty - 10, timeRange + "  " +
-	 * "" timeRange , 8, poppinsRegularFont); vy = ty - 28; for (int j = 0; j < 9;
-	 * j++) { drawShape.drawText(vx + 5, vy,
-	 * pratyantraDasaList.get(rCount).getPlanetName(), 12, poppinsRegularFont);
-	 * drawShape.drawText(vx + w / 2 - 15, vy,
-	 * pratyantraDasaList.get(rCount).getDasaTimeStr(), 10, poppinsRegularFont);
-	 * dashaStartDate = pratyantraDasaList.get(rCount).getDasaTimeStr(); vy = vy -
-	 * 18; rCount++; } if (i == 4 || i == 9 || i == 14 || i == 19) { x = 5; vx = 5;
-	 * ty = ty - 195; } else { x = w + x + 3; vx = w + vx + 3; } hCount++; }
-	 * 
-	 * }
-	 * 
-	 * void printPratyantraDasha3(PDDocument document) throws Exception { float ty =
-	 * pageHeight - 50; float hy = pageHeight - 73; float x = 5; float y =
-	 * pageHeight - 235; float h = 190; float w = 114; for (int j = 0; j < 4; j++) {
-	 * x = 5; for (int i = 0; i < 5; i++) { drawShape.drawTableHeader(x, hy, 28, w);
-	 * drawShape.drawRoundedRectangle(x, y, h, w); drawShape.drawRowAndColoum(x, y,
-	 * h, w, 9, 18); ArrayList<AxisPoint> points = new ArrayList<AxisPoint>();
-	 * points.add(new AxisPoint(x + w / 2 - 20, y, x + w / 2 - 20, y + h - 28));
-	 * drawShape.drawColumn(points); x = w + x + 3; } hy = y - 33; y = y - 195; }
-	 * 
-	 * x = 5; ty = pageHeight - 58; float vx = x; float vy = pageHeight - 85; for
-	 * (int i = 0; i < 20; i++) { String timeRange = dashaStartDate + " - " +
-	 * anterDasaList.get(hCount).getDasaTimeStr(); float textWidth =
-	 * getTextWidth(anterDasaList.get(i).getPlanetName(), poppinsRegularFont, 12);
-	 * drawShape.drawText(x + (114 - textWidth) / 2, ty,
-	 * anterDasaList.get(hCount).getPlanetName() + "  " + "" timeRange , 12,
-	 * poppinsRegularFont); textWidth = getTextWidth(timeRange, poppinsRegularFont,
-	 * 8); drawShape.drawText(x + (114 - textWidth) / 2, ty - 10, timeRange + "  " +
-	 * "" timeRange , 8, poppinsRegularFont); vy = ty - 28; for (int j = 0; j < 9;
-	 * j++) { drawShape.drawText(vx + 5, vy,
-	 * pratyantraDasaList.get(rCount).getPlanetName(), 12, poppinsRegularFont);
-	 * drawShape.drawText(vx + w / 2 - 15, vy,
-	 * pratyantraDasaList.get(rCount).getDasaTimeStr(), 10, poppinsRegularFont);
-	 * dashaStartDate = pratyantraDasaList.get(rCount).getDasaTimeStr(); vy = vy -
-	 * 18; rCount++; } if (i == 4 || i == 9 || i == 14 || i == 19) { x = 5; vx = 5;
-	 * ty = ty - 195; } else { x = w + x + 3; vx = w + vx + 3; } hCount++; }
-	 * 
-	 * }
-	 */
+	void initCharDasha() {
+		rCount = 0;
+		CharDashaCalculation calculation = new CharDashaCalculation(birthDetailBean, desktopHoro);
+		calculation.initialize();
+		charDashalist = calculation.getCharDashaData();
+
+	}
+
+	void printCharDasa(PDDocument document) throws Exception {
+		float h = 240;
+		float w = 300;
+		float x = pageWidth / 2 - w / 2;
+		float y = pageHeight - 310;
+		float vx = x + 5;
+		float vy = pageHeight - 85;
+		drawShape.drawRoundedRectangle(x, y, h, w);
+		drawShape.drawRowAndColoum(x, y, h, w, 11, 20);
+		ArrayList<AxisPoint> points = new ArrayList<AxisPoint>();
+		points.add(new AxisPoint(x + w / 2 - 20, y, x + w / 2 - 20, y + h));
+		drawShape.drawColumn(points);
+
+		String timeRange;
+		for (int i = 0; i < charDashalist.size(); i++) {
+			drawShape.drawText(vx, vy, charDashalist.get(i).getPlanetName() + " " + charDashalist.get(i).getDuration(),
+					10, poppinsRegularFont);
+			timeRange = charDashalist.get(i).getStartYear() + " - " + charDashalist.get(i).getEndYear();
+			drawShape.drawText(vx + w / 2 - 20, vy, timeRange, 10, poppinsRegularFont);
+			vy = vy - 20;
+		}
+
+		h = 260;
+		w = 178;
+		float hy = pageHeight - 350;
+		y = y - 280;
+		for (int j = 0; j < 1; j++) {
+			x = 20;
+			for (int i = 0; i < 3; i++) {
+				drawShape.drawTableHeader(x, hy, 20, w);
+				drawShape.drawRoundedRectangle(x, y, h, w);
+				drawShape.drawRowAndColoum(x, y, h, w, 12, 20);
+				points = new ArrayList<AxisPoint>();
+				points.add(new AxisPoint(x + w / 2 - 20, y, x + w / 2 - 20, y + h - 20));
+				drawShape.drawColumn(points);
+				x = w + x + 10;
+			}
+
+		}
+		y = y + 245;
+		vx = 20;
+
+		ArrayList<CharAntaraDashaBean> arrayList;
+		for (int i = 0; i < 3; i++) {
+			arrayList = charDashalist.get(rCount).getCharAntaraDashaList();
+			String title = charDashalist.get(rCount).getPlanetName() + " - " + charDashalist.get(rCount).getDuration();
+			float textWidth = getTextWidth(title, poppinsRegularFont, 10);
+			drawShape.drawText(vx + (w - textWidth) / 2, y, title, 10, poppinsRegularFont);
+			vy = y - 20;
+			for (int j = 0; j < charDashalist.size(); j++) {
+				timeRange = arrayList.get(j).getStartDate() + " - " + arrayList.get(j).getEndDate();
+				drawShape.drawText(vx + 5, vy, arrayList.get(j).getPlanetName(), 10, poppinsRegularFont);
+				drawShape.drawText(vx + w / 2 - 15, vy, timeRange, 8, poppinsRegularFont);
+				vy = vy - 20;
+			}
+
+			if (i == 2 || i == 5 || i == 8) {
+				vx = 20;
+			} else {
+				vx = w + vx + 10;
+			}
+			rCount++;
+		}
+	}
+
+	void printCharDasa2(PDDocument document) throws Exception {
+		float x = 20;
+		float h = 260;
+		float w = 178;
+		float hy = pageHeight - 70;
+		float y = pageHeight - 310;
+		ArrayList<AxisPoint> points = new ArrayList<AxisPoint>();
+
+		for (int j = 0; j < 3; j++) {
+			x = 20;
+			for (int i = 0; i < 3; i++) {
+				drawShape.drawTableHeader(x, hy, 20, w);
+				drawShape.drawRoundedRectangle(x, y, h, w);
+				drawShape.drawRowAndColoum(x, y, h, w, 12, 20);
+				points = new ArrayList<AxisPoint>();
+				points.add(new AxisPoint(x + w / 2 - 20, y, x + w / 2 - 20, y + h - 20));
+				drawShape.drawColumn(points);
+				x = w + x + 10;
+			}
+			hy = hy - 265;
+			y = y - 265;
+		}
+		x = 20;
+		hy = pageHeight - 65;
+		ArrayList<CharAntaraDashaBean> arrayList;
+		for (int i = 0; i < 6; i++) {
+			arrayList = charDashalist.get(rCount).getCharAntaraDashaList();
+			String title = charDashalist.get(rCount).getPlanetName() + " - " + charDashalist.get(rCount).getDuration();
+			float textWidth = getTextWidth(title, poppinsRegularFont, 10);
+			drawShape.drawText(x + (w - textWidth) / 2, hy, title, 10, poppinsRegularFont);
+			String timeRange;
+			for (int j = 0; j < 12; j++) {
+				timeRange = arrayList.get(j).getStartDate() + "-" + arrayList.get(j).getEndDate();
+				drawShape.drawText(x + 5, hy - (j + 1) * 20, arrayList.get(j).getPlanetName(), 10, poppinsRegularFont);
+				drawShape.drawText(x + w / 2 - 15, hy - (j + 1) * 20, timeRange, 8, poppinsRegularFont);
+			}
+			if (i == 2 || i == 5 || i == 8) {
+				x = 20;
+				hy = hy - 265;
+			} else {
+				x = x + w + 10;
+			}
+			rCount++;
+		}
+	}
 
 	public float getTextWidth(String text, PDType0Font font, float fontSize) throws IOException {
 
