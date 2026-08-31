@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="200"
+     height="199.8223"
+     viewBox="0 0 1159.37 1158.34">
+
+    <!-- Outer Border -->
+    <path
+        d="M41.54,1.5
+           h1076.3
+           a40.14,40.14 0 0 1 40,40
+           V1116.81
+           a40.15,40.15 0 0 1 -40,40
+           H41.54
+           a40.15,40.15 0 0 1 -40,-40
+           V41.53
+           a40.14,40.14 0 0 1 40,-40Z"
+        fill="none"
+        stroke="#F3BB21"
+        stroke-width="5"
+        stroke-linejoin="round"/>
+
+    <!-- TOP -->
+    <path
+        d="M579.13,1.5
+           c10.69,131.61 283.35,152.42 280.8,296.93
+           L579.13,579.55
+           l-280.46,-281
+           c5.62,-143 281,-173.08 280.45,-297Z"
+        fill="none"
+        stroke="#F3BB21"
+        stroke-width="5"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+
+    <!-- BOTTOM -->
+    <path
+        d="M579.12,1156.82
+           c10.69,-131.61 283.36,-153.59 280.81,-298.1
+           L579.12,579.55
+           l-279.48,280
+           c5.62,143 280,173.41 279.49,297.34Z"
+        fill="none"
+        stroke="#F3BB21"
+        stroke-width="5"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+
+    <!-- RIGHT -->
+    <path
+        d="M1157.88,579.55
+           c-131.59,10.69 -153.46,281.72 -298,279.17
+           L579.13,579.55
+           L859.91,298.43
+           c143,5.62 174.05,281.63 298,281.12Z"
+        fill="none"
+        stroke="#F3BB21"
+        stroke-width="5"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+
+    <!-- LEFT -->
+    <path
+        d="M1.5,579.54
+           C133.09,590.23 155.57,862 300.06,859.43
+           L579.13,579.55
+           l-280.26,-281
+           c-143,5.63 -173.46,281.47 -297.37,281Z"
+        fill="none"
+        stroke="#F3BB21"
+        stroke-width="5"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+
+    <!-- DIAGONAL -->
+    <path
+        d="M13.27,14.08
+           L1146.12,1144.27"
+        fill="none"
+        stroke="#F3BB21"
+        stroke-width="5"
+        stroke-linecap="round"/>
+
+    <!-- DIAGONAL -->
+    <path
+        d="M14.6,1145.59
+           L1144.79,12.75"
+        fill="none"
+        stroke="#F3BB21"
+        stroke-width="5"
+        stroke-linecap="round"/>
+
+</svg>

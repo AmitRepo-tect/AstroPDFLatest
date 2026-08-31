@@ -5,17 +5,13 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 import org.apache.batik.anim.dom.SAXSVGDocumentFactory;
 import org.apache.batik.bridge.BridgeContext;
 import org.apache.batik.bridge.DocumentLoader;
 import org.apache.batik.bridge.GVTBuilder;
-import org.apache.batik.bridge.UserAgent;
 import org.apache.batik.bridge.UserAgentAdapter;
 import org.apache.batik.gvt.GraphicsNode;
 import org.apache.batik.util.XMLResourceDescriptor;
@@ -32,6 +28,8 @@ import org.w3c.dom.svg.SVGDocument;
 
 import com.sunastrix.astroganitlib.horo.DesktopHoroNew;
 import com.sunastrix.astroganitlib.model.BirthDetailBean;
+import com.sunastrix.astropdf.pages.ForthPage;
+import com.sunastrix.astropdf.pages.ThirdPage;
 import com.sunastrix.astropdf.service.PDFGenerateColorService;
 import com.sunastrix.astropdf.util.ConstantHindi;
 import com.sunastrix.astropdf.util.DrawShape;
@@ -78,6 +76,8 @@ public class PDFGenerateColorServiceImpl implements PDFGenerateColorService {
 		utility = new Utility();
 		printCoverPage(document);
 		drawPage2(document);
+		new ThirdPage().drawPage(document, poppinsRegularFont);
+		new ForthPage().drawPage(document, poppinsRegularFont);
 
 		document.save(byteArrayOutputStream);
 		return byteArrayOutputStream.toByteArray();
@@ -216,7 +216,7 @@ public class PDFGenerateColorServiceImpl implements PDFGenerateColorService {
 			float bgX = 39f;
 			float bgY = 482f;
 			float bgWidth = 514f;
-			float bgHeight = 233f;
+			float bgHeight = 460f;
 
 			drawPersonalDetailsBackground(contentStream, bgX, bgY, bgWidth, bgHeight);
 
