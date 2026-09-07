@@ -15,8 +15,8 @@
            a40.15,40.15 0 0 1 -40,-40
            V41.53
            a40.14,40.14 0 0 1 40,-40Z"
-        fill="none"
-        stroke="#F3BB21"
+        fill="#fff7ea"
+        stroke="#f39c54"
         stroke-width="5"
         stroke-linejoin="round"/>
 
@@ -28,7 +28,7 @@
            l-280.46,-281
            c5.62,-143 281,-173.08 280.45,-297Z"
         fill="none"
-        stroke="#F3BB21"
+        stroke="#f39c54"
         stroke-width="5"
         stroke-linecap="round"
         stroke-linejoin="round"/>
@@ -41,7 +41,7 @@
            l-279.48,280
            c5.62,143 280,173.41 279.49,297.34Z"
         fill="none"
-        stroke="#F3BB21"
+        stroke="#f39c54"
         stroke-width="5"
         stroke-linecap="round"
         stroke-linejoin="round"/>
@@ -54,7 +54,7 @@
            L859.91,298.43
            c143,5.62 174.05,281.63 298,281.12Z"
         fill="none"
-        stroke="#F3BB21"
+        stroke="#f39c54"
         stroke-width="5"
         stroke-linecap="round"
         stroke-linejoin="round"/>
@@ -67,7 +67,7 @@
            l-280.26,-281
            c-143,5.63 -173.46,281.47 -297.37,281Z"
         fill="none"
-        stroke="#F3BB21"
+        stroke="#f39c54"
         stroke-width="5"
         stroke-linecap="round"
         stroke-linejoin="round"/>
@@ -77,7 +77,7 @@
         d="M13.27,14.08
            L1146.12,1144.27"
         fill="none"
-        stroke="#F3BB21"
+        stroke="#f39c54"
         stroke-width="5"
         stroke-linecap="round"/>
 

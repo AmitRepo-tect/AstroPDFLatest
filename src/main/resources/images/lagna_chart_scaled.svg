@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="400"
+     height="400"
+     preserveAspectRatio="none"
+     viewBox="0 0 1159.37 1158.34">
+
+    <!-- Outer Border -->
+    <path
+        d="M41.54,1.5
+           h1076.3
+           a40.14,40.14 0 0 1 40,40
+           V1116.81
+           a40.15,40.15 0 0 1 -40,40
+           H41.54
+           a40.15,40.15 0 0 1 -40,-40
+           V41.53
+           a40.14,40.14 0 0 1 40,-40Z"
+        fill="#fcf8ee"
+        stroke="#ee7716"
+        stroke-width="5"
+        stroke-linejoin="round"/>
+
+    <!-- Top Left Curve -->
+    <path
+        d="M579.13,1.5
+           c-0.55,123.92 -274.83,154 -280.45,297"
+        fill="none"
+        stroke="#ee7716"
+        stroke-width="5"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+
+    <!-- Top Right Curve -->
+    <path
+        d="M579.13,1.5
+           c10.69,131.61 283.35,152.42 280.8,296.93"
+        fill="none"
+        stroke="#ee7716"
+        stroke-width="5"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+
+    <!-- Bottom Left Curve -->
+    <path
+        d="M579.12,1156.82
+           c-0.51,-123.93 -273.87,-154.34 -279.49,-297.34"
+        fill="none"
+        stroke="#ee7716"
+        stroke-width="5"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+
+    <!-- Bottom Right Curve -->
+    <path
+        d="M579.12,1156.82
+           c10.69,-131.61 283.36,-153.59 280.81,-298.1"
+        fill="none"
+        stroke="#ee7716"
+        stroke-width="5"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+
+    <!-- Left Upper Curve -->
+    <path
+        d="M1.5,579.54
+           C133.09,570 155.67,298.55 298.87,298.55"
+        fill="none"
+        stroke="#ee7716"
+        stroke-width="5"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+
+    <!-- Left Lower Curve -->
+    <path
+        d="M1.5,579.54
+           C133.09,590.23 155.57,862 300.06,859.43"
+        fill="none"
+        stroke="#ee7716"
+        stroke-width="5"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+
+    <!-- Right Upper Curve -->
+    <path
+        d="M1157.88,579.55
+           c-131.59,-10.69 -153.46,-281.72 -298,-281.12"
+        fill="none"
+        stroke="#ee7716"
+        stroke-width="5"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+
+    <!-- Right Lower Curve -->
+    <path
+        d="M1157.88,579.55
+           c-131.59,10.69 -153.46,281.72 -298,279.17"
+        fill="none"
+        stroke="#ee7716"
+        stroke-width="5"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+		
+		
+    <!-- DIAGONAL -->
+    <path
+        d="M13.27,14.08
+           L1146.12,1144.27"
+        fill="none"
+        stroke="#ee7716"
+        stroke-width="5"
+        stroke-linecap="round"/>
+
+    <!-- DIAGONAL -->
+   <path
+        d="M14.6,1145.59
+           L1144.79,12.75"
+        fill="none"
+        stroke="#ee7716"
+        stroke-width="5"
+        stroke-linecap="round"/>
+
+</svg>

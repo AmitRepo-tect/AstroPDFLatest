@@ -1,11 +1,14 @@
 package com.sunastrix.astropdf.util;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import org.apache.pdfbox.pdmodel.font.PDType0Font;
+
 public class Utility extends SUtil implements Serializable {
 	protected String languageCode = "0";
-	ConstantHindi constantHindi=new ConstantHindi();
+	ConstantHindi constantHindi = new ConstantHindi();
 
 	public static int[] removeValueFromIntArray(int valueToRemove, int[] array) {
 
@@ -178,7 +181,7 @@ public class Utility extends SUtil implements Serializable {
 		return this.languageCode;
 	}
 
-	public  String getSlashString() {
+	public String getSlashString() {
 		String var1 = "";
 		if (this.getLanguageCode().equalsIgnoreCase("0")) {
 			var1 = "/";
@@ -231,7 +234,17 @@ public class Utility extends SUtil implements Serializable {
 		}
 		return var1;
 	}
-	public String getFormattedTime(int[] arr){
-		return arr[0]+constantHindi.colon+arr[1]+constantHindi.colon+arr[2];
+
+	public String getFormattedTime(int[] arr) {
+		return arr[0] + constantHindi.colon + arr[1] + constantHindi.colon + arr[2];
+	}
+
+	public float getTextWidth(String text, PDType0Font font, float fontSize) throws IOException {
+
+		if (text == null || text.isEmpty()) {
+			return 0f;
+		}
+
+		return font.getStringWidth(text) / 1000f * fontSize;
 	}
 }
