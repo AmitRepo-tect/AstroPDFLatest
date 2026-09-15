@@ -28,12 +28,16 @@ import org.w3c.dom.svg.SVGDocument;
 
 import com.sunastrix.astroganitlib.horo.DesktopHoroNew;
 import com.sunastrix.astroganitlib.model.BirthDetailBean;
-import com.sunastrix.astropdf.pages.FifthPage;
+import com.sunastrix.astropdf.calculation.DashaCalculation;
+import com.sunastrix.astropdf.pages.AstakvargPage;
+import com.sunastrix.astropdf.pages.PlanetPosPage;
 import com.sunastrix.astropdf.pages.ForthPage;
 import com.sunastrix.astropdf.pages.Page6;
 import com.sunastrix.astropdf.pages.Page7;
+import com.sunastrix.astropdf.pages.PrastakvragaPage;
 import com.sunastrix.astropdf.pages.SecondPage;
 import com.sunastrix.astropdf.pages.ThirdPage;
+import com.sunastrix.astropdf.pages.YoginiDasaPage;
 import com.sunastrix.astropdf.service.PDFGenerateColorService;
 import com.sunastrix.astropdf.util.ConstantHindi;
 import com.sunastrix.astropdf.util.DrawShape;
@@ -45,6 +49,7 @@ import de.rototor.pdfbox.graphics2d.PdfBoxGraphics2D;
 public class PDFGenerateColorServiceImpl implements PDFGenerateColorService {
 	DesktopHoroNew desktopHoro;
 	BirthDetailBean birthDetailBean;
+	DashaCalculation calculation;
 	PDPageContentStream contentStream;
 	public PDType0Font poppinsRegularFont;
 	public PDType0Font krutiDevRegularFont;
@@ -80,13 +85,19 @@ public class PDFGenerateColorServiceImpl implements PDFGenerateColorService {
 		utility = new Utility();
 		printCoverPage(document);
 
-		new SecondPage().drawPage(document, poppinsRegularFont);
-		new ThirdPage().drawPage(document, poppinsRegularFont);
-		new ForthPage().drawPage(document, poppinsRegularFont);
-		new FifthPage().drawPage(document, poppinsRegularFont);
-		new Page6().drawPage(document, poppinsRegularFont);
-		new Page7().drawPage(document, poppinsRegularFont);
-
+		new SecondPage(desktopHoro, birthDetailBean).drawPage(document, poppinsRegularFont, krutiDevRegularFont);
+		//new ThirdPage().drawPage(document, poppinsRegularFont);
+		new ForthPage(desktopHoro).drawPage(document, poppinsRegularFont, krutiDevRegularFont);
+		new PlanetPosPage(desktopHoro, birthDetailBean).drawPage(document,poppinsRegularFont, krutiDevRegularFont);
+		// new Page6().drawPage(document, poppinsRegularFont);
+		calculation = new DashaCalculation(birthDetailBean, desktopHoro);
+		// new Page7(calculation, birthDetailBean).printDasha(document,
+		// poppinsRegularFont, krutiDevRegularFont);
+		// new AstakvargPage(desktopHoro).drawPage(document, poppinsRegularFont);
+		// new PrastakvragaPage(desktopHoro).printPrastakvargaTable(document,
+		// poppinsRegularFont);
+		// new YoginiDasaPage(desktopHoro, birthDetailBean).printDasha(document,
+		// poppinsRegularFont, krutiDevRegularFont);
 		document.save(byteArrayOutputStream);
 		return byteArrayOutputStream.toByteArray();
 	};

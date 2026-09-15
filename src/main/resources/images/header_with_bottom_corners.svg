@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="1000" height="150" viewBox="0 0 1000 150">
+
+<defs>
+  <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#fff2a0"/>
+    <stop offset=".25" stop-color="#f4ae00"/>
+    <stop offset=".62" stop-color="#ffd83f"/>
+    <stop offset="1" stop-color="#a85b00"/>
+  </linearGradient>
+
+  <linearGradient id="red" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#82000e"/>
+    <stop offset=".5" stop-color="#c9001c"/>
+    <stop offset="1" stop-color="#82000e"/>
+  </linearGradient>
+
+  <!-- Left bottom corner flourish -->
+  <g id="corner">
+    <!-- outer gold vertical/end piece -->
+    <path fill="url(#gold)"
+      d="M38 72
+         C38 91 38 108 38 130
+         L38 145
+         C39 143 41 140 44 136
+         C49 130 55 125 63 121
+         C76 114 88 111 101 112
+         C81 108 66 102 55 94
+         C47 88 42 80 38 72Z"/>
+
+    <!-- curved gold ribbon -->
+    <path fill="url(#gold)"
+      d="M38 72
+         C45 86 58 96 76 103
+         C87 108 96 111 106 113
+         C99 107 92 99 86 91
+         C76 78 64 67 50 58
+         C44 54 40 51 38 48Z"/>
+
+    <!-- bright inner highlight -->
+    <path fill="none" stroke="#fff2a0" stroke-width="2.5"
+      stroke-linecap="round"
+      d="M40 77 C48 91 63 101 82 108 C91 111 99 113 106 114"/>
+
+    <!-- darker inner contour -->
+    <path fill="none" stroke="#b96800" stroke-width="2"
+      stroke-linecap="round"
+      d="M39 53 C53 63 68 76 79 91 C87 101 95 108 106 113"/>
+  </g>
+</defs>
+
+<!-- Main plain header with rounded top -->
+<path fill="url(#gold)"
+ d="M38 112V35C38 17 50 7 69 7H931C950 7 962 17 962 35V112Z"/>
+
+<path fill="url(#red)"
+ d="M47 112V36C47 24 55 16 69 16H931C945 16 953 24 953 36V112Z"/>
+
+<!-- top highlight -->
+<path fill="none" stroke="#fff09a" stroke-width="2"
+ d="M69 12H931C950 12 958 22 958 37"/>
+
+<!-- bottom line -->
+<path fill="none" stroke="#d98200" stroke-width="2"
+ d="M47 112H953"/>
+
+<!-- LEFT bottom corner -->
+<use href="#corner"/>
+
+<!-- RIGHT bottom corner: exact mirror -->
+<use href="#corner" transform="translate(1000 0) scale(-1 1)"/>
+
+</svg>

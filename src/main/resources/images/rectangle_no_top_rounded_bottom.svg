@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="1000" height="500" viewBox="0 0 1000 500">
+
+  <!-- Rectangle: NO top line, rounded bottom corners -->
+  <path
+    d="M 2,2
+       L 2,450
+       Q 2,498 50,498
+       L 950,498
+       Q 998,498 998,450
+       L 998,2"
+    fill="none"
+    stroke="#e86b16"
+    stroke-width="4"
+    stroke-linejoin="round"
+    stroke-linecap="round"/>
+</svg>

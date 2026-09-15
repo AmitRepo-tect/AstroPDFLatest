@@ -131,6 +131,20 @@ public class DrawColorShape {
 		drawSolidRectAngle(x, y, width, radius, color);
 	}
 
+	public void drawBottomRoundedRect(float x, float y, float width, float height, float radius, Color color)
+			throws IOException {
+
+		contentStream.setNonStrokingColor(color);
+		// Draw complete rounded rectangle
+		drawRoundedRectangle(x, y, width, height, radius);
+		contentStream.fill();
+
+		// Cover the top rounded portion so only
+		// BOTTOM corners remain rounded.
+		contentStream.setNonStrokingColor(color);
+		drawSolidRectAngle(x, y + height - radius, width, radius, color);
+	}
+
 	public void drawTopRoundedGradientRect(float x, float y, float width, float height, float radius, Color startColor,
 			Color endColor, boolean horizontal) throws IOException {
 		// Save current graphics state
@@ -202,6 +216,18 @@ public class DrawColorShape {
 		drawTextInternal(x + offset, y, text, font, fontSize);
 		drawTextInternal(x, y + offset, text, font, fontSize);
 		drawTextInternal(x + offset, y + offset, text, font, fontSize);
+	}
+
+	public void drawCenteredBoldText(float boxX, float boxWidth, float y, String text, int fontSize, PDType0Font font,
+			Color color) throws IOException {
+
+		float textWidth = font.getStringWidth(text) / 1000f * fontSize;
+		float x = boxX + (boxWidth - textWidth) / 2f;
+		float offset = 0.15f;
+		contentStream.setNonStrokingColor(color);
+		drawTextInternal(x - offset, y, text, font, fontSize);
+		drawTextInternal(x, y, text, font, fontSize);
+		drawTextInternal(x + offset, y, text, font, fontSize);
 	}
 
 	private void drawTextInternal(float x, float y, String text, PDType0Font font, float fontSize) throws IOException {
@@ -554,6 +580,104 @@ public class DrawColorShape {
 		contentStream.restoreGraphicsState();
 	}
 
+	public void drawExactSvgNew(byte[] svgBytes, float x, float y, float width, float height) throws Exception {
+
+		// =========================================================
+		// 1. Parse SVG
+		// =========================================================
+
+		String parser = XMLResourceDescriptor.getXMLParserClassName();
+
+		SAXSVGDocumentFactory factory = new SAXSVGDocumentFactory(parser);
+
+		SVGDocument svgDocument = factory.createSVGDocument(null, new ByteArrayInputStream(svgBytes));
+
+		// =========================================================
+		// 2. Build Batik GraphicsNode
+		// =========================================================
+
+		UserAgentAdapter userAgent = new UserAgentAdapter();
+
+		DocumentLoader loader = new DocumentLoader(userAgent);
+
+		BridgeContext bridgeContext = new BridgeContext(userAgent, loader);
+
+		bridgeContext.setDynamicState(BridgeContext.STATIC);
+
+		GVTBuilder builder = new GVTBuilder();
+
+		GraphicsNode graphicsNode = builder.build(bridgeContext, svgDocument);
+
+		// =========================================================
+		// 3. Get SVG visible bounds
+		// =========================================================
+
+		Rectangle2D bounds = graphicsNode.getBounds();
+
+		if (bounds == null || bounds.getWidth() <= 0 || bounds.getHeight() <= 0) {
+
+			throw new IllegalArgumentException("SVG has invalid bounds");
+		}
+
+		double svgWidth = bounds.getWidth();
+		double svgHeight = bounds.getHeight();
+
+		System.out.println("SVG bounds = " + svgWidth + " x " + svgHeight);
+
+		System.out.println("Target = " + width + " x " + height);
+
+		// =========================================================
+		// 4. Create PDF graphics using SVG bounds
+		// =========================================================
+
+		PdfBoxGraphics2D g2d = new PdfBoxGraphics2D(document, (float) svgWidth, (float) svgHeight);
+
+		// =========================================================
+		// 5. Move SVG visible bounds to 0,0
+		// =========================================================
+
+		g2d.translate(-bounds.getX(), -bounds.getY());
+
+		// =========================================================
+		// 6. Paint SVG
+		// =========================================================
+
+		graphicsNode.paint(g2d);
+
+		// =========================================================
+		// 7. Finish PDF form
+		// =========================================================
+
+		g2d.dispose();
+
+		PDFormXObject form = g2d.getXFormObject();
+
+		// =========================================================
+		// 8. Scale directly to requested size
+		// =========================================================
+
+		float scaleX = width / (float) svgWidth;
+
+		float scaleY = height / (float) svgHeight;
+
+		// =========================================================
+		// 9. Draw form
+		// =========================================================
+
+		contentStream.saveGraphicsState();
+		Matrix matrix = new Matrix();
+
+		matrix.translate(x, y);
+
+		matrix.scale(width / 1000f, height / 120f);
+
+		contentStream.transform(matrix);
+
+		contentStream.drawForm(form);
+
+		contentStream.restoreGraphicsState();
+	}
+
 	public void drawGradientRect(float x, float y, float width, float height, Color startColor, Color endColor,
 			boolean horizontal) throws IOException {
 		// --------------------------------------------------------
@@ -651,4 +775,167 @@ public class DrawColorShape {
 		// ---------------------------------------------------------
 		contentStream.restoreGraphicsState();
 	}
+
+	public void drawGradientHeader(float x, float y, float width, float height, float radius, Color startColor,
+			Color middleColor, Color endColor, Color borderColor) throws IOException {
+
+		// -------------------------------------------------
+		// Gradient colors
+		// -------------------------------------------------
+
+		// -------------------------------------------------
+		// Create rounded-top clipping path
+		// -------------------------------------------------
+
+		contentStream.saveGraphicsState();
+
+		contentStream.moveTo(x, y);
+
+		// Bottom-left
+		contentStream.lineTo(x, y + height - radius);
+
+		// Top-left rounded corner
+		contentStream.curveTo(x, y + height - radius * 0.45f, x + radius * 0.45f, y + height, x + radius, y + height);
+
+		// Top
+		contentStream.lineTo(x + width - radius, y + height);
+
+		// Top-right rounded corner
+		contentStream.curveTo(x + width - radius * 0.45f, y + height, x + width, y + height - radius * 0.45f, x + width,
+				y + height - radius);
+
+		// Right side
+		contentStream.lineTo(x + width, y);
+
+		// Bottom
+		contentStream.lineTo(x, y);
+
+		contentStream.closePath();
+
+		// Clip everything to the rounded shape
+		contentStream.clip();
+
+		// -------------------------------------------------
+		// Gradient strips
+		// -------------------------------------------------
+
+		int steps = 100;
+
+		float stripWidth = width / steps;
+
+		for (int i = 0; i < steps; i++) {
+
+			float t = (float) i / (steps - 1);
+
+			Color color;
+
+			// Left -> center -> right
+			if (t < 0.5f) {
+
+				float p = t / 0.5f;
+
+				color = interpolateColor(startColor, middleColor, p);
+
+			} else {
+
+				float p = (t - 0.5f) / 0.5f;
+
+				color = interpolateColor(middleColor, endColor, p);
+			}
+
+			contentStream.setNonStrokingColor(color);
+
+			contentStream.addRect(x + i * stripWidth, y, stripWidth + 0.5f, height);
+
+			contentStream.fill();
+		}
+
+		// -------------------------------------------------
+		// Remove clipping
+		// -------------------------------------------------
+
+		contentStream.restoreGraphicsState();
+
+		// -------------------------------------------------
+		// Gold border
+		// -------------------------------------------------
+
+		contentStream.saveGraphicsState();
+
+		contentStream.setStrokingColor(borderColor);
+
+		contentStream.setLineWidth(1.2f);
+
+		contentStream.moveTo(x, y);
+
+		contentStream.lineTo(x, y + height - radius);
+
+		contentStream.curveTo(x, y + height - radius * 0.45f, x + radius * 0.45f, y + height, x + radius, y + height);
+
+		contentStream.lineTo(x + width - radius, y + height);
+
+		contentStream.curveTo(x + width - radius * 0.45f, y + height, x + width, y + height - radius * 0.45f, x + width,
+				y + height - radius);
+
+		contentStream.lineTo(x + width, y);
+
+		contentStream.lineTo(x, y);
+
+		contentStream.closePath();
+
+		contentStream.stroke();
+
+		contentStream.restoreGraphicsState();
+	}
+
+	private Color interpolateColor(Color c1, Color c2, float ratio) {
+
+		ratio = Math.max(0f, Math.min(1f, ratio));
+
+		int r = (int) (c1.getRed() + (c2.getRed() - c1.getRed()) * ratio);
+
+		int g = (int) (c1.getGreen() + (c2.getGreen() - c1.getGreen()) * ratio);
+
+		int b = (int) (c1.getBlue() + (c2.getBlue() - c1.getBlue()) * ratio);
+
+		return new Color(r, g, b);
+	}
+
+	public void drawRoundedBottomRectangle(float x, float y, float width, float height, float radius)
+			throws IOException {
+		contentStream.saveGraphicsState();
+		// Start at top-left
+		contentStream.moveTo(x, y + height);
+		// Left side
+		contentStream.lineTo(x, y + radius);
+		// Bottom-left rounded corner
+		contentStream.curveTo(x, y, x, y, x + radius, y);
+		// Bottom line
+		contentStream.lineTo(x + width - radius, y);
+		// Bottom-right rounded corner
+		contentStream.curveTo(x + width, y, x + width, y, x + width, y + radius);
+		// Right side
+		contentStream.lineTo(x + width, y + height);
+		// IMPORTANT:
+		// Do NOT lineTo(x, y + height)
+		// because the top must remain open.
+		contentStream.stroke();
+		contentStream.restoreGraphicsState();
+	}
+
+	public void drawSolidBottomRoundedRectangle(float x, float y, float width, float height, float radius, Color color)
+			throws IOException {
+		contentStream.setStrokingColor(color);
+		// contentStream.setLineWidth(.5f);
+		contentStream.saveGraphicsState();
+		contentStream.moveTo(x, y + height);
+		contentStream.lineTo(x, y + radius);
+		contentStream.curveTo(x, y, x, y, x + radius, y);
+		contentStream.lineTo(x + width - radius, y);
+		contentStream.curveTo(x + width, y, x + width, y, x + width, y + radius);
+		contentStream.lineTo(x + width, y + height);
+		contentStream.fill();
+		contentStream.restoreGraphicsState();
+	}
+
 }

@@ -8,11 +8,19 @@ import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType0Font;
 
+import com.sunastrix.astroganitlib.horo.DesktopHoroNew;
+import com.sunastrix.astroganitlib.model.BirthDetailBean;
+import com.sunastrix.astropdf.util.ConstantHindi;
 import com.sunastrix.astropdf.util.DrawColorShape;
 import com.sunastrix.astropdf.util.DrawShape;
 import com.sunastrix.astropdf.util.Utility;
-//http://10.232.133.216:5001/generatepdf_color?name=Jdjdjdjd&sex=M&day=24&month=7&year=2026&hrs=22&min=35&sec=24&place=Jhunjhunun&latDeg=28&latMin=0&latNS=N&longDeg=75&longMin=30&longEW=E&state=New Delhi&country=India&timezone=5.5&timezoneStr=5.5&dst=0&ayanamsa=0&charting=0&kphn=0&button1=Get+Kundali&languageCode=0
+
+//http://10.244.125.216:5001/generatepdf_color?name=Jdjdjdjd&sex=M&day=24&month=7&year=2026&hrs=22&min=35&sec=24&place=Jhunjhunun&latDeg=28&latMin=0&latNS=N&longDeg=75&longMin=30&longEW=E&state=New Delhi&country=India&timezone=5.5&timezoneStr=5.5&dst=0&ayanamsa=0&charting=0&kphn=0&button1=Get+Kundali&languageCode=0
 public class BasePage {
+	Utility utility = new Utility();
+	ConstantHindi constantHindi = new ConstantHindi();
+	BirthDetailBean birthDetailBean;
+	DesktopHoroNew desktopHoro;
 	float pageWidth;
 	float pageHeight;
 	PDDocument document;
@@ -35,7 +43,23 @@ public class BasePage {
 
 	}
 
-	void drawHeader(float pageWidth, float pageHeight, PDType0Font titleFont) throws IOException {
+	public void drawCornerImages() {
+		try {
+			float cornerSize = 30f;
+			byte[] svgBytes = getClass().getResourceAsStream("/images/corner_left_top.svg").readAllBytes();
+			float margin = 15f;
+			drawColorShape.drawSvg(svgBytes, margin, pageHeight - margin - cornerSize, cornerSize, cornerSize, 0);
+			drawColorShape.drawSvg(svgBytes, pageWidth - margin - cornerSize, pageHeight - margin - cornerSize,
+					cornerSize, cornerSize, 1);
+			drawColorShape.drawSvg(svgBytes, pageWidth - margin - cornerSize, margin, cornerSize, cornerSize, 2);
+			drawColorShape.drawSvg(svgBytes, margin, margin, cornerSize, cornerSize, 3);
+		} catch (Exception e) {
+
+		}
+
+	}
+
+	void drawHeader(float pageWidth, float pageHeight, PDType0Font titleFont, String title) throws IOException {
 
 		float centerX = pageWidth / 2f;
 
@@ -52,7 +76,7 @@ public class BasePage {
 
 		// 1. TITLE
 
-		String title = "Astrological Profile";
+		// String title = "Astrological Profile";
 		float fontSize = 26f;
 		float titleWidth = titleFont.getStringWidth(title) / 1000f * fontSize;
 		float titleX = centerX - titleWidth / 2f;
@@ -110,11 +134,14 @@ public class BasePage {
 		drawColorShape.drawRoundedRectangle(x, y, width, height, radius);
 		contentStream.fillAndStroke();
 		contentStream.restoreGraphicsState();
-		float textWidth = new Utility().getTextWidth(headText, poppinsRegularFont, fontSize);
+		float textWidth = new Utility().getTextWidth(headText, krutiDevRegularFont, fontSize);
 		float headwidth = textWidth + 50f;
 		drawColorShape.drawImage("/images/head_new.png", x - .5f, y + height - headerMargin, headwidth, headerHeight);
-		drawColorShape.drawCellText(headText, poppinsRegularFont, fontSize, x + 20, y + height - headerMargin,
-				headwidth, headerHeight, Color.WHITE);
+
+		// (float x, float y, String text, PDType0Font font, float fontSize, Color
+		// color);
+		float startY = utility.getTextBaseline(krutiDevRegularFont, y + height - headerMargin, headerHeight, fontSize);
+		drawColorShape.drawBoldText(x + 20, startY, headText, krutiDevRegularFont, fontSize, Color.WHITE);
 	}
 
 	public void drawFooter(PDType0Font titleFont, PDType0Font subtitleFont, int pageNumber) throws IOException {
@@ -140,7 +167,7 @@ public class BasePage {
 		// Subtitle
 		float subtitleY = 30f;
 
-		//contentStream.saveGraphicsState();
+		// contentStream.saveGraphicsState();
 
 		// =====================================================
 		// 1. ASTROGANIT KUNDLI

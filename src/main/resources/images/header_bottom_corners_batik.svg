@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="1000" height="150" viewBox="0 0 1000 150">
+<defs>
+ <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="#fff2a0"/>
+  <stop offset=".25" stop-color="#f4ae00"/>
+  <stop offset=".62" stop-color="#ffd83f"/>
+  <stop offset="1" stop-color="#a85b00"/>
+ </linearGradient>
+ <linearGradient id="red" x1="0" y1="0" x2="1" y2="0">
+  <stop offset="0" stop-color="#82000e"/>
+  <stop offset=".5" stop-color="#c9001c"/>
+  <stop offset="1" stop-color="#82000e"/>
+ </linearGradient>
+</defs>
+
+<!-- MAIN HEADER -->
+<path fill="url(#gold)"
+ d="M38,112 V35 C38,17 50,7 69,7 H931 C950,7 962,17 962,35 V112 Z"/>
+<path fill="url(#red)"
+ d="M47,112 V36 C47,24 55,16 69,16 H931 C945,16 953,24 953,36 V112 Z"/>
+<path fill="none" stroke="#fff09a" stroke-width="2"
+ d="M69,12 H931 C950,12 958,22 958,37"/>
+<path fill="none" stroke="#d98200" stroke-width="2"
+ d="M47,112 H953"/>
+
+<!-- LEFT BOTTOM CORNER -->
+<path fill="url(#gold)"
+ d="M38,72
+    C38,92 38,113 38,145
+    C40,142 42,139 45,135
+    C51,128 58,123 66,120
+    C78,115 91,112 106,113
+    C91,109 77,105 66,99
+    C51,91 43,82 38,72 Z"/>
+
+<path fill="url(#gold)"
+ d="M38,48
+    C43,52 49,57 55,62
+    C69,74 80,86 88,98
+    C94,106 100,111 106,113
+    C97,111 87,108 77,104
+    C59,97 46,87 39,75
+    C38,68 38,57 38,48 Z"/>
+
+<path fill="none" stroke="#fff2a0" stroke-width="2.5"
+ stroke-linecap="round"
+ d="M40,77 C48,91 63,101 82,108 C91,111 99,113 106,114"/>
+
+<path fill="none" stroke="#b96800" stroke-width="2"
+ stroke-linecap="round"
+ d="M39,53 C53,63 68,76 79,91 C87,101 95,108 106,113"/>
+
+<!-- RIGHT BOTTOM CORNER: explicit mirrored paths, no <use> -->
+<path fill="url(#gold)"
+ d="M962,72
+    C962,92 962,113 962,145
+    C960,142 958,139 955,135
+    C949,128 942,123 934,120
+    C922,115 909,112 894,113
+    C909,109 923,105 934,99
+    C949,91 957,82 962,72 Z"/>
+
+<path fill="url(#gold)"
+ d="M962,48
+    C957,52 951,57 945,62
+    C931,74 920,86 912,98
+    C906,106 900,111 894,113
+    C903,111 913,108 923,104
+    C941,97 954,87 961,75
+    C962,68 962,57 962,48 Z"/>
+
+<path fill="none" stroke="#fff2a0" stroke-width="2.5"
+ stroke-linecap="round"
+ d="M960,77 C952,91 937,101 918,108 C909,111 901,113 894,114"/>
+
+<path fill="none" stroke="#b96800" stroke-width="2"
+ stroke-linecap="round"
+ d="M961,53 C947,63 932,76 921,91 C913,101 905,108 894,113"/>
+
+</svg>

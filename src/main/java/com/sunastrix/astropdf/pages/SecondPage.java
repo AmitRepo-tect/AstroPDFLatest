@@ -8,11 +8,27 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDType0Font;
 
-public class SecondPage extends BasePage {
+import com.sunastrix.astroganitlib.horo.DesktopHoroNew;
+import com.sunastrix.astroganitlib.model.BirthDetailBean;
 
-	public void drawPage(PDDocument document, PDType0Font poppinsRegularFont) throws IOException {
+public class SecondPage extends BasePage {
+	Color[] planetColors = { new Color(105, 20, 55), new Color(110, 20, 80), new Color(105, 60, 0),
+			new Color(20, 65, 110), new Color(110, 30, 40), new Color(20, 85, 85), new Color(105, 60, 0),
+			new Color(20, 45, 100), new Color(15, 75, 40), new Color(90, 45, 105), new Color(120, 70, 20),
+			new Color(40, 100, 55), new Color(75, 35, 90), new Color(105, 20, 55), new Color(110, 20, 80),
+			new Color(105, 60, 0), new Color(20, 65, 110), new Color(110, 30, 40), new Color(20, 85, 85),
+			new Color(105, 60, 0) };
+
+	public SecondPage(DesktopHoroNew desktopHoro, BirthDetailBean birthDetailBean) {
+		this.desktopHoro = desktopHoro;
+		this.birthDetailBean = birthDetailBean;
+	}
+
+	public void drawPage(PDDocument document, PDType0Font poppinsRegularFont, PDType0Font krutiDevRegularFont)
+			throws IOException {
 		this.document = document;
 		this.poppinsRegularFont = poppinsRegularFont;
+		this.krutiDevRegularFont = krutiDevRegularFont;
 		PDPage page = new PDPage(PDRectangle.A4);
 		document.addPage(page);
 		float cornerSize = 30f;
@@ -32,51 +48,61 @@ public class SecondPage extends BasePage {
 					cornerSize, cornerSize, 1);
 			drawColorShape.drawSvg(svgBytes, pageWidth - margin - cornerSize, margin, cornerSize, cornerSize, 2);
 			drawColorShape.drawSvg(svgBytes, margin, margin, cornerSize, cornerSize, 3);
-			drawHeader(pageWidth, pageHeight, poppinsRegularFont);
+			drawHeader(pageWidth, pageHeight, krutiDevRegularFont, "tUe fooj.k vkSj vodgM+k pØ");
 			// Draw Basic Details
 			float tableX = 40f;
-			float tableY = 508f;
+			float tableY = 680f;
 			float tableWidth = 495f;
-			float tableHeight = 198f;
-			int totalRows = 5;
+			float tableHeight = 100.0f;
 
 			float bgX = tableX - 10f;
-			float bgY = tableY - 8f;
+			float bgY = tableY - tableHeight + 26 - 15f;
 			float bgWidth = tableWidth + 19f;
 			float bgHeight = tableHeight + 37f;
 
 			float headWidth = 170f;
-			float headHeight = 38f;
-			float headMargin = 19.2f;
-			drawBgWithHeader(bgX, bgY, bgWidth, bgHeight, headWidth, headHeight, headMargin, "Basic Detail", 14);
-			String[][] data = { { "Name", "jitendra", "Date", "14-8-1994" }, { "Time", "15:45:0", "Timezone", "5.5" },
-					{ "Day", "Sunday", "Longitude", "25.16.E" }, { "Place", "chandauli", "Sunrise", "05/29/53" },
-					{ "Latitude", "83.16.N", "Sunset", "18/33/26" } };
-			drawBasicDetailsTable(tableX, tableY, tableWidth, tableHeight, poppinsRegularFont, poppinsRegularFont, data,
-					totalRows);
-			// Draw Avakahada detail
-			float firstBgBottom = bgY;
-			float sectionGap = 40f;
-			float secondBgHeight = 282f;
-			float secondBgY = firstBgBottom - sectionGap - secondBgHeight;
-			float secondBgX = 35f;
-			float secondBgWidth = 514f;
-			drawBgWithHeader(secondBgX, secondBgY, secondBgWidth, secondBgHeight, headWidth, headHeight, headMargin,
-					"Avakhada Detail", 14);
-			float secondTableX = secondBgX + 10f;
-			float secondTableY = secondBgY + 8f;
-			float secondTableWidth = secondBgWidth - 19f;
-			float secondTableHeight = secondBgHeight - 37f;
-			int secondTotalRows = 7;
-			String[][] avakhadaDetails = { { "Paya", "Swarna", "Lagna", "Sagittarius" },
-					{ "Varna", "Sudra", "Lagna Lord", "JUP" }, { "Yoni", "Vyagh", "Rasi", "Libra" },
-					{ "Gana", "Rakshasa", "Rasi Lord", "VEN" },
-					{ "Vashya", "Manav", "Nakshatra Pada", "Purvashadha-3" },
-					{ "Nadi", "Antya", "Nakshatra Lord", "JUP" },
-					{ "Balance Dasha", "Jupiter 4 Y 0 M 15 D", "SunSign (Indian)", "Leo" } };
+			float headHeight = 26f;
+			float headMargin = 13.2f;
+			String[] labels = constantHindi.birthDetailLabel;
+			String[] values = { desktopHoro.getName(), getBirthDate(), desktopHoro.getBirthTime(),
+					desktopHoro.getPlace(), String.valueOf(desktopHoro.getAyan()), desktopHoro.getGanaName(),
+					desktopHoro.getLatitude(), desktopHoro.getLongitude() };
+			drawBgWithHeader(bgX, bgY, bgWidth, bgHeight, headWidth, headHeight, headMargin, "tUe fooj.k", 14);
+			drawTable(tableX, tableY, tableWidth, 4, labels, values, poppinsRegularFont, 10);
 
-			drawBasicDetailsTable(secondTableX, secondTableY, secondTableWidth, secondTableHeight, poppinsRegularFont,
-					poppinsRegularFont, avakhadaDetails, secondTotalRows);
+			tableY = 520f;
+			tableHeight = 100.0f;
+			bgX = tableX - 10f;
+			bgY = tableY - tableHeight + 26 - 15f;
+			bgWidth = tableWidth + 19f;
+			bgHeight = tableHeight + 37f;
+			drawBgWithHeader(bgX, bgY, bgWidth, bgHeight, headWidth, headHeight, headMargin, "iapkax fooj.k", 14);
+			String[] panchangLabels = constantHindi.panchangLabelNew;
+			String[] panchangValues = { desktopHoro.getPakshaName(), desktopHoro.getTithiName(),
+					desktopHoro.getNakshatraName(), desktopHoro.getHinduWeekdayName(), desktopHoro.getYoganame(),
+					desktopHoro.getKaranName(), utility.getFormattedTime(desktopHoro.getSunRiseTimeIntArr()),
+					utility.getFormattedTime(desktopHoro.getSunSetTimeIntArr()) };
+			drawTable(tableX, tableY, tableWidth, 4, panchangLabels, panchangValues, krutiDevRegularFont, 14);
+
+			tableY = 360f;
+			tableHeight = 250.0f;
+			bgX = tableX - 10f;
+			bgY = tableY - tableHeight + 26 - 15f;
+			bgWidth = tableWidth + 19f;
+			bgHeight = tableHeight + 37f;
+			drawBgWithHeader(bgX, bgY, bgWidth, bgHeight, headWidth, headHeight, headMargin, "vodgM+k pØ", 14);
+			String[] AvakahadaLabels = constantHindi.avakahadaChakarLabel;
+			String[] AvakahadaValues = { desktopHoro.getPayaName(), desktopHoro.getVarnaName(),
+					desktopHoro.getYoniName(), desktopHoro.getGanaName(), desktopHoro.getVasyaName(),
+					desktopHoro.getNadiName(), getBalanceOfDasha(desktopHoro.getBalanceOfDashaIntArr()),
+					desktopHoro.getLagnaSign(), desktopHoro.getLagnaLordName(), desktopHoro.getRasiName(),
+					desktopHoro.getRasiLordName(), desktopHoro.getNakshatraName(), desktopHoro.getNakshatraLordName(),
+					desktopHoro.getJulianDayValue(), desktopHoro.getIndianSunSignName(), desktopHoro.getSunSignName(),
+					"" + desktopHoro.getAyanamsaDms(birthDetailBean.getLanguageCode()),
+					"" + desktopHoro.getAyanamsaType(), desktopHoro.getObliquityDms(birthDetailBean.getLanguageCode()),
+					utility.getFormattedTime(desktopHoro.getSiderealTimeIntArr()) };
+			drawTable(tableX, tableY, tableWidth, 10, AvakahadaLabels, AvakahadaValues, krutiDevRegularFont, 14);
+
 			drawFooter(poppinsRegularFont, poppinsRegularFont, 15);
 
 		} catch (Exception e) {
@@ -85,138 +111,80 @@ public class SecondPage extends BasePage {
 		}
 	}
 
-	private void drawBasicDetailsTable(float xaxis, float yaxis, float width, float height, PDType0Font labelFont,
-			PDType0Font valueFont, String[][] data, int totalRows) throws IOException {
+	void drawTable(float x, float y, float width, int rowCount, String[] labels, String[] values, PDType0Font valueFont,
+			int valueFontSize) throws IOException {
+		float tx = x;
+		float ty = y;
+		float headerHeight = 24f;
+		float rowHeight = 24f;
+		float radius = 8;
 
-		// =====================================================
-		// TABLE POSITION
-		// =====================================================
-		float tableX = xaxis;
-		float tableY = yaxis;
-		float tableWidth = width;
-		float tableHeight = height;
+		float divider = 1f;
+		Color gradientEnd = new Color(255, 174, 35);
+		Color gradientStart = new Color(235, 78, 0);
+		Color headerBorderColor = new Color(205, 50, 0);
+		Color outerBorderColor = new Color(215, 125, 40);
+		Color gridColor = new Color(225, 215, 200);
+		Color alternateRowColor = new Color(255, 250, 240);
+		Color rowColor;
 
-		// =====================================================
-		// COLUMN WIDTHS
-		// =====================================================
-		float col1 = 102f;
-		float col2 = 144f;
-		float col3 = 102f;
-		float col4 = 142f;
+		float[] colWidth = { 102f, 144f, 102f, 142f };
+		for (int i = 0; i < rowCount; i++) {
 
-		// =====================================================
-		// ROW
-		// =====================================================
-		float rowHeight = tableHeight / totalRows;
+			drawColorShape.drawGradientRect(tx, ty, colWidth[0], rowHeight, gradientStart, gradientEnd, true);
+			tx += colWidth[0];
+			// drawColorShape.drawSolidRectAngle(tx, ty, colWidth[1], rowHeight,
+			// Color.WHITE);
+			drawColorShape.drawGradientRect(tx, ty, colWidth[1], rowHeight, Color.WHITE, Color.WHITE, true);
+			tx += colWidth[1];
+			drawColorShape.drawGradientRect(tx, ty, colWidth[2], rowHeight, gradientStart, gradientEnd, true);
+			tx += colWidth[2];
+			drawColorShape.drawGradientRect(tx, ty, colWidth[3], rowHeight, Color.WHITE, Color.WHITE, true);
+			// ty -= .5;
+			tx = x;
+			if (i != rowCount - 1) {
+				drawColorShape.drawLine(tx, ty, tx + width, ty, 1, gridColor);
+				ty = ty - rowHeight - 1f;
+			}
 
-		// =====================================================
-		// DATA
-		// =====================================================
-
-		// =====================================================
-		// COLORS
-		// =====================================================
-		Color valueBackground = new Color(253, 251, 247);
-		Color borderColor = new Color(215, 205, 190);
-		Color topColor = new Color(255, 150, 0);
-		Color bottomColor = new Color(245, 70, 0);
-
-		// =====================================================
-		// BORDER WIDTH
-		// =====================================================
-		float borderWidth = 0.7f;
-
-		// =====================================================
-		// OUTER RECTANGLE
-		// =====================================================
-		drawColorShape.drawRectAngle(tableX, tableY, tableWidth, tableHeight, valueBackground, borderWidth);
-
-		// =====================================================
-		// DRAW CELL BACKGROUNDS
-		// =====================================================
-		for (int row = 0; row < totalRows; row++) {
-
-			float y = tableY + tableHeight - ((row + 1) * rowHeight);
-
-			// ---------------------------------------------
-			// LABEL COLUMN 1
-			// ---------------------------------------------
-			drawColorShape.drawLabelGradient(tableX, y, col1, rowHeight, topColor, bottomColor);
-
-			// ---------------------------------------------
-			// VALUE COLUMN 1
-			// ---------------------------------------------
-			drawColorShape.drawRectAngle(tableX + col1, y, col2, rowHeight, valueBackground, 0f);
-
-			// ---------------------------------------------
-			// LABEL COLUMN 2
-			// ---------------------------------------------
-			drawColorShape.drawLabelGradient(tableX + col1 + col2, y, col3, rowHeight, topColor, bottomColor);
-
-			// ---------------------------------------------
-			// VALUE COLUMN 2
-			// ---------------------------------------------
-			drawColorShape.drawRectAngle(tableX + col1 + col2 + col3, y, col4, rowHeight, valueBackground, 0f);
 		}
+		float tableHeight = rowCount * rowHeight + rowCount * divider;
+		System.out.println("Height--" + tableHeight);
+		contentStream.saveGraphicsState();
+		contentStream.setStrokingColor(outerBorderColor);
+		contentStream.setLineWidth(1f);
+		drawColorShape.drawRectAngle(tx, ty, width, tableHeight, gridColor, 1);
+		contentStream.stroke();
+		contentStream.restoreGraphicsState();
+		printValues(x, y, width, rowHeight, labels, values, valueFont, valueFontSize);
 
-		// =====================================================
-		// VERTICAL DIVIDER LINES
-		// =====================================================
+	}
 
-		// Line after Column 1
-		float x1 = tableX + col1;
-		// Line after Column 2
-		float x2 = tableX + col1 + col2;
-		// Line after Column 3
-		float x3 = tableX + col1 + col2 + col3;
-		drawColorShape.drawLine(x1, tableY, x1, tableY + tableHeight, borderWidth, borderColor);
-		drawColorShape.drawLine(x2, tableY, x2, tableY + tableHeight, borderWidth, borderColor);
-		drawColorShape.drawLine(x3, tableY, x3, tableY + tableHeight, borderWidth, borderColor);
-
-		// =====================================================
-		// HORIZONTAL DIVIDER LINES
-		// =====================================================
-		for (int row = 1; row < totalRows; row++) {
-
-			float y = tableY + (row * rowHeight);
-			drawColorShape.drawLine(tableX, y, tableX + tableWidth, y, borderWidth, borderColor);
-		}
-
-		// =====================================================
-		// OUTER BORDER AGAIN
-		// =====================================================
-		// Draw it again so the outside edge stays clean.
-		drawColorShape.drawRectAngle(tableX, tableY, tableWidth, tableHeight, borderColor, borderWidth);
-		// =====================================================
-		// DRAW TEXT
-		// =====================================================
-		for (int row = 0; row < totalRows; row++) {
-			float y = tableY + tableHeight - ((row + 1) * rowHeight);
-			// ---------------------------------------------
-			// LABEL 1
-			// ---------------------------------------------
-			drawColorShape.drawCellText(data[row][0], labelFont, 12f, tableX + 13f, y, col1, rowHeight, Color.WHITE);
-
-			// ---------------------------------------------
-			// VALUE 1
-			// ---------------------------------------------
-			drawColorShape.drawCellText(data[row][1], valueFont, 11f, tableX + col1 + 13f, y, col2, rowHeight,
-					Color.BLACK);
-
-			// ---------------------------------------------
-			// LABEL 2
-			// ---------------------------------------------
-			drawColorShape.drawCellText(data[row][2], labelFont, 12f, tableX + col1 + col2 + 13f, y, col3, rowHeight,
-					Color.WHITE);
-
-			// ---------------------------------------------
-			// VALUE 2
-			// ---------------------------------------------
-			drawColorShape.drawCellText(data[row][3], valueFont, 11f, tableX + col1 + col2 + col3 + 13f, y, col4,
-					rowHeight, Color.BLACK);
+	void printValues(float x, float y, float width, float rowHeight, String[] labels, String[] values,
+			PDType0Font valueFont, int valueFontSize) throws IOException {
+		float tx = x;
+		float ty = utility.getTextBaseline(poppinsRegularFont, y, rowHeight, 14);
+		float[] colWidth = { 102f, 144f, 102f, 142f };
+		for (int i = 0; i < labels.length; i = i + 2) {
+			drawColorShape.drawBoldText(tx + 10, ty, labels[i], krutiDevRegularFont, 14, Color.WHITE);
+			tx += colWidth[0];
+			drawColorShape.drawText(tx + 10, ty, values[i], valueFont, valueFontSize, planetColors[i]);
+			tx += colWidth[1];
+			drawColorShape.drawBoldText(tx + 10, ty, labels[i + 1], krutiDevRegularFont, 14, Color.WHITE);
+			tx += colWidth[2];
+			drawColorShape.drawText(tx + 10, ty, values[i + 1], valueFont, valueFontSize, planetColors[i + 1]);
+			tx = x;
+			ty -= rowHeight + 1;
 		}
 	}
 
-	
+	String getBirthDate() {
+		int[] arr = desktopHoro.getBirthDate();
+		return arr[0] + "-" + constantHindi.monthName[arr[1] - 1] + "-" + arr[2];
+	}
 
+	String getBalanceOfDasha(int[] arr) {
+		return constantHindi.nakshLord[arr[0]] + " " + arr[1] + constantHindi.year + " " + arr[2] + constantHindi.month
+				+ " " + arr[3] + constantHindi.day;
+	}
 }

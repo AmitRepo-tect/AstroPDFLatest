@@ -1,5 +1,7 @@
 package com.sunastrix.astropdf.util;
 
+import java.awt.geom.GeneralPath;
+import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -246,5 +248,45 @@ public class Utility extends SUtil implements Serializable {
 		}
 
 		return font.getStringWidth(text) / 1000f * fontSize;
+	}
+
+	public float getTextHeight(PDType0Font font, float fontSize) throws IOException {
+
+		return font.getBoundingBox().getHeight() / 1000f * fontSize;
+	}
+
+	public float getTextHeight(PDType0Font font, float fontSize, String text) throws IOException {
+
+		float minY = Float.MAX_VALUE;
+		float maxY = Float.MIN_VALUE;
+
+		for (int i = 0; i < text.length(); i++) {
+
+			int code = text.codePointAt(i);
+
+			// Skip spaces
+			if (Character.isWhitespace(code)) {
+				continue;
+			}
+
+			GeneralPath path = font.getPath(code);
+			Rectangle2D bounds = path.getBounds2D();
+
+			minY = Math.min(minY, (float) bounds.getY());
+			maxY = Math.max(maxY, (float) (bounds.getY() + bounds.getHeight()));
+		}
+
+		if (minY == Float.MAX_VALUE) {
+			return 0;
+		}
+
+		return (maxY - minY) / 1000f * fontSize;
+	}
+
+	public float getTextBaseline(PDType0Font font, float boxY, float boxHeight, float fontSize) {
+		float ascent = font.getFontDescriptor().getAscent() / 1000f * fontSize;
+		float descent = font.getFontDescriptor().getDescent() / 1000f * fontSize;
+		float textHeight = ascent - descent;
+		return boxY + (boxHeight - textHeight) / 2f - descent;
 	}
 }

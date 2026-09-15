@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="1000"
+     height="120"
+     viewBox="0 0 1000 120">
+
+<defs>
+
+    <linearGradient id="gold"
+                    x1="0%"
+                    y1="0%"
+                    x2="0%"
+                    y2="100%">
+        <stop offset="0%" stop-color="#fff0a0"/>
+        <stop offset="25%" stop-color="#f2a500"/>
+        <stop offset="65%" stop-color="#ffd43c"/>
+        <stop offset="100%" stop-color="#b96800"/>
+    </linearGradient>
+
+    <linearGradient id="red"
+                    x1="0%"
+                    y1="0%"
+                    x2="100%"
+                    y2="0%">
+        <stop offset="0%" stop-color="#82000e"/>
+        <stop offset="50%" stop-color="#c9001c"/>
+        <stop offset="100%" stop-color="#82000e"/>
+    </linearGradient>
+
+</defs>
+
+<!-- OUTER HEADER -->
+<path
+    fill="url(#gold)"
+    d="M38 112
+       V35
+       C38 17 50 7 69 7
+       H931
+       C950 7 962 17 962 35
+       V112
+       Z"/>
+
+<!-- INNER RED -->
+<path
+    fill="url(#red)"
+    d="M47 112
+       V36
+       C47 24 55 16 69 16
+       H931
+       C945 16 953 24 953 36
+       V112
+       Z"/>
+
+<!-- TOP HIGHLIGHT -->
+<path
+    fill="none"
+    stroke="#fff09a"
+    stroke-width="2"
+    d="M69 12
+       H931
+       C950 12 958 22 958 37"/>
+
+<!-- BOTTOM LINE -->
+<path
+    fill="none"
+    stroke="#d98200"
+    stroke-width="2"
+    d="M47 112 H953"/>
+
+</svg>

@@ -22,9 +22,12 @@ public class ConstantHindi {
 			"iquoZlq", "iq\";", "vk'ys\"kk", "e?kk", "iw0QkYxquh", "m0QkYxquh", "gLr", "fp=k", "Lokrh", "fo'kk[kk",
 			"vuqjk/kk", "T;s\"Bk", "ewy ", "iwokZ\"kk", "m0\"kkk", "Jo.k", "/kfu\"‍Bk", "'krfHk\"k", "iwokZHkkæin",
 			"m0Hkkæin", "jsorh" };
-	public String[] birthDetailLabel = new String[] { "uke", "fnaukd", "le;", "LFkku", "v;ka'k" };
+	public String[] birthDetailLabel = new String[] { "uke", "fnukad", "le;", "LFkku", "v;ka'k", "fyax", "v{kka'k",
+			"ns'kkarj" };
 	public String[] panchangLabel = new String[] { "i{k", "frfFk", "u{k=", "fgUnw fnol", "bafXy'k fnol", ";ksx", "dj.k",
 			"lw;ksZn;", "lw;kZLr" };
+	public String[] panchangLabelNew = new String[] { "i{k", "frfFk", "u{k=", "fnol", ";ksx", "dj.k", "lw;ksZn;",
+			"lw;kZLr" };
 	public String[] avakahadaChakarLabel = new String[] { "ik;k", "o.kZ", ";ksfu", "x.k", "oS';", "ukM+h",
 			"n'kk HkksX;", "yXu", "yXu Lokeh", "jkf'k", "jkf'k Lokeh", "u{k=&in", "u{k=&Lokeh", "twfy;u fnu",
 			"lw;Z jkf'k ¼fgUnw½", "lw;Z jkf'k¼ik'pR;½", "v;uka'k", "v;uka'k uke", "v{k ls >qdko", "lEifrddky" };
