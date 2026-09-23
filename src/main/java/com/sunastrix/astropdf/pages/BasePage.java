@@ -6,16 +6,19 @@ import java.io.IOException;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDType0Font;
 
 import com.sunastrix.astroganitlib.horo.DesktopHoroNew;
 import com.sunastrix.astroganitlib.model.BirthDetailBean;
+import com.sunastrix.astropdf.model.PageInfo;
+import com.sunastrix.astropdf.service_impl.PDFGenerateColorServiceImpl;
 import com.sunastrix.astropdf.util.ConstantHindi;
 import com.sunastrix.astropdf.util.DrawColorShape;
 import com.sunastrix.astropdf.util.DrawShape;
 import com.sunastrix.astropdf.util.Utility;
 
-//http://10.244.125.216:5001/generatepdf_color?name=Jdjdjdjd&sex=M&day=24&month=7&year=2026&hrs=22&min=35&sec=24&place=Jhunjhunun&latDeg=28&latMin=0&latNS=N&longDeg=75&longMin=30&longEW=E&state=New Delhi&country=India&timezone=5.5&timezoneStr=5.5&dst=0&ayanamsa=0&charting=0&kphn=0&button1=Get+Kundali&languageCode=0
+//http://10.218.60.216:5001/generatepdf_color?name=Jdjdjdjd&sex=M&day=24&month=7&year=2026&hrs=22&min=35&sec=24&place=Jhunjhunun&latDeg=28&latMin=0&latNS=N&longDeg=75&longMin=30&longEW=E&state=New Delhi&country=India&timezone=5.5&timezoneStr=5.5&dst=0&ayanamsa=0&charting=0&kphn=0&button1=Get+Kundali&languageCode=0
 public class BasePage {
 	Utility utility = new Utility();
 	ConstantHindi constantHindi = new ConstantHindi();
@@ -30,6 +33,20 @@ public class BasePage {
 	public PDType0Font poppinsRegularFont;
 	public PDType0Font krutiDevRegularFont;
 	public PDType0Font notoSerifDevanagariRegularFont;
+
+	public PageDetail addPage(String pageHeading) {
+
+		PageInfo pageInfo = new PageInfo();
+		PDFGenerateColorServiceImpl.pageNo++;
+		PDPage page = new PDPage(PDRectangle.A4);
+		pageInfo.setPage(page);
+		pageInfo.setPageTitle(pageHeading);
+		pageInfo.setStartPageNo(PDFGenerateColorServiceImpl.pageNo);
+		document.addPage(page);
+		pageWidth = page.getMediaBox().getWidth();
+		pageHeight = page.getMediaBox().getHeight();
+		return new PageDetail(page, pageInfo);
+	}
 
 	public void drawPageBorder(PDDocument document, PDPage page) throws IOException {
 		float outerMargin = 5f;
@@ -263,6 +280,33 @@ public class BasePage {
 		float numberY = boxY + 9f;
 		drawShape.drawText(number, numberX, numberY, numberFontSize, Color.BLACK, titleFont);
 
+	}
+
+}
+
+class PageDetail {
+	PDPage page;
+	PageInfo pageInfo;
+
+	public PageDetail(PDPage page, PageInfo pageInfo) {
+		this.page = page;
+		this.pageInfo = pageInfo;
+	}
+
+	public PDPage getPage() {
+		return page;
+	}
+
+	public void setPage(PDPage page) {
+		this.page = page;
+	}
+
+	public PageInfo getPageInfo() {
+		return pageInfo;
+	}
+
+	public void setPageInfo(PageInfo pageInfo) {
+		this.pageInfo = pageInfo;
 	}
 
 }

@@ -7,6 +7,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 import org.apache.batik.anim.dom.SAXSVGDocumentFactory;
 import org.apache.batik.bridge.BridgeContext;
@@ -29,14 +30,31 @@ import org.w3c.dom.svg.SVGDocument;
 import com.sunastrix.astroganitlib.horo.DesktopHoroNew;
 import com.sunastrix.astroganitlib.model.BirthDetailBean;
 import com.sunastrix.astropdf.calculation.DashaCalculation;
+import com.sunastrix.astropdf.model.PageInfo;
 import com.sunastrix.astropdf.pages.AstakvargPage;
 import com.sunastrix.astropdf.pages.PlanetPosPage;
 import com.sunastrix.astropdf.pages.ForthPage;
-import com.sunastrix.astropdf.pages.Page6;
-import com.sunastrix.astropdf.pages.Page7;
+import com.sunastrix.astropdf.pages.KPSignificatorPage;
+import com.sunastrix.astropdf.pages.KpBhavSandhiPage;
+import com.sunastrix.astropdf.pages.KpChartPage;
+import com.sunastrix.astropdf.pages.KpCilPage;
+import com.sunastrix.astropdf.pages.KpNakshNadiPage;
+import com.sunastrix.astropdf.pages.KpRulingPage;
+import com.sunastrix.astropdf.pages.LagnaPredictionPage;
+import com.sunastrix.astropdf.pages.LifePredictionPage;
+import com.sunastrix.astropdf.pages.NakshReportPage;
+import com.sunastrix.astropdf.pages.ChalitChartAndTablePage;
+import com.sunastrix.astropdf.pages.DashaPage;
+import com.sunastrix.astropdf.pages.PlanetConsiderationPage;
 import com.sunastrix.astropdf.pages.PrastakvragaPage;
-import com.sunastrix.astropdf.pages.SecondPage;
-import com.sunastrix.astropdf.pages.ThirdPage;
+import com.sunastrix.astropdf.pages.BirthDetailPage;
+import com.sunastrix.astropdf.pages.SodasvargaChartPage;
+import com.sunastrix.astropdf.pages.SodasvargaTablePage;
+import com.sunastrix.astropdf.pages.GhatakAndFavourablePage;
+import com.sunastrix.astropdf.pages.IndexPage;
+import com.sunastrix.astropdf.pages.VarshfalPredictionPage;
+import com.sunastrix.astropdf.pages.VarshfalTablePage;
+import com.sunastrix.astropdf.pages.VrashfalPage;
 import com.sunastrix.astropdf.pages.YoginiDasaPage;
 import com.sunastrix.astropdf.service.PDFGenerateColorService;
 import com.sunastrix.astropdf.util.ConstantHindi;
@@ -61,6 +79,10 @@ public class PDFGenerateColorServiceImpl implements PDFGenerateColorService {
 	DrawShape drawShape = new DrawShape();
 	int pageNumber;
 	Utility utility;
+	ArrayList<PageInfo> pageList = new ArrayList<PageInfo>();
+	ArrayList<PageInfo> pageList2 = new ArrayList<PageInfo>();
+	ArrayList<PageInfo> pageList3 = new ArrayList<PageInfo>();
+	public static int pageNo = 0;
 
 	public byte[] generatePDF(BirthDetailBean birthDetailBean) throws IOException {
 		PDDocument document = new PDDocument();
@@ -85,19 +107,80 @@ public class PDFGenerateColorServiceImpl implements PDFGenerateColorService {
 		utility = new Utility();
 		printCoverPage(document);
 
-		new SecondPage(desktopHoro, birthDetailBean).drawPage(document, poppinsRegularFont, krutiDevRegularFont);
-		//new ThirdPage().drawPage(document, poppinsRegularFont);
-		new ForthPage(desktopHoro).drawPage(document, poppinsRegularFont, krutiDevRegularFont);
-		new PlanetPosPage(desktopHoro, birthDetailBean).drawPage(document,poppinsRegularFont, krutiDevRegularFont);
-		// new Page6().drawPage(document, poppinsRegularFont);
-		calculation = new DashaCalculation(birthDetailBean, desktopHoro);
-		// new Page7(calculation, birthDetailBean).printDasha(document,
-		// poppinsRegularFont, krutiDevRegularFont);
-		// new AstakvargPage(desktopHoro).drawPage(document, poppinsRegularFont);
-		// new PrastakvragaPage(desktopHoro).printPrastakvargaTable(document,
-		// poppinsRegularFont);
-		// new YoginiDasaPage(desktopHoro, birthDetailBean).printDasha(document,
-		// poppinsRegularFont, krutiDevRegularFont);
+		PageInfo pageInfo = new BirthDetailPage(desktopHoro, birthDetailBean).drawPage(document, poppinsRegularFont,
+				krutiDevRegularFont);
+		pageList.add(pageInfo);
+		pageInfo = new GhatakAndFavourablePage(desktopHoro).drawPage(document, poppinsRegularFont, krutiDevRegularFont);
+		pageList.add(pageInfo);
+		pageInfo = new ForthPage(desktopHoro).drawPage(document, poppinsRegularFont, krutiDevRegularFont);
+		pageList.add(pageInfo);
+		pageInfo = new PlanetPosPage(desktopHoro, birthDetailBean).drawPage(document, poppinsRegularFont,
+				krutiDevRegularFont);
+		pageList.add(pageInfo);
+		pageInfo = new ChalitChartAndTablePage(desktopHoro, birthDetailBean).drawPage(document, poppinsRegularFont,
+				krutiDevRegularFont);
+		pageList.add(pageInfo);
+		pageInfo = new AstakvargPage(desktopHoro).drawPage(document, poppinsRegularFont, krutiDevRegularFont);
+		pageList.add(pageInfo);
+		pageInfo = new PrastakvragaPage(desktopHoro).printPrastakvargaTable(document, poppinsRegularFont,
+				krutiDevRegularFont);
+		pageList.add(pageInfo);
+		DashaPage dashaPage = new DashaPage(desktopHoro, birthDetailBean);
+		pageInfo = dashaPage.printAnterDasha(document, poppinsRegularFont, krutiDevRegularFont);
+		pageList.add(pageInfo);
+		pageInfo = dashaPage.printPratyntarDasha(document, poppinsRegularFont, krutiDevRegularFont);
+		pageList.add(pageInfo);
+		pageInfo = new YoginiDasaPage(desktopHoro, birthDetailBean).printDasha(document, poppinsRegularFont,
+				krutiDevRegularFont);
+		pageList.add(pageInfo);
+		pageInfo = new SodasvargaChartPage(desktopHoro).printChart(document, poppinsRegularFont, krutiDevRegularFont);
+		pageList.add(pageInfo);
+		SodasvargaTablePage sodasvargaTablePage = new SodasvargaTablePage(desktopHoro, birthDetailBean);
+		pageInfo = sodasvargaTablePage.printShodasvargaTable(document, poppinsRegularFont, krutiDevRegularFont);
+		pageList.add(pageInfo);
+		pageInfo = sodasvargaTablePage.printShodasvargaBhavTable(document, poppinsRegularFont, krutiDevRegularFont);
+		pageList2.add(pageInfo);
+		pageInfo = new LagnaPredictionPage(desktopHoro, birthDetailBean).drawPage(document, poppinsRegularFont,
+				krutiDevRegularFont);
+		pageList2.add(pageInfo);
+		pageInfo = new NakshReportPage(desktopHoro, birthDetailBean).drawPage(document, poppinsRegularFont,
+				krutiDevRegularFont);
+		pageList2.add(pageInfo);
+		pageInfo = new VarshfalPredictionPage(desktopHoro, birthDetailBean).drawPage(document, poppinsRegularFont,
+				krutiDevRegularFont);
+		pageList2.add(pageInfo);
+		pageInfo = new PlanetConsiderationPage(desktopHoro, birthDetailBean).drawPage(document, poppinsRegularFont,
+				krutiDevRegularFont);
+		pageList2.add(pageInfo);
+		pageInfo = new LifePredictionPage(desktopHoro, birthDetailBean).drawPage(document, poppinsRegularFont,
+				krutiDevRegularFont);
+		pageList2.add(pageInfo);
+		pageInfo = new KpChartPage(desktopHoro).drawPage(document, poppinsRegularFont, krutiDevRegularFont);
+		pageList2.add(pageInfo);
+		pageInfo = new KpBhavSandhiPage(desktopHoro).drawPage(document, poppinsRegularFont, krutiDevRegularFont);
+		pageList2.add(pageInfo);
+		pageInfo = new KPSignificatorPage(desktopHoro).drawPage(document, poppinsRegularFont, krutiDevRegularFont);
+		pageList2.add(pageInfo);
+		pageInfo = new KpNakshNadiPage(desktopHoro).drawPage(document, poppinsRegularFont, krutiDevRegularFont);
+		pageList2.add(pageInfo);
+		pageInfo = new KpCilPage(desktopHoro).drawPage(document, poppinsRegularFont, krutiDevRegularFont);
+		pageList2.add(pageInfo);
+		pageInfo =new KpRulingPage(desktopHoro).drawPage(document, poppinsRegularFont, krutiDevRegularFont);
+		pageList2.add(pageInfo);
+		pageInfo =new VrashfalPage(desktopHoro).drawPage(document, poppinsRegularFont, krutiDevRegularFont);
+		pageList3.add(pageInfo);
+		pageInfo =new VarshfalTablePage(desktopHoro, birthDetailBean).drawPage(document, poppinsRegularFont, krutiDevRegularFont);
+		pageList3.add(pageInfo);
+		IndexPage indexPage = new IndexPage();
+		document.getPages().insertBefore(
+				indexPage.drawIndexPage(document, poppinsRegularFont, krutiDevRegularFont, pageList),
+				document.getPage(1));
+		document.getPages().insertBefore(
+				indexPage.drawIndexPage(document, poppinsRegularFont, krutiDevRegularFont, pageList2),
+				document.getPage(2));
+		document.getPages().insertBefore(
+				indexPage.drawIndexPage(document, poppinsRegularFont, krutiDevRegularFont, pageList3),
+				document.getPage(3));
 		document.save(byteArrayOutputStream);
 		return byteArrayOutputStream.toByteArray();
 	};

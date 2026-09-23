@@ -54,9 +54,12 @@ public class ConstantHindi {
 			"xq#", "'kfu", "cq/k" };
 	public String[] plaShortName = { "lw", "p", "ea", "cq", "xq", "'kq", "'k", "jk", "ds", ";w", "us", "Iyw", "y",
 			"y" };
-	public String[] shodasColumn = { "oxZ", "o1", "o2", "o3", "o4", "o7", "o9", "o10", "o12", "o16", "o20", "o24",
-			"o27", "o30", "o40", "o45", "o60" };
-	public String[] shodasHeading = { "y", "lw", "pa", "ea", "cq", "xq", "'kq", "'k", "jk", "ds" };
+	public String[] shodasColumn = { "o1", "o2", "o3", "o4", "o7", "o9", "o10", "o12", "o16", "o20", "o24", "o27",
+			"o30", "o40", "o45", "o60" };
+	public String[] shodasColumnNew = { "yXu", "gksjk", "æsDduk", "prqFkkaZ'k", "lIreka'k", "uoka'k", "n'keka'kk",
+			"}kn'keka'kk", "\"kksM'ka\"kk", "foa'ka\"kk", "lIrfoa'kk'k", "prqfoaZ'kka'k", "f=a'kka'k", "[kosnka'k",
+			"v{kosnka'k", "\"k\"V;a'k", };
+	public String[] shodasHeading = { "oxZ", "y", "lw", "pa", "ea", "cq", "xq", "'kq", "'k", "jk", "ds" };
 	public String[] planetName = { "yXu", "lw;Z", "paæ", "eaxy", "cq/k", "xq#", "'kqØ", "'kfu", "jkgq", "dsrq",
 			";wjsfu;e", "usIpwu", "IywVks" };
 	public String[] rasiLordFullNameList = { "eaxy", "'kqØ", "cq/k", "paæ", "lw;Z", "cq/k", "'kqØ", "eaxy", "xq#",
@@ -151,5 +154,10 @@ public class ConstantHindi {
 
 	public static String[] lifePredictionHeading = { "pfj=", "lq[k vkSj larks\"k", "thou 'kSyh", "dfj;j ", "is'kk ",
 			"LokLFk", "'kkSd ", "çse lEcU/k", "foÙk", "f'k{kk", };
+
+	public static String[] ghatakLabels = { "okj", "dj.k", "yXu", "eghuk", "u{k=", "çgj", "jkf'k", "frfFk", ";ksx",
+			"xzg" };
+	public static String[] favourableLabels = { "HkkX;kad", "'kqHk vad", "'kqHk o\"kZ", "HkkX;'kkyh fnu", "'kqHk xzg",
+			"fe= jkf'k;ka", "'kqHk yXu", "HkkX;'kkyh /kkrq", "HkkX; jRu" };
 
 }

@@ -12,6 +12,7 @@ import org.apache.pdfbox.pdmodel.font.PDType0Font;
 
 import com.sunastrix.astroganitlib.horo.DesktopHoroNew;
 import com.sunastrix.astropdf.calculation.AshtakVargaCalculation;
+import com.sunastrix.astropdf.model.PageInfo;
 
 public class AstakvargPage extends BasePage {
 	Color[] planetColors = {
@@ -64,20 +65,19 @@ public class AstakvargPage extends BasePage {
 		this.desktopHoro = desktopHoro;
 	}
 
-	public void drawPage(PDDocument document, PDType0Font poppinsRegularFont) {
+	public PageInfo drawPage(PDDocument document, PDType0Font poppinsRegularFont,PDType0Font krutiDevRegularFont) {
+		String pageHeading = "v\"VdoxZ rkfydk";
 		this.document = document;
 		this.poppinsRegularFont = poppinsRegularFont;
-		PDPage page = new PDPage(PDRectangle.A4);
-		document.addPage(page);
+		this.krutiDevRegularFont = krutiDevRegularFont;
+		PageDetail pageDetail = addPage(pageHeading);
 		float cornerSize = 30f;
-		pageWidth = page.getMediaBox().getWidth();
-		pageHeight = page.getMediaBox().getHeight();
 
-		try (PDPageContentStream cs = new PDPageContentStream(document, page)) {
+		try (PDPageContentStream cs = new PDPageContentStream(document, pageDetail.getPage())) {
 			this.contentStream = cs;
 			drawShape.initialize(pageHeight, pageWidth, document, cs);
 			drawColorShape.initialize(pageHeight, pageWidth, document, cs);
-			drawPageBorder(document, page);
+			drawPageBorder(document, pageDetail.getPage());
 			byte[] svgBytes = getClass().getResourceAsStream("/images/corner_left_top.svg").readAllBytes();
 			float margin = 15f;
 			drawColorShape.drawSvg(svgBytes, margin, pageHeight - margin - cornerSize, cornerSize, cornerSize, 0);
@@ -85,7 +85,7 @@ public class AstakvargPage extends BasePage {
 					cornerSize, cornerSize, 1);
 			drawColorShape.drawSvg(svgBytes, pageWidth - margin - cornerSize, margin, cornerSize, cornerSize, 2);
 			drawColorShape.drawSvg(svgBytes, margin, margin, cornerSize, cornerSize, 3);
-			drawHeader(pageWidth, pageHeight, poppinsRegularFont, "Ashtakvarga Table");
+			drawHeader(pageWidth, pageHeight, krutiDevRegularFont, pageHeading);
 			// Draw Basic Details
 			float tableX = 39f;
 			float tableY = 660f;
@@ -101,7 +101,7 @@ public class AstakvargPage extends BasePage {
 			float headWidth = 170f;
 			float headHeight = 30f;
 			float headMargin = 15.2f;
-			drawBgWithHeader(bgX, bgY, bgWidth, bgHeight, headWidth, headHeight, headMargin, "Navamsa Chart", 12);
+			drawBgWithHeader(bgX, bgY, bgWidth, bgHeight, headWidth, headHeight, headMargin, "v\"VdoxZ rkfydk", 14);
 			drawTable(tableX, tableY, tableWidth, tableHeight);
 			populateAstakvargaTable(tableX, tableY, tableWidth, tableHeight);
 			drawFooter(poppinsRegularFont, poppinsRegularFont, 15);
@@ -110,6 +110,7 @@ public class AstakvargPage extends BasePage {
 			System.out.print(e.getMessage());
 			e.printStackTrace();
 		}
+		return pageDetail.getPageInfo();
 	}
 
 	private void drawTable(float x, float y, float width, float height) throws IOException {

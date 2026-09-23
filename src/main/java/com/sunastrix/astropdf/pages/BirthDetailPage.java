@@ -10,8 +10,10 @@ import org.apache.pdfbox.pdmodel.font.PDType0Font;
 
 import com.sunastrix.astroganitlib.horo.DesktopHoroNew;
 import com.sunastrix.astroganitlib.model.BirthDetailBean;
+import com.sunastrix.astropdf.model.PageInfo;
+import com.sunastrix.astropdf.service_impl.PDFGenerateColorServiceImpl;
 
-public class SecondPage extends BasePage {
+public class BirthDetailPage extends BasePage {
 	Color[] planetColors = { new Color(105, 20, 55), new Color(110, 20, 80), new Color(105, 60, 0),
 			new Color(20, 65, 110), new Color(110, 30, 40), new Color(20, 85, 85), new Color(105, 60, 0),
 			new Color(20, 45, 100), new Color(15, 75, 40), new Color(90, 45, 105), new Color(120, 70, 20),
@@ -19,28 +21,26 @@ public class SecondPage extends BasePage {
 			new Color(105, 60, 0), new Color(20, 65, 110), new Color(110, 30, 40), new Color(20, 85, 85),
 			new Color(105, 60, 0) };
 
-	public SecondPage(DesktopHoroNew desktopHoro, BirthDetailBean birthDetailBean) {
+	public BirthDetailPage(DesktopHoroNew desktopHoro, BirthDetailBean birthDetailBean) {
 		this.desktopHoro = desktopHoro;
 		this.birthDetailBean = birthDetailBean;
 	}
 
-	public void drawPage(PDDocument document, PDType0Font poppinsRegularFont, PDType0Font krutiDevRegularFont)
+	public PageInfo drawPage(PDDocument document, PDType0Font poppinsRegularFont, PDType0Font krutiDevRegularFont)
 			throws IOException {
+		String pageHeading = "tUe fooj.k vkSj vodgM+k pØ";
 		this.document = document;
 		this.poppinsRegularFont = poppinsRegularFont;
 		this.krutiDevRegularFont = krutiDevRegularFont;
-		PDPage page = new PDPage(PDRectangle.A4);
-		document.addPage(page);
+		PageDetail pageDetail = addPage(pageHeading);
 		float cornerSize = 30f;
-		pageWidth = page.getMediaBox().getWidth();
-		pageHeight = page.getMediaBox().getHeight();
 
-		try (PDPageContentStream cs = new PDPageContentStream(document, page)) {
+		try (PDPageContentStream cs = new PDPageContentStream(document, pageDetail.getPage())) {
 
 			this.contentStream = cs;
 			drawShape.initialize(pageHeight, pageWidth, document, cs);
 			drawColorShape.initialize(pageHeight, pageWidth, document, cs);
-			drawPageBorder(document, page);
+			drawPageBorder(document, pageDetail.getPage());
 			byte[] svgBytes = getClass().getResourceAsStream("/images/corner_left_top.svg").readAllBytes();
 			float margin = 15f;
 			drawColorShape.drawSvg(svgBytes, margin, pageHeight - margin - cornerSize, cornerSize, cornerSize, 0);
@@ -48,7 +48,7 @@ public class SecondPage extends BasePage {
 					cornerSize, cornerSize, 1);
 			drawColorShape.drawSvg(svgBytes, pageWidth - margin - cornerSize, margin, cornerSize, cornerSize, 2);
 			drawColorShape.drawSvg(svgBytes, margin, margin, cornerSize, cornerSize, 3);
-			drawHeader(pageWidth, pageHeight, krutiDevRegularFont, "tUe fooj.k vkSj vodgM+k pØ");
+			drawHeader(pageWidth, pageHeight, krutiDevRegularFont, pageHeading);
 			// Draw Basic Details
 			float tableX = 40f;
 			float tableY = 680f;
@@ -109,6 +109,7 @@ public class SecondPage extends BasePage {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return pageDetail.getPageInfo();
 	}
 
 	void drawTable(float x, float y, float width, int rowCount, String[] labels, String[] values, PDType0Font valueFont,
@@ -120,8 +121,17 @@ public class SecondPage extends BasePage {
 		float radius = 8;
 
 		float divider = 1f;
-		Color gradientEnd = new Color(255, 174, 35);
-		Color gradientStart = new Color(235, 78, 0);
+		/*
+		 * Color gradientEnd = new Color(255, 174, 35); Color gradientStart = new
+		 * Color(235, 78, 0);
+		 */
+		/*
+		 * Color gradientStart = new Color(235, 78, 0); Color gradientMiddle = new
+		 * Color(235, 105, 85); Color gradientEnd = new Color(125, 75, 170);
+		 */
+		Color gradientStart = new Color(220, 85, 25);
+		Color gradientMiddle = new Color(245, 135, 45);
+		Color gradientEnd = new Color(255, 195, 95);
 		Color headerBorderColor = new Color(205, 50, 0);
 		Color outerBorderColor = new Color(215, 125, 40);
 		Color gridColor = new Color(225, 215, 200);
@@ -162,15 +172,16 @@ public class SecondPage extends BasePage {
 
 	void printValues(float x, float y, float width, float rowHeight, String[] labels, String[] values,
 			PDType0Font valueFont, int valueFontSize) throws IOException {
+		Color textColor = new Color(75, 45, 30);
 		float tx = x;
 		float ty = utility.getTextBaseline(poppinsRegularFont, y, rowHeight, 14);
 		float[] colWidth = { 102f, 144f, 102f, 142f };
 		for (int i = 0; i < labels.length; i = i + 2) {
-			drawColorShape.drawBoldText(tx + 10, ty, labels[i], krutiDevRegularFont, 14, Color.WHITE);
+			drawColorShape.drawBoldText(tx + 10, ty, labels[i], krutiDevRegularFont, 14, textColor);
 			tx += colWidth[0];
 			drawColorShape.drawText(tx + 10, ty, values[i], valueFont, valueFontSize, planetColors[i]);
 			tx += colWidth[1];
-			drawColorShape.drawBoldText(tx + 10, ty, labels[i + 1], krutiDevRegularFont, 14, Color.WHITE);
+			drawColorShape.drawBoldText(tx + 10, ty, labels[i + 1], krutiDevRegularFont, 14, textColor);
 			tx += colWidth[2];
 			drawColorShape.drawText(tx + 10, ty, values[i + 1], valueFont, valueFontSize, planetColors[i + 1]);
 			tx = x;

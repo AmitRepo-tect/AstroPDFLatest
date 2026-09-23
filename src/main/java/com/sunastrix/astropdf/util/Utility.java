@@ -5,7 +5,7 @@ import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-
+import org.apache.fontbox.util.BoundingBox;
 import org.apache.pdfbox.pdmodel.font.PDType0Font;
 
 public class Utility extends SUtil implements Serializable {
@@ -288,5 +288,20 @@ public class Utility extends SUtil implements Serializable {
 		float descent = font.getFontDescriptor().getDescent() / 1000f * fontSize;
 		float textHeight = ascent - descent;
 		return boxY + (boxHeight - textHeight) / 2f - descent;
+	}
+	public float getTextBaselineNew(
+	        PDType0Font font,
+	        float boxY,
+	        float boxHeight,
+	        float fontSize) throws IOException {
+
+	    BoundingBox bbox = font.getBoundingBox();
+
+	    float lowerY = bbox.getLowerLeftY() / 1000f * fontSize;
+	    float upperY = bbox.getUpperRightY() / 1000f * fontSize;
+
+	    float textCenter = (lowerY + upperY) / 2f;
+
+	    return boxY + boxHeight / 2f - textCenter;
 	}
 }

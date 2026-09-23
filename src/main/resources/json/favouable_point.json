@@ -1,0 +1,147 @@
+[
+  {
+    "Lucky_Numbers": "5",
+    "Good_Numbers":"2, 7, 9",
+    "Evil_Numbers": "4, 8",
+    "Good_Years": "14,23,32,41,50",
+    "Lucky_Days": "Thu",
+    "Good_Planets": "Jup, Sun, Moon",
+    "Friendly_Signs": "Gem Leo Sag",
+    "Good_Lagna": "Can, Lib, Sag, Aqu",
+    "Lucky_Metal": "Gold",
+    "Lucky_Stone":"Red Coral"
+  },
+  {
+    "Lucky_Numbers":"8",
+    "Good_Numbers": "1, 3, 7, 9",
+    "Evil_Numbers": "5",
+    "Good_Years":  "17,26,35,44,53",
+    "Lucky_Days": "Fri, Wed",
+    "Good_Planets": "Sat, Merc, Ven",
+    "Friendly_Signs":"Vir Cap Tau",
+    "Good_Lagna": "Leo, Sco, Cap, Pis",
+    "Lucky_Metal": "Silver",
+    "Lucky_Stone": "Diamond"
+  },
+  {
+
+    "Lucky_Numbers": "2",
+    "Good_Numbers": "1, 3, 7, 9",
+    "Evil_Numbers": "5, 8",
+    "Good_Years": "11,20,29,38,47",
+    "Lucky_Days": "Sat, Fri, Sun",
+    "Good_Planets": "Sat, Ven, Sun",
+    "Friendly_Signs": "Vir Gem Tau",
+    "Good_Lagna": "Leo, Sco, Cap, Pis",
+    "Lucky_Metal": "Bronze",
+    "Lucky_Stone": "Emerald"
+  },
+  {
+    "Lucky_Numbers": "7",
+    "Good_Numbers": "1, 2, 3, 9",
+    "Evil_Numbers": "4,5, 8",
+    "Good_Years":"16,25,34,43,52",
+    "Lucky_Days": "Sun, Tue",
+    "Good_Planets": "Sun, Merc, Mars",
+    "Friendly_Signs": "Gem Vir Lib",
+    "Good_Lagna": "Cap, Ari, Gem, Leo",
+    "Lucky_Metal": "Silver",
+    "Lucky_Stone": "Pearl"
+  },
+  {
+    "Lucky_Numbers": "5",
+    "Good_Numbers": "1, 3, 7, 9",
+    "Evil_Numbers": "8",
+    "Good_Years": "14,23,32,41,50",
+    "Lucky_Days": "Thu, Tue",
+    "Good_Planets":  "Jup, Mars, Moon",
+    "Friendly_Signs": "Ari Sag Gem",
+    "Good_Lagna": "Leo, Sco, Pis",
+    "Lucky_Metal": "Gold",
+    "Lucky_Stone": "Ruby"
+  },
+  {
+    "Lucky_Numbers": "2",
+    "Good_Numbers": "2, 4, 5, 8",
+    "Evil_Numbers": "1, 7, 9",
+    "Good_Years": "11,20,29,38,47",
+    "Lucky_Days": "Sun, Fri",
+    "Good_Planets": "Sun, Ven",
+    "Friendly_Signs": "Tau Cap Vir",
+    "Good_Lagna": "Sag, Tau, Cap",
+    "Lucky_Metal": "Bronze",
+    "Lucky_Stone": "Emerald"
+  },
+  {
+    "Lucky_Numbers":"2",
+    "Good_Numbers": "1, 3, 7, 9",
+    "Evil_Numbers":"5, 8",
+    "Good_Years": "11,20,29,38,47",
+    "Lucky_Days": "Sat, Wed, Fri",
+    "Good_Planets": "Sat, Merc, Ven",
+    "Friendly_Signs": "Vir Cap Aqua",
+    "Good_Lagna": "Leo, Sco, Cap, Pis",
+    "Lucky_Metal": "Silver",
+    "Lucky_Stone": "Diamond"
+  },
+  {
+    "Lucky_Numbers": "4",
+    "Good_Numbers": "2, 4, 5, 8",
+    "Evil_Numbers": "1, 7, 9",
+    "Good_Years": "13,22,31,40,49",
+    "Lucky_Days": "Thu, Tue",
+    "Good_Planets": "Jup, Mars, Moon",
+    "Friendly_Signs": "Ari Leo Sag",
+    "Good_Lagna": "Sag, Pis, Tau, Cap",
+    "Lucky_Metal": "Gold",
+    "Lucky_Stone": "Red Coral"
+  },
+  {
+    "Lucky_Numbers": "1",
+    "Good_Numbers": "1, 3, 7, 9",
+    "Evil_Numbers": "5, 8",
+    "Good_Years": "10,19,28,37,46",
+    "Lucky_Days": "Tue, Sun",
+    "Good_Planets": "Mars, Moon, Sun",
+    "Friendly_Signs": "Ari, Leo, Sco",
+    "Good_Lagna": "Leo, Sco, Cap, Pis",
+    "Lucky_Metal": "Gold",
+    "Lucky_Stone": "Yellow Sapphire"
+  },
+  {
+    "Lucky_Numbers": "1",
+    "Good_Numbers": "1, 2, 3, 9",
+    "Evil_Numbers": "4, 5, 8",
+    "Good_Years": "18,27,36,45,54",
+    "Lucky_Days": "Sat, Wed, Fri",
+    "Good_Planets": "Sat, Merc, Ven",
+    "Friendly_Signs": "Gem, Vig, Aqua",
+    "Good_Lagna": "Cap, Ari, Gem, Leo",
+    "Lucky_Metal": "Iron",
+    "Lucky_Stone": "Blue Sapphire"
+  },
+  {
+    "Lucky_Numbers":"6",
+    "Good_Numbers": "1, 3, 7, 9",
+    "Evil_Numbers": "5, 8",
+    "Good_Years": "15,24,33,42,51",
+    "Lucky_Days": "Sat, Wed, Fri",
+    "Good_Planets": "Sat, Merc, Ven",
+    "Friendly_Signs": "Vir, Gem, Ari",
+    "Good_Lagna": "Leo, Sco, Cap, Pis",
+    "Lucky_Metal": "Iron",
+    "Lucky_Stone": "Blue Sapphire"
+  },
+  {
+    "Lucky_Numbers": "2",
+    "Good_Numbers": "2, 7, 9",
+    "Evil_Numbers": "4, 8",
+    "Good_Years": "11,20,29,38,47",
+    "Lucky_Days": "Sun, Tue",
+    "Good_Planets": "Moon, Sun, Mars",
+    "Friendly_Signs": "Can Leo Sag",
+    "Good_Lagna": "Can, Lib, Sag, Aqu",
+    "Lucky_Metal": "Gold",
+    "Lucky_Stone": "Yellow Sapphire"
+  }
+]

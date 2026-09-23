@@ -12,25 +12,23 @@ import org.apache.pdfbox.pdmodel.font.PDType0Font;
 
 import com.sunastrix.astroganitlib.horo.DesktopHoroNew;
 import com.sunastrix.astropdf.model.PageInfo;
-import com.sunastrix.astropdf.service_impl.PDFGenerateColorServiceImpl;
 
-public class ForthPage extends BasePage {
+public class VrashfalPage extends BasePage {
 	Color[] planetColors = { new Color(230, 30, 70), new Color(200, 30, 160), new Color(230, 110, 0),
 			new Color(0, 90, 210), new Color(220, 30, 30), new Color(0, 150, 150), new Color(210, 130, 0),
 			new Color(50, 60, 200), new Color(0, 135, 60), new Color(140, 40, 190), new Color(180, 80, 0),
 			new Color(0, 130, 190), new Color(200, 40, 90) };
 
-	public ForthPage(DesktopHoroNew desktopHoro) {
+	public VrashfalPage(DesktopHoroNew desktopHoro) {
 		this.desktopHoro = desktopHoro;
 	}
 
 	public PageInfo drawPage(PDDocument document, PDType0Font poppinsRegularFont, PDType0Font krutiDevRegularFont) {
-		String pageHeading = "yXu] paæ vkSj uoeka'k pkVZ";
+		String pageHeading = "dLiy baVjfyaDl";
 		this.document = document;
 		this.poppinsRegularFont = poppinsRegularFont;
 		this.krutiDevRegularFont = krutiDevRegularFont;
 		PageDetail pageDetail = addPage(pageHeading);
-		float cornerSize = 30f;
 
 		try (PDPageContentStream cs = new PDPageContentStream(document, pageDetail.getPage())) {
 
@@ -38,72 +36,117 @@ public class ForthPage extends BasePage {
 			drawShape.initialize(pageHeight, pageWidth, document, cs);
 			drawColorShape.initialize(pageHeight, pageWidth, document, cs);
 			drawPageBorder(document, pageDetail.getPage());
-			byte[] svgBytes = getClass().getResourceAsStream("/images/corner_left_top.svg").readAllBytes();
-			float margin = 15f;
-			drawColorShape.drawSvg(svgBytes, margin, pageHeight - margin - cornerSize, cornerSize, cornerSize, 0);
-			drawColorShape.drawSvg(svgBytes, pageWidth - margin - cornerSize, pageHeight - margin - cornerSize,
-					cornerSize, cornerSize, 1);
-			drawColorShape.drawSvg(svgBytes, pageWidth - margin - cornerSize, margin, cornerSize, cornerSize, 2);
-			drawColorShape.drawSvg(svgBytes, margin, margin, cornerSize, cornerSize, 3);
-			drawHeader(pageWidth, pageHeight, krutiDevRegularFont, pageHeading);
+			drawCornerImages();
+			drawHeader(pageWidth, pageHeight, krutiDevRegularFont, "dLiy baVjfyaDl");
 			// Draw Basic Details
-			float tableX = 70f;
-			float tableY = 390f;
-			float tableWidth = 450f;
-			float tableHeight = 315f;
+			float tableX = 39f;
+			float tableY = 680f;
+			float tableWidth = 514f;
+			float tableHeight = 100.0f;
 
 			float bgX = tableX - 10f;
-			float bgY = tableY - 8f;
+			float bgY = tableY - tableHeight + 26 - 15f;
 			float bgWidth = tableWidth + 19f;
-			float bgHeight = tableHeight + 30f;
+			float bgHeight = tableHeight + 37f;
 
 			float headWidth = 170f;
 			float headHeight = 26f;
 			float headMargin = 13.2f;
+
+			String[] labels = constantHindi.birthDetailLabel;
+			String[] values = { desktopHoro.getName(), getBirthDate(), desktopHoro.getBirthTime(),
+					desktopHoro.getPlace(), String.valueOf(desktopHoro.getAyan()), desktopHoro.getGanaName(),
+					desktopHoro.getLatitude(), desktopHoro.getLongitude() };
+			drawBgWithHeader(bgX, bgY, bgWidth, bgHeight, headWidth, headHeight, headMargin, "tUe fooj.k", 14);
+			drawTable(tableX, tableY, tableWidth, 4, labels, values, poppinsRegularFont, 10);
+
+			tableY = 250f;
+			tableWidth = 320f;
+			tableX = pageWidth / 2 - 160f;
+			tableHeight = 280f;
+
+			bgX = tableX - 10f;
+			bgY = tableY - 8f;
+			bgWidth = tableWidth + 19f;
+			bgHeight = tableHeight + 30f;
+
 			drawBgWithHeader(bgX, bgY, bgWidth, bgHeight, headWidth, headHeight, headMargin, "yXu pkVZ", 14);
 
 			int[] planetArray = getIntArray(desktopHoro.getPositionForShodasvarg(0), 0);
 			drawChart(tableX, tableY, tableWidth, tableHeight, planetArray, 16);
-			tableX = 35f;
-			tableY = 100f;
-			tableWidth = 240f;
-			tableHeight = 220f;
 
-			bgX = tableX - 10f;
-			bgY = tableY - 8f;
-			bgWidth = tableWidth + 19f;
-			bgHeight = tableHeight + 30f;
-
-			headWidth = 170f;
-			headHeight = 26f;
-			headMargin = 13.2f;
-			drawBgWithHeader(bgX, bgY, bgWidth, bgHeight, headWidth, headHeight, headMargin, "paæ pkVZ", 14);
-			planetArray = getIntArray(desktopHoro.getPositionForShodasvarg(0), 2);
-			drawChart(tableX, tableY, tableWidth, tableHeight, planetArray, 12);
-			tableX = 310f;
-			tableY = 100f;
-			tableWidth = 240f;
-			tableHeight = 220f;
-
-			bgX = tableX - 10f;
-			bgY = tableY - 8f;
-			bgWidth = tableWidth + 19f;
-			bgHeight = tableHeight + 30f;
-
-			headWidth = 170f;
-			headHeight = 26f;
-			headMargin = 13.2f;
-			drawBgWithHeader(bgX, bgY, bgWidth, bgHeight, headWidth, headHeight, headMargin, "uoeka'k pkVZ", 14);
-			planetArray = getIntArray(desktopHoro.getPositionForShodasvarg(5), 0);
-			drawChart(tableX, tableY, tableWidth, tableHeight, planetArray, 12);
-
-			drawFooter(poppinsRegularFont, poppinsRegularFont, 0);
-
+			drawFooter(poppinsRegularFont, poppinsRegularFont, 15);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			// TODO: handle exception
 		}
 		return pageDetail.getPageInfo();
+	}
+
+	void drawTable(float x, float y, float width, int rowCount, String[] labels, String[] values, PDType0Font valueFont,
+			int valueFontSize) throws IOException {
+		float tx = x;
+		float ty = y;
+		float headerHeight = 24f;
+		float rowHeight = 24f;
+		float radius = 8;
+
+		float divider = 1f;
+		Color gradientEnd = new Color(255, 174, 35);
+		Color gradientStart = new Color(235, 78, 0);
+		Color headerBorderColor = new Color(205, 50, 0);
+		Color outerBorderColor = new Color(215, 125, 40);
+		Color gridColor = new Color(225, 215, 200);
+		Color alternateRowColor = new Color(255, 250, 240);
+		Color rowColor;
+
+		float[] colWidth = { 102f, 144f, 102f, 142f };
+		for (int i = 0; i < rowCount; i++) {
+
+			drawColorShape.drawGradientRect(tx, ty, colWidth[0], rowHeight, gradientStart, gradientEnd, true);
+			tx += colWidth[0];
+			// drawColorShape.drawSolidRectAngle(tx, ty, colWidth[1], rowHeight,
+			// Color.WHITE);
+			drawColorShape.drawGradientRect(tx, ty, colWidth[1], rowHeight, Color.WHITE, Color.WHITE, true);
+			tx += colWidth[1];
+			drawColorShape.drawGradientRect(tx, ty, colWidth[2], rowHeight, gradientStart, gradientEnd, true);
+			tx += colWidth[2];
+			drawColorShape.drawGradientRect(tx, ty, colWidth[3], rowHeight, Color.WHITE, Color.WHITE, true);
+			// ty -= .5;
+			tx = x;
+			if (i != rowCount - 1) {
+				drawColorShape.drawLine(tx, ty, tx + width, ty, 1, gridColor);
+				ty = ty - rowHeight - 1f;
+			}
+
+		}
+		float tableHeight = rowCount * rowHeight + rowCount * divider;
+		System.out.println("Height--" + tableHeight);
+		contentStream.saveGraphicsState();
+		contentStream.setStrokingColor(outerBorderColor);
+		contentStream.setLineWidth(1f);
+		drawColorShape.drawRectAngle(tx, ty, width, tableHeight, gridColor, 1);
+		contentStream.stroke();
+		contentStream.restoreGraphicsState();
+		printValues(x, y, width, rowHeight, labels, values, valueFont, valueFontSize);
+
+	}
+
+	void printValues(float x, float y, float width, float rowHeight, String[] labels, String[] values,
+			PDType0Font valueFont, int valueFontSize) throws IOException {
+		float tx = x;
+		float ty = utility.getTextBaseline(poppinsRegularFont, y, rowHeight, 14);
+		float[] colWidth = { 102f, 144f, 102f, 142f };
+		for (int i = 0; i < labels.length; i = i + 2) {
+			drawColorShape.drawBoldText(tx + 10, ty, labels[i], krutiDevRegularFont, 14, Color.WHITE);
+			tx += colWidth[0];
+			drawColorShape.drawText(tx + 10, ty, values[i], valueFont, valueFontSize, planetColors[i]);
+			tx += colWidth[1];
+			drawColorShape.drawBoldText(tx + 10, ty, labels[i + 1], krutiDevRegularFont, 14, Color.WHITE);
+			tx += colWidth[2];
+			drawColorShape.drawText(tx + 10, ty, values[i + 1], valueFont, valueFontSize, planetColors[i + 1]);
+			tx = x;
+			ty -= rowHeight + 1;
+		}
 	}
 
 	void drawChart(float x, float y, float width, float height, int[] planetArray, int rashiFontSize) throws Exception {
@@ -293,6 +336,11 @@ public class ForthPage extends BasePage {
 		bhavNumber += 1;
 		return bhavNumber;
 
+	}
+
+	String getBirthDate() {
+		int[] arr = desktopHoro.getBirthDate();
+		return arr[0] + "-" + constantHindi.monthName[arr[1] - 1] + "-" + arr[2];
 	}
 
 	private int[] getIntArray(int[] planetPosition, int lagnaPos) {

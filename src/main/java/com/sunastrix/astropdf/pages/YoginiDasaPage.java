@@ -17,6 +17,7 @@ import com.sunastrix.astroganitlib.horo.DesktopHoroNew;
 import com.sunastrix.astroganitlib.model.BirthDetailBean;
 import com.sunastrix.astropdf.calculation.YoginiDashaCalculation;
 import com.sunastrix.astropdf.model.CharAntaraDashaModel;
+import com.sunastrix.astropdf.model.PageInfo;
 import com.sunastrix.astropdf.model.YoginiDashaModel;
 
 public class YoginiDasaPage extends BasePage {
@@ -66,28 +67,27 @@ public class YoginiDasaPage extends BasePage {
 		return yoginiDashaCalculation.getYoginiDashaData();
 	}
 
-	public void printDasha(PDDocument document, PDType0Font poppinsRegularFont, PDType0Font krutiDevRegularFont) {
+	public PageInfo printDasha(PDDocument document, PDType0Font poppinsRegularFont, PDType0Font krutiDevRegularFont) {
+		PageInfo pageInfo = drawPage(document, poppinsRegularFont, krutiDevRegularFont);
 		drawPage(document, poppinsRegularFont, krutiDevRegularFont);
-		drawPage(document, poppinsRegularFont, krutiDevRegularFont);
+		return pageInfo;
 	}
 
-	public void drawPage(PDDocument document, PDType0Font poppinsRegularFont, PDType0Font krutiDevRegularFont) {
+	public PageInfo drawPage(PDDocument document, PDType0Font poppinsRegularFont, PDType0Font krutiDevRegularFont) {
+		String pageHeading = ";ksfxuh n'kk";
 		this.document = document;
 		this.poppinsRegularFont = poppinsRegularFont;
 		this.krutiDevRegularFont = krutiDevRegularFont;
-		PDPage page = new PDPage(PDRectangle.A4);
-		document.addPage(page);
-		pageWidth = page.getMediaBox().getWidth();
-		pageHeight = page.getMediaBox().getHeight();
+		PageDetail pageDetail = addPage(pageHeading);
 
-		try (PDPageContentStream cs = new PDPageContentStream(document, page)) {
+		try (PDPageContentStream cs = new PDPageContentStream(document, pageDetail.getPage())) {
 
 			this.contentStream = cs;
 			drawShape.initialize(pageHeight, pageWidth, document, cs);
 			drawColorShape.initialize(pageHeight, pageWidth, document, cs);
-			drawPageBorder(document, page);
+			drawPageBorder(document, pageDetail.getPage());
 			drawCornerImages();
-			drawHeader(pageWidth, pageHeight, krutiDevRegularFont, "foa'kksÙkjh varj n'kk ");
+			drawHeader(pageWidth, pageHeight, krutiDevRegularFont, pageHeading);
 			// Draw Basic Details
 			float tableX = 39f;
 			float tableY = 700f;
@@ -110,6 +110,7 @@ public class YoginiDasaPage extends BasePage {
 			System.out.print(e.getMessage());
 			e.printStackTrace();
 		}
+		return pageDetail.getPageInfo();
 	}
 
 	void drawTable(float x, float y, float width, int rowCount, Color[] headerGradientColors, Color borderColor)

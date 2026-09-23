@@ -11,21 +11,26 @@ import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDType0Font;
 
 import com.sunastrix.astroganitlib.horo.DesktopHoroNew;
+import com.sunastrix.astroganitlib.model.BirthDetailBean;
+import com.sunastrix.astropdf.calculation.ChalitCalculation;
+import com.sunastrix.astropdf.calculation.TransitCalculation;
+import com.sunastrix.astropdf.model.KundliChalitTableModel;
 import com.sunastrix.astropdf.model.PageInfo;
-import com.sunastrix.astropdf.service_impl.PDFGenerateColorServiceImpl;
+import com.sunastrix.astropdf.model.TransitModel;
 
-public class ForthPage extends BasePage {
+public class ChalitChartAndTablePage extends BasePage {
 	Color[] planetColors = { new Color(230, 30, 70), new Color(200, 30, 160), new Color(230, 110, 0),
 			new Color(0, 90, 210), new Color(220, 30, 30), new Color(0, 150, 150), new Color(210, 130, 0),
 			new Color(50, 60, 200), new Color(0, 135, 60), new Color(140, 40, 190), new Color(180, 80, 0),
 			new Color(0, 130, 190), new Color(200, 40, 90) };
 
-	public ForthPage(DesktopHoroNew desktopHoro) {
+	public ChalitChartAndTablePage(DesktopHoroNew desktopHoro, BirthDetailBean birthDetailBean) {
 		this.desktopHoro = desktopHoro;
+		this.birthDetailBean = birthDetailBean;
 	}
 
 	public PageInfo drawPage(PDDocument document, PDType0Font poppinsRegularFont, PDType0Font krutiDevRegularFont) {
-		String pageHeading = "yXu] paæ vkSj uoeka'k pkVZ";
+		String pageHeading = "pfyr pkVZ vkSj rkfydk";
 		this.document = document;
 		this.poppinsRegularFont = poppinsRegularFont;
 		this.krutiDevRegularFont = krutiDevRegularFont;
@@ -46,79 +51,174 @@ public class ForthPage extends BasePage {
 			drawColorShape.drawSvg(svgBytes, pageWidth - margin - cornerSize, margin, cornerSize, cornerSize, 2);
 			drawColorShape.drawSvg(svgBytes, margin, margin, cornerSize, cornerSize, 3);
 			drawHeader(pageWidth, pageHeight, krutiDevRegularFont, pageHeading);
+
 			// Draw Basic Details
-			float tableX = 70f;
-			float tableY = 390f;
-			float tableWidth = 450f;
-			float tableHeight = 315f;
+			float tableX = 39f;
+			float tableY = 480f;
+			float tableWidth = 240f;
+			float tableHeight = 220f;
+			float radius = 8f;
 
 			float bgX = tableX - 10f;
 			float bgY = tableY - 8f;
 			float bgWidth = tableWidth + 19f;
-			float bgHeight = tableHeight + 30f;
+			float bgHeight = tableHeight + 37f;
 
 			float headWidth = 170f;
-			float headHeight = 26f;
-			float headMargin = 13.2f;
-			drawBgWithHeader(bgX, bgY, bgWidth, bgHeight, headWidth, headHeight, headMargin, "yXu pkVZ", 14);
-
-			int[] planetArray = getIntArray(desktopHoro.getPositionForShodasvarg(0), 0);
-			drawChart(tableX, tableY, tableWidth, tableHeight, planetArray, 16);
-			tableX = 35f;
-			tableY = 100f;
-			tableWidth = 240f;
-			tableHeight = 220f;
-
-			bgX = tableX - 10f;
-			bgY = tableY - 8f;
-			bgWidth = tableWidth + 19f;
-			bgHeight = tableHeight + 30f;
-
-			headWidth = 170f;
-			headHeight = 26f;
-			headMargin = 13.2f;
-			drawBgWithHeader(bgX, bgY, bgWidth, bgHeight, headWidth, headHeight, headMargin, "paæ pkVZ", 14);
-			planetArray = getIntArray(desktopHoro.getPositionForShodasvarg(0), 2);
-			drawChart(tableX, tableY, tableWidth, tableHeight, planetArray, 12);
+			float headHeight = 30f;
+			float headMargin = 15.2f;
+			drawBgWithHeader(bgX, bgY, bgWidth, bgHeight, headWidth, headHeight, headMargin, "pfyr pkVZ", 14);
+			ChalitCalculation chalitCalculation = new ChalitCalculation(desktopHoro);
+			int[] planetArray = chalitCalculation.getChalitChartArray();
+			drawChart(tableX, tableY, tableWidth, tableHeight, planetArray, planetArray[12], 12);
 			tableX = 310f;
-			tableY = 100f;
+			tableY = 480f;
 			tableWidth = 240f;
 			tableHeight = 220f;
+			radius = 8f;
 
 			bgX = tableX - 10f;
 			bgY = tableY - 8f;
 			bgWidth = tableWidth + 19f;
-			bgHeight = tableHeight + 30f;
+			bgHeight = tableHeight + 37f;
+			drawBgWithHeader(bgX, bgY, bgWidth, bgHeight, headWidth, headHeight, headMargin, "xkspj", 14);
+			TransitModel transitModel = new TransitCalculation().calculate(birthDetailBean);
+			drawChart(tableX, tableY, tableWidth, tableHeight, transitModel.getPlaRashiArray(), transitModel.getLagna(),
+					12);
+			tableX = 39f;
+			tableY = 390f;
+			tableWidth = 514f;
+			tableHeight = 26 + 12 * 22 + 5 * 1;
+
+			bgX = tableX - 10f;
+			bgY = tableY - tableHeight + 26 - 15f;
+			bgWidth = tableWidth + 19f;
+			bgHeight = tableHeight + 37f;
 
 			headWidth = 170f;
 			headHeight = 26f;
 			headMargin = 13.2f;
-			drawBgWithHeader(bgX, bgY, bgWidth, bgHeight, headWidth, headHeight, headMargin, "uoeka'k pkVZ", 14);
-			planetArray = getIntArray(desktopHoro.getPositionForShodasvarg(5), 0);
-			drawChart(tableX, tableY, tableWidth, tableHeight, planetArray, 12);
+			drawBgWithHeader(bgX, bgY, bgWidth, bgHeight, headWidth, headHeight, headMargin, "pfyr rkfydk", 14);
+			drawBhavTable(tableX, tableY, tableWidth);
 
-			drawFooter(poppinsRegularFont, poppinsRegularFont, 0);
+			drawFooter(poppinsRegularFont, poppinsRegularFont, 15);
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			System.out.print(e.getMessage());
 			e.printStackTrace();
 		}
 		return pageDetail.getPageInfo();
 	}
 
-	void drawChart(float x, float y, float width, float height, int[] planetArray, int rashiFontSize) throws Exception {
+	private void drawBhavTable(float x, float y, float width) throws IOException {
+		float tx = x;
+		float ty = y;
+		float headerHeight = 26f;
+		float rowHeight = 22f;
+		float radius = 8;
+		int rowCount = 12;
+		float divider = 1f;
+		Color gradientEnd = new Color(255, 174, 35);
+		Color gradientStart = new Color(235, 78, 0);
+		Color headerBorderColor = new Color(205, 50, 0);
+		Color outerBorderColor = new Color(215, 125, 40);
+		Color gridColor = new Color(225, 215, 200);
+		Color alternateRowColor = new Color(255, 250, 240);
+		Color rowColor;
+
+		drawColorShape.drawTopRoundedGradientRect(tx, ty, width, headerHeight, radius - 2, gradientStart, gradientEnd,
+				false);
+		ty -= .5;
+		drawColorShape.drawLine(tx, ty, tx + width, ty, 1f, gridColor);
+
+		for (int i = 0; i < rowCount; i++) {
+			ty = ty - rowHeight - .5f;
+			if (i % 2 == 0) {
+				// rowColor = new Color(252, 246, 235);
+				rowColor = Color.WHITE;
+			} else {
+				rowColor = new Color(251, 241, 225);
+			}
+			contentStream.setNonStrokingColor(rowColor);
+			if (i == rowCount - 1) {
+				drawColorShape.drawSolidBottomRoundedRectangle(tx, ty, width, rowHeight, radius, rowColor);
+			} else {
+				drawColorShape.drawSolidRectAngle(tx, ty, width, rowHeight, rowColor);
+				ty -= .5;
+				drawColorShape.drawLine(tx, ty, tx + width, ty, 1, gridColor);
+
+			}
+
+		}
+
+		float[] columnWidth = { 55f, 90f, 140f, 90f };
+		float cx = x;
+		float tableHeight = headerHeight + rowCount * rowHeight + rowCount * divider;
+		for (int i = 0; i < columnWidth.length; i++) {
+			cx += columnWidth[i];
+			System.out.println(cx);
+			drawColorShape.drawLine(cx, ty, cx, ty + tableHeight, 1f, gridColor);
+		}
+		contentStream.saveGraphicsState();
+		contentStream.setStrokingColor(outerBorderColor);
+		contentStream.setLineWidth(1f);
+		drawColorShape.drawRoundedRectangle(tx, ty, width, tableHeight, radius);
+		contentStream.stroke();
+		contentStream.restoreGraphicsState();
+		populatePlanetDetail(x, y, width);
+	}
+
+	void populatePlanetDetail(float x, float y, float width) throws IOException {
+		ArrayList<KundliChalitTableModel> list = new ChalitCalculation(desktopHoro).getChalitTableData();
+		String[] heading = constantHindi.chalitTableHeading;
+		float headerHeight = 26f;
+		float tx = x;
+		float starty = utility.getTextBaseline(krutiDevRegularFont, y - 1, headerHeight, 14);
+		float rowHeight = 22f;
+		float boxWidth = 50;
+		float[] columnWidth = { 55f, 90f, 140f, 90f, 140f };
+		for (int i = 0; i < heading.length; i++) {
+			drawColorShape.drawCenteredBoldText(tx, columnWidth[i], starty, heading[i], 18, krutiDevRegularFont,
+					Color.WHITE);
+			tx += columnWidth[i];
+		}
+		starty = y - rowHeight - 1;
+		starty = utility.getTextBaseline(krutiDevRegularFont, starty, rowHeight, 14);
+		KundliChalitTableModel kundliChalitTableModel;
+		for (int i = 0; i < list.size(); i++) {
+			kundliChalitTableModel = list.get(i);
+			tx = x;
+			drawColorShape.drawCenteredText(String.valueOf(kundliChalitTableModel.getBhav()), tx, tx + columnWidth[0],
+					starty, krutiDevRegularFont, 14, planetColors[i]);
+			tx += columnWidth[0];
+			drawColorShape.drawCenteredText(String.valueOf(kundliChalitTableModel.getBhBegSign()), tx,
+					tx + columnWidth[1], starty, krutiDevRegularFont, 14, planetColors[i]);
+			tx += columnWidth[1];
+			drawColorShape.drawCenteredText(String.valueOf(kundliChalitTableModel.getBhBegDeg()), tx,
+					tx + columnWidth[2], starty, poppinsRegularFont, 10, planetColors[i]);
+			tx += columnWidth[2];
+			drawColorShape.drawCenteredText(String.valueOf(kundliChalitTableModel.getBhMidSign()), tx,
+					tx + columnWidth[3], starty, krutiDevRegularFont, 14, planetColors[i]);
+			tx += columnWidth[3];
+			drawColorShape.drawCenteredText(String.valueOf(kundliChalitTableModel.getBhMidDeg()), tx,
+					tx + columnWidth[4], starty, poppinsRegularFont, 10, planetColors[i]);
+
+			starty -= (rowHeight + 1f);
+		}
+
+	}
+
+	void drawChart(float x, float y, float width, float height, int[] planetArray, int lagna, int rashiFontSize)
+			throws Exception {
 		byte[] svgBytes = getClass().getResourceAsStream("/images/lagna_chart_scaled.svg").readAllBytes();
 		drawColorShape.drawExactSvg(svgBytes, x, y, width, height);
 		drawRashiInBhav(x, y, width, height, planetArray[12], rashiFontSize);
-		printPlanetsInHouse(x, y, width, height, planetArray, planetArray[12], rashiFontSize);
+		printPlanetsInHouse(x, y, width, height, planetArray, lagna, 16);
 	}
 
 	private void drawRashiInBhav(float x, float y, float width, float height, int lagna, int rashiFontSize)
 			throws IOException {
-		float cx = x;
-		float cy = y;
-		float cwidth = width;
-		float cheight = height;
+
 		float quarterX = width / 4;
 		float quarterY = height / 4;
 
@@ -144,18 +244,12 @@ public class ForthPage extends BasePage {
 
 	private void printPlanetsInHouse(float x, float y, float width, float height, int[] planetArray, int lagnaRashi,
 			int fontSize) throws IOException {
-		float cx = x;
-		float cy = y;
-		float cwidth = width;
-		float cheight = height;
+
 		float quarterX = width / 4;
 		float quarterY = height / 4;
-		float halfX = width / 2;
 		float halfY = height / 2;
 		float hMargin = quarterX / 4;
 		float vMargin = quarterY / 5;
-		float centerX1 = (x + hMargin / 2);
-		float centerY1 = y + 3 * quarterY + vMargin / 2;
 
 		/* 2,6,8 and 12 house */
 		float[] housePositionsX2 = { x + quarterX - 5, x + quarterX - 5 - hMargin, x + quarterX - 5 + hMargin,
@@ -295,14 +389,4 @@ public class ForthPage extends BasePage {
 
 	}
 
-	private int[] getIntArray(int[] planetPosition, int lagnaPos) {
-
-		int[] intArray = new int[13];
-		int lagna = planetPosition[lagnaPos];
-		for (int i = 0; i < planetPosition.length - 1; i++) {
-			intArray[i] = planetPosition[i + 1];
-		}
-		intArray[planetPosition.length - 1] = lagna;
-		return intArray;
-	}
 }

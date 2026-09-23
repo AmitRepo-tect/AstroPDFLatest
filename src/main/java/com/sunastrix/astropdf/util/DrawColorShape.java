@@ -864,7 +864,7 @@ public class DrawColorShape {
 
 		contentStream.setStrokingColor(borderColor);
 
-		contentStream.setLineWidth(1.2f);
+		contentStream.setLineWidth(1f);
 
 		contentStream.moveTo(x, y);
 
@@ -938,4 +938,65 @@ public class DrawColorShape {
 		contentStream.restoreGraphicsState();
 	}
 
+	public void drawCurvedSideDesign(float x, float y, float height) throws IOException {
+
+		float radius = 18f;
+		float k = 0.5522848f;
+
+		contentStream.saveGraphicsState();
+
+		contentStream.setStrokingColor(new Color(238, 165, 35));
+
+		contentStream.setLineWidth(4f);
+		contentStream.setLineCapStyle(1);
+		contentStream.setLineJoinStyle(1);
+
+		// --------------------------------------------
+		// BOTTOM
+		// --------------------------------------------
+
+		contentStream.moveTo(x + radius, y);
+
+		contentStream.curveTo(x + radius - radius * k, y, x, y + radius - radius * k, x, y + radius);
+
+		// --------------------------------------------
+		// VERTICAL
+		// --------------------------------------------
+
+		contentStream.lineTo(x, y + height - radius);
+
+		// --------------------------------------------
+		// TOP
+		// --------------------------------------------
+
+		contentStream.curveTo(x, y + height - radius + radius * k, x + radius - radius * k, y + height, x + radius,
+				y + height);
+
+		// --------------------------------------------
+		// TOP EXTENSION
+		// --------------------------------------------
+
+		contentStream.lineTo(x + 55f, y + height);
+
+		contentStream.stroke();
+
+		contentStream.restoreGraphicsState();
+	}
+
+	public void drawDotLine(float x1, float y, float x2) throws IOException {
+
+		contentStream.saveGraphicsState();
+
+		contentStream.setStrokingColor(new Color(120, 120, 120));
+		contentStream.setLineWidth(1f);
+
+		// [dot length, gap length]
+		contentStream.setLineDashPattern(new float[] { 1f, 4f }, 0);
+
+		contentStream.moveTo(x1, y);
+		contentStream.lineTo(x2, y);
+		contentStream.stroke();
+
+		contentStream.restoreGraphicsState();
+	}
 }

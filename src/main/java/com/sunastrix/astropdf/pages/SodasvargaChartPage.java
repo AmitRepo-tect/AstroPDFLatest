@@ -12,25 +12,33 @@ import org.apache.pdfbox.pdmodel.font.PDType0Font;
 
 import com.sunastrix.astroganitlib.horo.DesktopHoroNew;
 import com.sunastrix.astropdf.model.PageInfo;
-import com.sunastrix.astropdf.service_impl.PDFGenerateColorServiceImpl;
 
-public class ForthPage extends BasePage {
+public class SodasvargaChartPage extends BasePage {
 	Color[] planetColors = { new Color(230, 30, 70), new Color(200, 30, 160), new Color(230, 110, 0),
 			new Color(0, 90, 210), new Color(220, 30, 30), new Color(0, 150, 150), new Color(210, 130, 0),
 			new Color(50, 60, 200), new Color(0, 135, 60), new Color(140, 40, 190), new Color(180, 80, 0),
 			new Color(0, 130, 190), new Color(200, 40, 90) };
 
-	public ForthPage(DesktopHoroNew desktopHoro) {
+	public SodasvargaChartPage(DesktopHoroNew desktopHoro) {
 		this.desktopHoro = desktopHoro;
 	}
 
-	public PageInfo drawPage(PDDocument document, PDType0Font poppinsRegularFont, PDType0Font krutiDevRegularFont) {
-		String pageHeading = "yXu] paæ vkSj uoeka'k pkVZ";
+	public PageInfo printChart(PDDocument document, PDType0Font poppinsRegularFont, PDType0Font krutiDevRegularFont) {
+		int[] planetArray = getIntArray(desktopHoro.getPositionForShodasvarg(0), 0);
+		PageInfo pageInfo = drawPage(document, poppinsRegularFont, krutiDevRegularFont, planetArray, planetArray[12]);
+		drawPage(document, poppinsRegularFont, krutiDevRegularFont, planetArray, planetArray[12]);
+		drawPage(document, poppinsRegularFont, krutiDevRegularFont, planetArray, planetArray[12]);
+		drawPage(document, poppinsRegularFont, krutiDevRegularFont, planetArray, planetArray[12]);
+		return pageInfo;
+	}
+
+	public PageInfo drawPage(PDDocument document, PDType0Font poppinsRegularFont, PDType0Font krutiDevRegularFont,
+			int[] planetArray, int lagna) {
+		String pageHeading = " 'kksM\"koxZ pkVZ";
 		this.document = document;
 		this.poppinsRegularFont = poppinsRegularFont;
 		this.krutiDevRegularFont = krutiDevRegularFont;
 		PageDetail pageDetail = addPage(pageHeading);
-		float cornerSize = 30f;
 
 		try (PDPageContentStream cs = new PDPageContentStream(document, pageDetail.getPage())) {
 
@@ -38,64 +46,61 @@ public class ForthPage extends BasePage {
 			drawShape.initialize(pageHeight, pageWidth, document, cs);
 			drawColorShape.initialize(pageHeight, pageWidth, document, cs);
 			drawPageBorder(document, pageDetail.getPage());
-			byte[] svgBytes = getClass().getResourceAsStream("/images/corner_left_top.svg").readAllBytes();
-			float margin = 15f;
-			drawColorShape.drawSvg(svgBytes, margin, pageHeight - margin - cornerSize, cornerSize, cornerSize, 0);
-			drawColorShape.drawSvg(svgBytes, pageWidth - margin - cornerSize, pageHeight - margin - cornerSize,
-					cornerSize, cornerSize, 1);
-			drawColorShape.drawSvg(svgBytes, pageWidth - margin - cornerSize, margin, cornerSize, cornerSize, 2);
-			drawColorShape.drawSvg(svgBytes, margin, margin, cornerSize, cornerSize, 3);
+			drawCornerImages();
 			drawHeader(pageWidth, pageHeight, krutiDevRegularFont, pageHeading);
 			// Draw Basic Details
-			float tableX = 70f;
-			float tableY = 390f;
-			float tableWidth = 450f;
-			float tableHeight = 315f;
-
+			float tableX = 40f;
+			float tableY = 480f;
+			float tableWidth = 240f;
+			float tableHeight = 220f;
 			float bgX = tableX - 10f;
 			float bgY = tableY - 8f;
 			float bgWidth = tableWidth + 19f;
 			float bgHeight = tableHeight + 30f;
-
 			float headWidth = 170f;
 			float headHeight = 26f;
 			float headMargin = 13.2f;
 			drawBgWithHeader(bgX, bgY, bgWidth, bgHeight, headWidth, headHeight, headMargin, "yXu pkVZ", 14);
-
-			int[] planetArray = getIntArray(desktopHoro.getPositionForShodasvarg(0), 0);
-			drawChart(tableX, tableY, tableWidth, tableHeight, planetArray, 16);
-			tableX = 35f;
-			tableY = 100f;
+			drawChart(tableX, tableY, tableWidth, tableHeight, 12, planetArray, planetArray[12]);
+			tableX = 315f;
+			tableY = 480f;
 			tableWidth = 240f;
 			tableHeight = 220f;
-
 			bgX = tableX - 10f;
 			bgY = tableY - 8f;
 			bgWidth = tableWidth + 19f;
 			bgHeight = tableHeight + 30f;
-
-			headWidth = 170f;
-			headHeight = 26f;
-			headMargin = 13.2f;
-			drawBgWithHeader(bgX, bgY, bgWidth, bgHeight, headWidth, headHeight, headMargin, "paæ pkVZ", 14);
-			planetArray = getIntArray(desktopHoro.getPositionForShodasvarg(0), 2);
-			drawChart(tableX, tableY, tableWidth, tableHeight, planetArray, 12);
-			tableX = 310f;
-			tableY = 100f;
-			tableWidth = 240f;
-			tableHeight = 220f;
-
-			bgX = tableX - 10f;
-			bgY = tableY - 8f;
-			bgWidth = tableWidth + 19f;
-			bgHeight = tableHeight + 30f;
-
 			headWidth = 170f;
 			headHeight = 26f;
 			headMargin = 13.2f;
 			drawBgWithHeader(bgX, bgY, bgWidth, bgHeight, headWidth, headHeight, headMargin, "uoeka'k pkVZ", 14);
-			planetArray = getIntArray(desktopHoro.getPositionForShodasvarg(5), 0);
-			drawChart(tableX, tableY, tableWidth, tableHeight, planetArray, 12);
+			drawChart(tableX, tableY, tableWidth, tableHeight, 12, planetArray, planetArray[12]);
+			tableX = 40f;
+			tableY = 190f;
+			tableWidth = 240f;
+			tableHeight = 220f;
+			bgX = tableX - 10f;
+			bgY = tableY - 8f;
+			bgWidth = tableWidth + 19f;
+			bgHeight = tableHeight + 30f;
+			headWidth = 170f;
+			headHeight = 26f;
+			headMargin = 13.2f;
+			drawBgWithHeader(bgX, bgY, bgWidth, bgHeight, headWidth, headHeight, headMargin, "paæ pkVZ", 14);
+			drawChart(tableX, tableY, tableWidth, tableHeight, 12, planetArray, planetArray[12]);
+			tableX = 315f;
+			tableY = 190f;
+			tableWidth = 240f;
+			tableHeight = 220f;
+			bgX = tableX - 10f;
+			bgY = tableY - 8f;
+			bgWidth = tableWidth + 19f;
+			bgHeight = tableHeight + 30f;
+			headWidth = 170f;
+			headHeight = 26f;
+			headMargin = 13.2f;
+			drawBgWithHeader(bgX, bgY, bgWidth, bgHeight, headWidth, headHeight, headMargin, "uoeka'k pkVZ", 14);
+			drawChart(tableX, tableY, tableWidth, tableHeight, 12, planetArray, planetArray[12]);
 
 			drawFooter(poppinsRegularFont, poppinsRegularFont, 0);
 
@@ -106,11 +111,12 @@ public class ForthPage extends BasePage {
 		return pageDetail.getPageInfo();
 	}
 
-	void drawChart(float x, float y, float width, float height, int[] planetArray, int rashiFontSize) throws Exception {
+	void drawChart(float x, float y, float width, float height, int rashiFontSize, int[] planetArray, int lagna)
+			throws Exception {
 		byte[] svgBytes = getClass().getResourceAsStream("/images/lagna_chart_scaled.svg").readAllBytes();
 		drawColorShape.drawExactSvg(svgBytes, x, y, width, height);
 		drawRashiInBhav(x, y, width, height, planetArray[12], rashiFontSize);
-		printPlanetsInHouse(x, y, width, height, planetArray, planetArray[12], rashiFontSize);
+		printPlanetsInHouse(x, y, width, height, planetArray, lagna, rashiFontSize);
 	}
 
 	private void drawRashiInBhav(float x, float y, float width, float height, int lagna, int rashiFontSize)

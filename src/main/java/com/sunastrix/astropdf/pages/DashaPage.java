@@ -12,163 +12,101 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDType0Font;
 
+import com.sunastrix.astroganitlib.horo.DesktopHoroNew;
 import com.sunastrix.astroganitlib.model.BirthDetailBean;
 import com.sunastrix.astroganitlib.model.DateTimeBean;
 import com.sunastrix.astropdf.calculation.DashaCalculation;
 import com.sunastrix.astropdf.model.DasaBean;
+import com.sunastrix.astropdf.model.PageInfo;
 
-public class Page7 extends BasePage {
+public class DashaPage extends BasePage {
 	DashaCalculation calculation;
 	Color startColor = new Color(130, 0, 14); // #82000E
 	Color middleColor = new Color(201, 0, 28); // #C9001C
 	Color endColor = new Color(130, 0, 14); // #82000E
-	Color[][] headerGradientColors = {
-			// Jupiter
-			{ new Color(255, 224, 145), new Color(255, 197, 75) },
-			// Saturn
+	Color[][] headerGradientColors = { { new Color(255, 224, 145), new Color(255, 197, 75) },
 			{ new Color(190, 213, 255), new Color(135, 174, 245) },
-			// Mercury
 			{ new Color(195, 242, 207), new Color(145, 220, 170) },
-			// Ketu
 			{ new Color(255, 205, 220), new Color(255, 160, 190) },
-			// Venus
 			{ new Color(255, 205, 235), new Color(245, 160, 210) },
-			// Sun
 			{ new Color(255, 225, 150), new Color(255, 195, 75) },
-			// Moon
 			{ new Color(190, 225, 255), new Color(130, 195, 250) },
-			// Mars
 			{ new Color(255, 205, 210), new Color(255, 155, 170) },
-			// Rahu
 			{ new Color(190, 240, 238), new Color(125, 210, 210) },
 			{ new Color(255, 225, 150), new Color(255, 195, 75) },
-			// Moon
 			{ new Color(190, 225, 255), new Color(130, 195, 250) },
-			// Mars
 			{ new Color(255, 205, 210), new Color(255, 155, 170) },
-			// Rahu
 			{ new Color(190, 240, 238), new Color(125, 210, 210) } };
-	Color[] headerBorderColors = { new Color(140, 90, 0), // JUP
-			new Color(45, 75, 135), // SAT
-			new Color(35, 105, 60), // MER
-			new Color(145, 45, 80), // KET
-			new Color(145, 45, 110), // VEN
-			new Color(145, 90, 0), // SUN
-			new Color(145, 45, 80), // KET
-			new Color(145, 45, 110), // VEN
-			new Color(145, 90, 0) // SUN
-	};
-	Color[][] headerGradientColors1 = {
-			// Ketu
-			{ new Color(255, 205, 220), new Color(255, 160, 190) },
-
-			// Venus
+	Color[] headerBorderColors = { new Color(140, 90, 0), new Color(45, 75, 135), new Color(35, 105, 60),
+			new Color(145, 45, 80), new Color(145, 45, 110), new Color(145, 90, 0), new Color(145, 45, 80),
+			new Color(145, 45, 110), new Color(145, 90, 0) };
+	Color[][] headerGradientColors1 = { { new Color(255, 205, 220), new Color(255, 160, 190) },
 			{ new Color(255, 205, 235), new Color(245, 160, 210) },
-
-			// Sun
 			{ new Color(255, 225, 150), new Color(255, 195, 75) },
-
-			// Moon
 			{ new Color(190, 225, 255), new Color(130, 195, 250) },
-
-			// Mars
 			{ new Color(255, 205, 210), new Color(255, 155, 170) },
-
-			// Rahu
 			{ new Color(190, 240, 238), new Color(125, 210, 210) },
-
-			// Jupiter
 			{ new Color(255, 224, 145), new Color(255, 197, 75) },
-
-			// Saturn
 			{ new Color(190, 213, 255), new Color(135, 174, 245) },
-
-			// Mercury
 			{ new Color(195, 242, 207), new Color(145, 220, 170) } };
 
-	Color[] planetColors = {
-
-			// Ketu - Dark Magenta
-			new Color(105, 20, 55),
-			// Venus - Dark Purple/Magenta
-			new Color(110, 20, 80),
-
-			// Sun - Dark Brown/Gold
-			new Color(105, 60, 0),
-
-			// Moon - Dark Blue
-			new Color(20, 65, 110),
-
-			// Mars - Dark Red
-			new Color(110, 30, 40),
-
-			// Rahu - Dark Teal
-			new Color(20, 85, 85),
-
-			// Jupiter - Dark Golden Brown
-			new Color(105, 60, 0),
-
-			// Saturn - Dark Navy Blue
-			new Color(20, 45, 100),
-
-			// Mercury - Dark Green
-			new Color(15, 75, 40) };
+	Color[] planetColors = { new Color(105, 20, 55), new Color(110, 20, 80), new Color(105, 60, 0),
+			new Color(20, 65, 110), new Color(110, 30, 40), new Color(20, 85, 85), new Color(105, 60, 0),
+			new Color(20, 45, 100), new Color(15, 75, 40) };
 	int hCount = 0;
 	int rCount = 0;
 	String dashaStartDate;
 	ArrayList<DasaBean> pratyantraDasaList;
 	ArrayList<DasaBean> anterDasaList;
 
-	public Page7(DashaCalculation calculation, BirthDetailBean birthDetailBean) {
-		this.calculation = calculation;
+	public DashaPage(DesktopHoroNew desktopHoro, BirthDetailBean birthDetailBean) {
+		calculation = new DashaCalculation(birthDetailBean, desktopHoro);
 		this.birthDetailBean = birthDetailBean;
 	}
 
-	public void printDasha(PDDocument document, PDType0Font poppinsRegularFont, PDType0Font krutiDevRegularFont) {
-		drawVimAntarPage(document, poppinsRegularFont, krutiDevRegularFont);
-		initDasha();
-		drawVimPratyntarPage(document, poppinsRegularFont, krutiDevRegularFont);
-		drawVimPratyntarPage(document, poppinsRegularFont, krutiDevRegularFont);
-		drawVimPratyntarPage(document, poppinsRegularFont, krutiDevRegularFont);
-		drawVimPratyntarPage(document, poppinsRegularFont, krutiDevRegularFont);
-		drawVimPratyntarPage(document, poppinsRegularFont, krutiDevRegularFont);
-		drawVimPratyntarPage(document, poppinsRegularFont, krutiDevRegularFont);
-		drawVimPratyntarPage(document, poppinsRegularFont, krutiDevRegularFont);
-		drawVimPratyntarPage(document, poppinsRegularFont, krutiDevRegularFont);
-		drawVimPratyntarPage(document, poppinsRegularFont, krutiDevRegularFont);
+	public PageInfo printAnterDasha(PDDocument document, PDType0Font poppinsRegularFont,
+			PDType0Font krutiDevRegularFont) {
+		return drawVimAntarPage(document, poppinsRegularFont, krutiDevRegularFont);
+
 	}
 
-	public void drawVimAntarPage(PDDocument document, PDType0Font poppinsRegularFont, PDType0Font krutiDevRegularFont) {
+	public PageInfo printPratyntarDasha(PDDocument document, PDType0Font poppinsRegularFont,
+			PDType0Font krutiDevRegularFont) {
+		initDasha();
+		PageInfo pageInfo = drawVimPratyntarPage(document, poppinsRegularFont, krutiDevRegularFont);
+		drawVimPratyntarPage(document, poppinsRegularFont, krutiDevRegularFont);
+		drawVimPratyntarPage(document, poppinsRegularFont, krutiDevRegularFont);
+		drawVimPratyntarPage(document, poppinsRegularFont, krutiDevRegularFont);
+		drawVimPratyntarPage(document, poppinsRegularFont, krutiDevRegularFont);
+		drawVimPratyntarPage(document, poppinsRegularFont, krutiDevRegularFont);
+		drawVimPratyntarPage(document, poppinsRegularFont, krutiDevRegularFont);
+		drawVimPratyntarPage(document, poppinsRegularFont, krutiDevRegularFont);
+		drawVimPratyntarPage(document, poppinsRegularFont, krutiDevRegularFont);
+		return pageInfo;
+	}
+
+	public PageInfo drawVimAntarPage(PDDocument document, PDType0Font poppinsRegularFont,
+			PDType0Font krutiDevRegularFont) {
+		String pageHeading = "foa'kksÙkjh varj n'kk";
 		this.document = document;
 		this.poppinsRegularFont = poppinsRegularFont;
 		this.krutiDevRegularFont = krutiDevRegularFont;
-		PDPage page = new PDPage(PDRectangle.A4);
-		document.addPage(page);
-		float cornerSize = 30f;
-		pageWidth = page.getMediaBox().getWidth();
-		pageHeight = page.getMediaBox().getHeight();
+		PageDetail pageDetail = addPage(pageHeading);
 
-		try (PDPageContentStream cs = new PDPageContentStream(document, page)) {
+		try (PDPageContentStream cs = new PDPageContentStream(document, pageDetail.getPage())) {
 
 			this.contentStream = cs;
 			drawShape.initialize(pageHeight, pageWidth, document, cs);
 			drawColorShape.initialize(pageHeight, pageWidth, document, cs);
-			drawPageBorder(document, page);
-			byte[] svgBytes = getClass().getResourceAsStream("/images/corner_left_top.svg").readAllBytes();
-			float margin = 15f;
-			drawColorShape.drawSvg(svgBytes, margin, pageHeight - margin - cornerSize, cornerSize, cornerSize, 0);
-			drawColorShape.drawSvg(svgBytes, pageWidth - margin - cornerSize, pageHeight - margin - cornerSize,
-					cornerSize, cornerSize, 1);
-			drawColorShape.drawSvg(svgBytes, pageWidth - margin - cornerSize, margin, cornerSize, cornerSize, 2);
-			drawColorShape.drawSvg(svgBytes, margin, margin, cornerSize, cornerSize, 3);
-			drawHeader(pageWidth, pageHeight, krutiDevRegularFont, "foa'kksÙkjh varj n'kk ");
+			drawPageBorder(document, pageDetail.getPage());
+			drawCornerImages();
+			drawHeader(pageWidth, pageHeight, krutiDevRegularFont, pageHeading);
 			// Draw Basic Details
 			float tableX = 39f;
 			float tableY = 710f;
 			float tableWidth = ((pageWidth - 100f) / 3);
 			float tableHeight = 30f;
 			float headerHeight = 30f;
-			svgBytes = getClass().getResourceAsStream("/images/header22.svg").readAllBytes();
 
 			for (int i = 0; i < 3; i++) {
 				for (int j = 0; j < 3; j++) {
@@ -192,32 +130,24 @@ public class Page7 extends BasePage {
 			System.out.print(e.getMessage());
 			e.printStackTrace();
 		}
+		return pageDetail.getPageInfo();
 	}
 
-	public void drawVimPratyntarPage(PDDocument document, PDType0Font poppinsRegularFont,
+	public PageInfo drawVimPratyntarPage(PDDocument document, PDType0Font poppinsRegularFont,
 			PDType0Font krutiDevRegularFont) {
+		String pageHeading = "foa'kksÙkjh çR;arj n'kk";
 		this.document = document;
 		this.poppinsRegularFont = poppinsRegularFont;
 		this.krutiDevRegularFont = krutiDevRegularFont;
-		PDPage page = new PDPage(PDRectangle.A4);
-		document.addPage(page);
-		float cornerSize = 30f;
-		pageWidth = page.getMediaBox().getWidth();
-		pageHeight = page.getMediaBox().getHeight();
+		PageDetail pageDetail = addPage(pageHeading);
 
-		try (PDPageContentStream cs = new PDPageContentStream(document, page)) {
+		try (PDPageContentStream cs = new PDPageContentStream(document, pageDetail.getPage())) {
 
 			this.contentStream = cs;
 			drawShape.initialize(pageHeight, pageWidth, document, cs);
 			drawColorShape.initialize(pageHeight, pageWidth, document, cs);
-			drawPageBorder(document, page);
-			byte[] svgBytes = getClass().getResourceAsStream("/images/corner_left_top.svg").readAllBytes();
-			float margin = 15f;
-			drawColorShape.drawSvg(svgBytes, margin, pageHeight - margin - cornerSize, cornerSize, cornerSize, 0);
-			drawColorShape.drawSvg(svgBytes, pageWidth - margin - cornerSize, pageHeight - margin - cornerSize,
-					cornerSize, cornerSize, 1);
-			drawColorShape.drawSvg(svgBytes, pageWidth - margin - cornerSize, margin, cornerSize, cornerSize, 2);
-			drawColorShape.drawSvg(svgBytes, margin, margin, cornerSize, cornerSize, 3);
+			drawPageBorder(document, pageDetail.getPage());
+			drawCornerImages();
 			drawHeader(pageWidth, pageHeight, krutiDevRegularFont, "foa'kksÙkjh çR;arj n'kk");
 			// Draw Basic Details
 			float tableX = 39f;
@@ -225,7 +155,6 @@ public class Page7 extends BasePage {
 			float tableWidth = ((pageWidth - 100f) / 3);
 			float tableHeight = 30f;
 			float headerHeight = 30f;
-			svgBytes = getClass().getResourceAsStream("/images/header22.svg").readAllBytes();
 
 			for (int i = 0; i < 3; i++) {
 				for (int j = 0; j < 3; j++) {
@@ -249,6 +178,7 @@ public class Page7 extends BasePage {
 			System.out.print(e.getMessage());
 			e.printStackTrace();
 		}
+		return pageDetail.getPageInfo();
 	}
 
 	private void initDasha() {

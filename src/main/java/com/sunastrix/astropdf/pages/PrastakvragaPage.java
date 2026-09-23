@@ -10,6 +10,7 @@ import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDType0Font;
 import com.sunastrix.astroganitlib.horo.DesktopHoroNew;
 import com.sunastrix.astropdf.calculation.PrashtakVargaCalculation;
+import com.sunastrix.astropdf.model.PageInfo;
 import com.sunastrix.astropdf.model.PrastharashtakvargaModel;
 
 public class PrastakvragaPage extends BasePage {
@@ -26,29 +27,30 @@ public class PrastakvragaPage extends BasePage {
 		this.desktopHoro = desktopHoro;
 	}
 
-	public void printPrastakvargaTable(PDDocument document, PDType0Font poppinsRegularFont) {
-		prashtakVargaList = new PrashtakVargaCalculation(desktopHoro).getPrashtakVargaData();
-		drawPage(document, poppinsRegularFont);
-		drawPage(document, poppinsRegularFont);
-		drawPage(document, poppinsRegularFont);
-		drawPage(document, poppinsRegularFont);
-	}
-
-	public void drawPage(PDDocument document, PDType0Font poppinsRegularFont) {
+	public PageInfo printPrastakvargaTable(PDDocument document, PDType0Font poppinsRegularFont,
+			PDType0Font krutiDevRegularFont) {
 		this.document = document;
 		this.poppinsRegularFont = poppinsRegularFont;
-		PDPage page = new PDPage(PDRectangle.A4);
-		document.addPage(page);
-		pageWidth = page.getMediaBox().getWidth();
-		pageHeight = page.getMediaBox().getHeight();
+		this.krutiDevRegularFont = krutiDevRegularFont;
+		prashtakVargaList = new PrashtakVargaCalculation(desktopHoro).getPrashtakVargaData();
+		PageInfo pageInfo = drawPage();
+		drawPage();
+		drawPage();
+		drawPage();
+		return pageInfo;
+	}
 
-		try (PDPageContentStream cs = new PDPageContentStream(document, page)) {
+	public PageInfo drawPage() {
+		String pageHeading = "çLrjv\"VdoxZ rkfydk";
+		PageDetail pageDetail = addPage(pageHeading);
+
+		try (PDPageContentStream cs = new PDPageContentStream(document, pageDetail.getPage())) {
 			this.contentStream = cs;
 			drawShape.initialize(pageHeight, pageWidth, document, cs);
 			drawColorShape.initialize(pageHeight, pageWidth, document, cs);
-			drawPageBorder(document, page);
+			drawPageBorder(document, pageDetail.getPage());
 			drawCornerImages();
-			drawHeader(pageWidth, pageHeight, poppinsRegularFont, "Ashtakvarga Table");
+			drawHeader(pageWidth, pageHeight, krutiDevRegularFont, pageHeading);
 			// Draw Basic Details
 			float tableX = 39f;
 			float tableY = 670f;
@@ -63,7 +65,7 @@ public class PrastakvragaPage extends BasePage {
 			float headWidth = 170f;
 			float headHeight = 30f;
 			float headMargin = 15.2f;
-			drawBgWithHeader(bgX, bgY, bgWidth, bgHeight, headWidth, headHeight, headMargin, "Navamsa Chart", 12);
+			drawBgWithHeader(bgX, bgY, bgWidth, bgHeight, headWidth, headHeight, headMargin, "Navamsa Chart", 14);
 			drawTable(tableX, tableY, tableWidth, tableHeight);
 			populatePrastakTable(tableX, tableY, tableWidth, tableHeight);
 
@@ -86,6 +88,7 @@ public class PrastakvragaPage extends BasePage {
 			System.out.print(e.getMessage());
 			e.printStackTrace();
 		}
+		return pageDetail.getPageInfo();
 	}
 
 	private void drawTable(float x, float y, float width, float height) throws IOException {

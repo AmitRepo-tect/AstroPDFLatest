@@ -11,27 +11,25 @@ import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDType0Font;
 
 import com.sunastrix.astroganitlib.horo.DesktopHoroNew;
-import com.sunastrix.astroganitlib.model.BirthDetailBean;
-import com.sunastrix.astropdf.calculation.PlanetAndSunPlanetPositionCalculation;
-import com.sunastrix.astropdf.model.BasicPlanetDataModel;
-import com.sunastrix.astropdf.model.BasicPlanetSubDataModel;
+import com.sunastrix.astropdf.calculation.KPPlanetSignificationView2Calculation;
+import com.sunastrix.astropdf.calculation.KpKundliCalculation;
+import com.sunastrix.astropdf.model.HouseSignificatorsBean;
 import com.sunastrix.astropdf.model.PageInfo;
-import com.sunastrix.astropdf.service_impl.PDFGenerateColorServiceImpl;
+import com.sunastrix.astropdf.model.PlanetSignificationBean;
+import com.sunastrix.astropdf.model.PlanetSignificationView2Bean;
 
-public class PlanetPosPage extends BasePage {
-	Color[] planetColors = { new Color(105, 20, 55), new Color(110, 20, 80), new Color(105, 60, 0),
-			new Color(20, 65, 110), new Color(110, 30, 40), new Color(20, 85, 85), new Color(105, 60, 0),
-			new Color(20, 45, 100), new Color(15, 75, 40), new Color(90, 45, 105), new Color(120, 70, 20),
-			new Color(40, 100, 55), new Color(75, 35, 90) };
+public class KPSignificatorPage extends BasePage {
+	Color[] planetColors = { new Color(230, 30, 70), new Color(200, 30, 160), new Color(230, 110, 0),
+			new Color(0, 90, 210), new Color(220, 30, 30), new Color(0, 150, 150), new Color(210, 130, 0),
+			new Color(50, 60, 200), new Color(0, 135, 60), new Color(140, 40, 190), new Color(180, 80, 0),
+			new Color(0, 130, 190), new Color(200, 40, 90) };
 
-	public PlanetPosPage(DesktopHoroNew desktopHoro, BirthDetailBean birthDetailBean) {
+	public KPSignificatorPage(DesktopHoroNew desktopHoro) {
 		this.desktopHoro = desktopHoro;
-		this.birthDetailBean = birthDetailBean;
 	}
 
 	public PageInfo drawPage(PDDocument document, PDType0Font poppinsRegularFont, PDType0Font krutiDevRegularFont) {
-		String pageHeading = "xzg vkSj lc xzg fLFkfr";
-
+		String pageHeading = "tUe fooj.k vkSj vodgM+k pØ";
 		this.document = document;
 		this.poppinsRegularFont = poppinsRegularFont;
 		this.krutiDevRegularFont = krutiDevRegularFont;
@@ -44,13 +42,12 @@ public class PlanetPosPage extends BasePage {
 			drawColorShape.initialize(pageHeight, pageWidth, document, cs);
 			drawPageBorder(document, pageDetail.getPage());
 			drawCornerImages();
-			drawHeader(pageWidth, pageHeight, krutiDevRegularFont, "xzg vkSj lc xzg fLFkfr");
-
+			drawHeader(pageWidth, pageHeight, krutiDevRegularFont, pageHeading);
 			// Draw Basic Details
 			float tableX = 39f;
 			float tableY = 680f;
 			float tableWidth = 514f;
-			float tableHeight = 26 + 12 * 20 + 12 * 1;
+			float tableHeight = 26 + 12 * 20 + 5 * 1;
 
 			float bgX = tableX - 10f;
 			float bgY = tableY - tableHeight + 26 - 15f;
@@ -60,31 +57,38 @@ public class PlanetPosPage extends BasePage {
 			float headWidth = 170f;
 			float headHeight = 26f;
 			float headMargin = 13.2f;
-			drawBgWithHeader(bgX, bgY, bgWidth, bgHeight, headWidth, headHeight, headMargin, "xzg fLFkfr", 14);
-			drawPlanetTable(tableX, tableY, tableWidth);
-			tableY -= (tableHeight + 65);
+			drawBgWithHeader(bgX, bgY, bgWidth, bgHeight, headWidth, headHeight, headMargin, "Hkko funsZ'ku", 14);
+			drawBhavSignificatorTable(tableX, tableY, tableWidth);
+			tableX = 39f;
+			tableY = 320f;
+			tableWidth = 514f;
+			tableHeight = 26 + 9 * 20 + 5 * 1;
+
 			bgX = tableX - 10f;
 			bgY = tableY - tableHeight + 26 - 15f;
 			bgWidth = tableWidth + 19f;
 			bgHeight = tableHeight + 37f;
-			drawBgWithHeader(bgX, bgY, bgWidth, bgHeight, headWidth, headHeight, headMargin, "lc xzg fLFkfr", 14);
-			drawSubPlanetTable(tableX, tableY, tableWidth);
-			drawFooter(poppinsRegularFont, poppinsRegularFont, 15);
 
+			headWidth = 170f;
+			headHeight = 26f;
+			headMargin = 13.2f;
+			drawBgWithHeader(bgX, bgY, bgWidth, bgHeight, headWidth, headHeight, headMargin, "xzg funsZ'ku¼ [kkdk 2½",
+					14);
+			drawPlanetSignificatorView2Table(tableX, tableY, tableWidth);
+			drawFooter(poppinsRegularFont, poppinsRegularFont, 15);
 		} catch (Exception e) {
-			System.out.print(e.getMessage());
-			e.printStackTrace();
+			// TODO: handle exception
 		}
 		return pageDetail.getPageInfo();
 	}
 
-	private void drawPlanetTable(float x, float y, float width) throws IOException {
+	private void drawBhavSignificatorTable(float x, float y, float width) throws IOException {
 		float tx = x;
 		float ty = y;
 		float headerHeight = 26f;
-		float rowHeight = 19f;
+		float rowHeight = 20f;
 		float radius = 8;
-		int rowCount = 13;
+		int rowCount = 12;
 		float divider = 1f;
 		Color gradientEnd = new Color(255, 174, 35);
 		Color gradientStart = new Color(235, 78, 0);
@@ -113,112 +117,12 @@ public class PlanetPosPage extends BasePage {
 				drawColorShape.drawSolidRectAngle(tx, ty, width, rowHeight, rowColor);
 				ty -= .5;
 				drawColorShape.drawLine(tx, ty, tx + width, ty, 1, gridColor);
-
 			}
-
-		}
-
-		float[] columnWidth = { 90f, 90f, 150f, 110f };
-		float cx = x;
-		float tableHeight = headerHeight + rowCount * rowHeight + rowCount * divider;
-		for (int i = 0; i < columnWidth.length; i++) {
-			cx += columnWidth[i];
-			System.out.println(cx);
-			drawColorShape.drawLine(cx, ty, cx, ty + tableHeight, 1f, gridColor);
-		}
-		contentStream.saveGraphicsState();
-		contentStream.setStrokingColor(outerBorderColor);
-		contentStream.setLineWidth(1f);
-		drawColorShape.drawRoundedRectangle(tx, ty, width, tableHeight, radius);
-		contentStream.stroke();
-		contentStream.restoreGraphicsState();
-		populatePlanetDetail(x, y, width);
-	}
-
-	void populatePlanetDetail(float x, float y, float width) throws IOException {
-		ArrayList<BasicPlanetDataModel> list = new PlanetAndSunPlanetPositionCalculation(desktopHoro).getPlanetsData();
-		String[] heading = constantHindi.planetPosHeading;
-		float headerHeight = 26f;
-		float tx = x;
-		float starty = utility.getTextBaseline(krutiDevRegularFont, y, headerHeight, 14);
-		float rowHeight = 19f;
-		float boxWidth = 50;
-		float horizontalGap = (width - boxWidth) / 13;
-		float[] columnWidth = { 90f, 90f, 150f, 110f, 74.0f };
-		for (int i = 0; i < heading.length; i++) {
-			drawColorShape.drawCenteredBoldText(tx, columnWidth[i], starty, heading[i], 16, krutiDevRegularFont,
-					Color.WHITE);
-			tx += columnWidth[i];
-		}
-		starty = starty - headerHeight - 3f;
-		starty = utility.getTextBaseline(krutiDevRegularFont, starty, rowHeight, 14);
-		BasicPlanetDataModel basicPlanetDataModel;
-		for (int i = 0; i < list.size(); i++) {
-			basicPlanetDataModel = list.get(i);
-			tx = x;
-
-			drawColorShape.drawCenteredText(basicPlanetDataModel.getPlaName(), tx, tx + columnWidth[0], starty,
-					krutiDevRegularFont, 14, planetColors[i]);
-			tx += columnWidth[0];
-			drawColorShape.drawCenteredText(String.valueOf(basicPlanetDataModel.getSign()), tx, tx + columnWidth[1],
-					starty, krutiDevRegularFont, 14, planetColors[i]);
-			tx += columnWidth[1];
-			drawColorShape.drawCenteredText(basicPlanetDataModel.getDegree(), tx, tx + columnWidth[2], starty,
-					poppinsRegularFont, 10, planetColors[i]);
-			tx += columnWidth[2];
-			drawColorShape.drawCenteredText(String.valueOf(basicPlanetDataModel.getNaks()), tx, tx + columnWidth[3],
-					starty, krutiDevRegularFont, 14, planetColors[i]);
-			tx += columnWidth[3];
-			drawColorShape.drawCenteredText(String.valueOf(basicPlanetDataModel.getPlaCharan()), tx,
-					tx + columnWidth[4], starty, poppinsRegularFont, 10, planetColors[i]);
-			starty -= rowHeight + 1;
-		}
-
-	}
-
-	private void drawSubPlanetTable(float x, float y, float width) throws IOException {
-		float tx = x;
-		float ty = y;
-		float headerHeight = 26f;
-		float rowHeight = 19f;
-		float radius = 8;
-		int rowCount = 13;
-		float divider = 1f;
-		Color gradientEnd = new Color(255, 174, 35);
-		Color gradientStart = new Color(235, 78, 0);
-		Color headerBorderColor = new Color(205, 50, 0);
-		Color outerBorderColor = new Color(215, 125, 40);
-		Color gridColor = new Color(225, 215, 200);
-		Color alternateRowColor = new Color(255, 250, 240);
-		Color rowColor;
-
-		drawColorShape.drawTopRoundedGradientRect(tx, ty, width, headerHeight, radius - 2, gradientStart, gradientEnd,
-				false);
-		ty -= .5;
-		drawColorShape.drawLine(tx, ty, tx + width, ty, 1f, gridColor);
-
-		for (int i = 0; i < rowCount; i++) {
-			ty = ty - rowHeight - .5f;
-			if (i % 2 == 0) {
-				rowColor = new Color(252, 246, 235);
-			} else {
-				rowColor = new Color(251, 241, 225);
-			}
-			contentStream.setNonStrokingColor(rowColor);
-			if (i == rowCount - 1) {
-				drawColorShape.drawSolidBottomRoundedRectangle(tx, ty, width, rowHeight, radius, rowColor);
-			} else {
-				drawColorShape.drawSolidRectAngle(tx, ty, width, rowHeight, rowColor);
-				ty -= .5;
-				drawColorShape.drawLine(tx, ty, tx + width, ty, 1, gridColor);
-
-			}
-
 		}
 
 		System.out.println("Width--" + width);
 		// float[] columnWidth = { 90f, 90f, 150f, 110f };
-		float[] columnWidth = { 90f, 160f, 66f, 66f, 66f };
+		float[] columnWidth = { 160f };
 		float cx = x;
 		float tableHeight = headerHeight + rowCount * rowHeight + rowCount * divider;
 		for (int i = 0; i < columnWidth.length; i++) {
@@ -232,53 +136,136 @@ public class PlanetPosPage extends BasePage {
 		drawColorShape.drawRoundedRectangle(tx, ty, width, tableHeight, radius);
 		contentStream.stroke();
 		contentStream.restoreGraphicsState();
-		populateSubPlanetDetail(x, y, width);
+		populateBhavSigniFicatorTable(x, y, width);
 	}
 
-	void populateSubPlanetDetail(float x, float y, float width) throws IOException {
-		ArrayList<BasicPlanetSubDataModel> list = new PlanetAndSunPlanetPositionCalculation(desktopHoro)
-				.getPlanetsSubData();
-		String[] heading = constantHindi.subPlanetPosHeading;
+	void populateBhavSigniFicatorTable(float x, float y, float width) throws IOException {
+		String[] heading = constantHindi.bhavSignificatorHeading;
+		ArrayList<HouseSignificatorsBean> list = new KpKundliCalculation(desktopHoro).getKPHouseSignificatorsData();
 		float headerHeight = 26f;
 		float tx = x;
+		float rowHeight = 20f;
 		float starty = utility.getTextBaseline(krutiDevRegularFont, y, headerHeight, 14);
-		float rowHeight = 19f;
-		float boxWidth = 50;
-		float horizontalGap = (width - boxWidth) / 13;
-		float[] columnWidth = { 90f, 160f, 66f, 66f, 66f, 66f };
+		float[] columnWidth = { 160f };
 		for (int i = 0; i < heading.length; i++) {
-			drawColorShape.drawCenteredBoldText(tx, columnWidth[i], starty, heading[i], 16, krutiDevRegularFont,
-					Color.WHITE);
-			tx += columnWidth[i];
+			drawColorShape.drawBoldText(tx + 20f, starty, heading[i], krutiDevRegularFont, 16, Color.WHITE);
+			if (i < heading.length) {
+				tx += columnWidth[0];
+			}
 		}
 		starty = starty - headerHeight - 3f;
 		starty = utility.getTextBaseline(krutiDevRegularFont, starty, rowHeight, 14);
-		BasicPlanetSubDataModel basicPlanetSubDataModel;
+
+		HouseSignificatorsBean houseSignificatorsBean;
 		for (int i = 0; i < list.size(); i++) {
-			basicPlanetSubDataModel = list.get(i);
+			houseSignificatorsBean = list.get(i);
 			tx = x;
-			drawColorShape.drawCenteredText(basicPlanetSubDataModel.getPlaName(), tx, tx + columnWidth[0], starty,
-					krutiDevRegularFont, 14, planetColors[i]);
+			drawColorShape.drawText(tx + 20, starty, String.valueOf(houseSignificatorsBean.getHouseNo()),
+					krutiDevRegularFont, 16, planetColors[i]);
 			tx += columnWidth[0];
-			drawColorShape.drawCenteredText(String.valueOf(basicPlanetSubDataModel.getPlaDeg()), tx,
-					tx + columnWidth[1], starty, poppinsRegularFont, 10, planetColors[i]);
-			tx += columnWidth[1];
-			drawColorShape.drawCenteredText(basicPlanetSubDataModel.getSignLord(), tx, tx + columnWidth[2], starty,
-					krutiDevRegularFont, 14, planetColors[i]);
-
-			tx += columnWidth[2];
-			drawColorShape.drawCenteredText(String.valueOf(basicPlanetSubDataModel.getNakshLord()), tx,
-					tx + columnWidth[3], starty, krutiDevRegularFont, 14, planetColors[i]);
-			tx += columnWidth[3];
-			drawColorShape.drawCenteredText(String.valueOf(basicPlanetSubDataModel.getSubLord()), tx,
-					tx + columnWidth[4], starty, krutiDevRegularFont, 14, planetColors[i]);
-			tx += columnWidth[4];
-			drawColorShape.drawCenteredText(String.valueOf(basicPlanetSubDataModel.getSubLord()), tx,
-					tx + columnWidth[5], starty, krutiDevRegularFont, 14, planetColors[i]);
-
+			drawColorShape.drawText(tx + 20, starty, houseSignificatorsBean.getSignificator(), krutiDevRegularFont, 16,
+					planetColors[i]);
 			starty -= rowHeight + 1;
 		}
-
 	}
 
+	private void drawPlanetSignificatorView2Table(float x, float y, float width) throws IOException {
+		float tx = x;
+		float ty = y;
+		float headerHeight = 26f;
+		float rowHeight = 20f;
+		float radius = 8;
+		int rowCount = 9;
+		float divider = 1f;
+		Color gradientEnd = new Color(255, 174, 35);
+		Color gradientStart = new Color(235, 78, 0);
+		Color headerBorderColor = new Color(205, 50, 0);
+		Color outerBorderColor = new Color(215, 125, 40);
+		Color gridColor = new Color(225, 215, 200);
+		Color alternateRowColor = new Color(255, 250, 240);
+		Color rowColor;
+
+		drawColorShape.drawTopRoundedGradientRect(tx, ty, width, headerHeight, radius - 2, gradientStart, gradientEnd,
+				false);
+		ty -= .5;
+		drawColorShape.drawLine(tx, ty, tx + width, ty, 1f, gridColor);
+
+		for (int i = 0; i < rowCount; i++) {
+			ty = ty - rowHeight - .5f;
+			if (i % 2 == 0) {
+				rowColor = new Color(252, 246, 235);
+			} else {
+				rowColor = new Color(251, 241, 225);
+			}
+			contentStream.setNonStrokingColor(rowColor);
+			if (i == rowCount - 1) {
+				drawColorShape.drawSolidBottomRoundedRectangle(tx, ty, width, rowHeight, radius, rowColor);
+			} else {
+				drawColorShape.drawSolidRectAngle(tx, ty, width, rowHeight, rowColor);
+				ty -= .5;
+				drawColorShape.drawLine(tx, ty, tx + width, ty, 1, gridColor);
+			}
+		}
+
+		System.out.println("Width--" + width);
+		float firstColumnWidth = 60f;
+		float columnWidth = (width - firstColumnWidth) / 4;
+		float cx = x + firstColumnWidth;
+		float tableHeight = headerHeight + rowCount * rowHeight + rowCount * divider;
+		for (int i = 0; i < 4; i++) {
+			drawColorShape.drawLine(cx, ty, cx, ty + tableHeight, 1f, gridColor);
+			cx += columnWidth;
+		}
+		contentStream.saveGraphicsState();
+		contentStream.setStrokingColor(outerBorderColor);
+		contentStream.setLineWidth(1f);
+		drawColorShape.drawRoundedRectangle(tx, ty, width, tableHeight, radius);
+		contentStream.stroke();
+		contentStream.restoreGraphicsState();
+		populatePlanetSignifiactionView2Table(x, y, width);
+	}
+
+	void populatePlanetSignifiactionView2Table(float x, float y, float width) throws IOException {
+		String[] heading = constantHindi.planetSignificator2Heading;
+		ArrayList<PlanetSignificationView2Bean> list = new KPPlanetSignificationView2Calculation(desktopHoro)
+				.getPlanetSignifiactionView2Data();
+		float headerHeight = 26f;
+
+		float rowHeight = 20f;
+		float starty = utility.getTextBaseline(krutiDevRegularFont, y, headerHeight, 14);
+		float firstColumnWidth = 60f;
+		float columnWidth = (width - firstColumnWidth) / 4;
+		float tx = x;
+		for (int i = 0; i < heading.length; i++) {
+			drawColorShape.drawBoldText(tx + 20f, starty, heading[i], krutiDevRegularFont, 16, Color.WHITE);
+
+			tx += firstColumnWidth;
+			firstColumnWidth = columnWidth;
+
+		}
+		starty = starty - headerHeight - 3f;
+		starty = utility.getTextBaseline(krutiDevRegularFont, starty, rowHeight, 14);
+
+		PlanetSignificationView2Bean planetSignificationView2Bean;
+		for (int i = 0; i < list.size(); i++) {
+			planetSignificationView2Bean = list.get(i);
+			tx = x;
+			drawColorShape.drawText(tx + 20, starty, planetSignificationView2Bean.getPlaNo(), krutiDevRegularFont, 16,
+					planetColors[i]);
+			tx += firstColumnWidth;
+			drawColorShape.drawText(tx + 20, starty, planetSignificationView2Bean.getL1(), poppinsRegularFont, 12,
+					planetColors[i]);
+			tx += columnWidth;
+			drawColorShape.drawText(tx + 20, starty, planetSignificationView2Bean.getL2(), poppinsRegularFont, 12,
+					planetColors[i]);
+			tx += columnWidth;
+			drawColorShape.drawText(tx + 20, starty, planetSignificationView2Bean.getL3(), poppinsRegularFont, 12,
+					planetColors[i]);
+			tx += columnWidth;
+			drawColorShape.drawText(tx + 20, starty, planetSignificationView2Bean.getL4(), poppinsRegularFont, 12,
+					planetColors[i]);
+			starty -= rowHeight + 1;
+
+		}
+	}
 }

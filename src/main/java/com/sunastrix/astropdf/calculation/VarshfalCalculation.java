@@ -445,7 +445,7 @@ public class VarshfalCalculation {
 		}
 	}
 
-	private BirthDetailBean getVarshfalBirthDetail(int yearNO, BirthDetailBean birthDetailBean, int varshfalYear) {
+	public BirthDetailBean getVarshfalBirthDetail(int yearNO, BirthDetailBean birthDetailBean, int varshfalYear) {
 		if (yearNO == 0) {
 			return birthDetailBean;
 		}
