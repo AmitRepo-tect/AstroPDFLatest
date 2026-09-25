@@ -33,6 +33,11 @@ public class BasePage {
 	public PDType0Font poppinsRegularFont;
 	public PDType0Font krutiDevRegularFont;
 	public PDType0Font notoSerifDevanagariRegularFont;
+	Color[] planetColors = { new Color(105, 20, 55), new Color(110, 20, 80), new Color(105, 60, 0),
+			new Color(20, 65, 110), new Color(110, 30, 40), new Color(20, 85, 85), new Color(105, 60, 0),
+			new Color(20, 45, 100), new Color(15, 75, 40), new Color(75, 35, 105), new Color(125, 45, 20),
+			new Color(80, 70, 10), new Color(15, 90, 105), new Color(95, 25, 95), new Color(55, 55, 90),
+			new Color(110, 20, 80) };
 
 	public PageDetail addPage(String pageHeading) {
 

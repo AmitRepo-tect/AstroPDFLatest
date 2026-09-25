@@ -32,7 +32,7 @@ public class KpNakshNadiPage extends BasePage {
 	}
 
 	public PageInfo drawPage(PDDocument document, PDType0Font poppinsRegularFont, PDType0Font krutiDevRegularFont) {
-		String pageHeading = "tUe fooj.k vkSj vodgM+k pØ";
+		String pageHeading = "xzg funsZ'ku ¼u{k= ukM+h½ vkSj dLiy baVjfyaDl ¼lc½";
 		this.document = document;
 		this.poppinsRegularFont = poppinsRegularFont;
 		this.krutiDevRegularFont = krutiDevRegularFont;
@@ -45,7 +45,7 @@ public class KpNakshNadiPage extends BasePage {
 			drawColorShape.initialize(pageHeight, pageWidth, document, cs);
 			drawPageBorder(document, pageDetail.getPage());
 			drawCornerImages();
-			drawHeader(pageWidth, pageHeight, krutiDevRegularFont, "foa'kksÙkjh varj n'kk ");
+			drawHeader(pageWidth, pageHeight, krutiDevRegularFont, pageHeading);
 			// Draw Basic Details
 			float tableX = 39f;
 			float tableY = 680f;

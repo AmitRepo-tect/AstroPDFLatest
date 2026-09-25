@@ -33,66 +33,11 @@ public class IndexPage extends BasePage {
 	 * 255), new Color(239, 232, 250) };
 	 */
 
-	Color[] backgroundColors = {
-
-			// 01 - Soft Coral
-			new Color(255, 232, 235),
-
-			// 02 - Soft Peach
-			new Color(255, 237, 218),
-
-			// 03 - Soft Yellow
-			new Color(255, 248, 205),
-
-			// 04 - Soft Lime
-			new Color(235, 248, 210),
-
-			// 05 - Soft Green
-			new Color(218, 246, 222),
-
-			// 06 - Soft Mint
-			new Color(210, 245, 235),
-
-			// 07 - Soft Turquoise
-			new Color(210, 242, 242),
-
-			// 08 - Soft Cyan
-			new Color(210, 240, 250),
-
-			// 09 - Soft Sky Blue
-			new Color(215, 235, 255),
-
-			// 10 - Soft Blue
-			new Color(220, 228, 255),
-
-			// 11 - Soft Periwinkle
-			new Color(228, 225, 255),
-
-			// 12 - Soft Lavender
-			new Color(238, 225, 255),
-
-			// 13 - Soft Purple
-			new Color(246, 225, 250),
-
-			// 14 - Soft Magenta
-			new Color(255, 225, 245),
-
-			// 15 - Soft Rose
-			new Color(255, 225, 235),
-
-			// 16 - Soft Pink
-			new Color(255, 232, 242),
-
-			// 17 - Soft Apricot
-			new Color(255, 235, 220),
-
-			// 18 - Soft Sand
-			new Color(250, 240, 215),
-
-			// 19 - Soft Cream
-			new Color(255, 246, 220),
-
-			// 20 - Soft Aqua
+	Color[] backgroundColors = { new Color(255, 232, 235), new Color(255, 237, 218), new Color(255, 248, 205),
+			new Color(235, 248, 210), new Color(218, 246, 222), new Color(210, 245, 235), new Color(210, 242, 242),
+			new Color(210, 240, 250), new Color(215, 235, 255), new Color(220, 228, 255), new Color(228, 225, 255),
+			new Color(238, 225, 255), new Color(246, 225, 250), new Color(255, 225, 245), new Color(255, 225, 235),
+			new Color(255, 232, 242), new Color(255, 235, 220), new Color(250, 240, 215), new Color(255, 246, 220),
 			new Color(218, 242, 238) };
 	/*
 	 * Color[] textColors = {
@@ -102,67 +47,11 @@ public class IndexPage extends BasePage {
 	 * Color(75, 25, 110), new Color(155, 25, 75), new Color(145, 35, 25), new
 	 * Color(45, 75, 25), new Color(25, 50, 145), new Color(70, 25, 110) };
 	 */
-	Color[] textColors = {
-
-			// 01 - Soft Coral
-			new Color(105, 15, 25),
-
-			// 02 - Soft Peach
-			new Color(105, 40, 8),
-
-			// 03 - Soft Yellow
-			new Color(85, 65, 0),
-
-			// 04 - Soft Lime
-			new Color(35, 75, 5),
-
-			// 05 - Soft Green
-			new Color(5, 70, 25),
-
-			// 06 - Soft Mint
-			new Color(0, 70, 50),
-
-			// 07 - Soft Turquoise
-			new Color(0, 65, 65),
-
-			// 08 - Soft Cyan
-			new Color(0, 55, 85),
-
-			// 09 - Soft Sky Blue
-			new Color(5, 40, 95),
-
-			// 10 - Soft Blue
-			new Color(15, 25, 100),
-
-			// 11 - Soft Periwinkle
-			new Color(30, 20, 105),
-
-			// 12 - Soft Lavender
-			new Color(55, 15, 110),
-
-			// 13 - Soft Purple
-			new Color(85, 10, 90),
-
-			// 14 - Soft Magenta
-			new Color(105, 5, 65),
-
-			// 15 - Soft Rose
-			new Color(110, 10, 35),
-
-			// 16 - Soft Pink
-			new Color(105, 15, 55),
-
-			// 17 - Soft Apricot
-			new Color(105, 35, 10),
-
-			// 18 - Soft Sand
-			new Color(80, 55, 10),
-
-			// 19 - Soft Cream
-			new Color(85, 65, 5),
-
-			// 20 - Soft Aqua
-			new Color(5, 65, 55) };
+	Color[] textColors = { new Color(105, 15, 25), new Color(105, 40, 8), new Color(85, 65, 0), new Color(35, 75, 5),
+			new Color(5, 70, 25), new Color(0, 70, 50), new Color(0, 65, 65), new Color(0, 55, 85),
+			new Color(5, 40, 95), new Color(15, 25, 100), new Color(30, 20, 105), new Color(55, 15, 110),
+			new Color(85, 10, 90), new Color(105, 5, 65), new Color(110, 10, 35), new Color(105, 15, 55),
+			new Color(105, 35, 10), new Color(80, 55, 10), new Color(85, 65, 5), new Color(5, 65, 55) };
 	/*
 	 * Color[] accentColors = { new Color(227, 78, 80), new Color(239, 116, 38), new
 	 * Color(230, 169, 42), new Color(90, 166, 92), new Color(47, 186, 193), new
@@ -170,43 +59,10 @@ public class IndexPage extends BasePage {
 	 * Color(252, 102, 69), new Color(110, 145, 55), new Color(65, 95, 215), new
 	 * Color(125, 65, 180) };
 	 */
-	Color[] accentColors = {
-
-			// 01 - Soft Coral
-			new Color(205, 55, 65),
-
-			// 02 - Soft Peach
-			new Color(215, 90, 25),
-
-			// 03 - Soft Yellow
-			new Color(190, 135, 10),
-
-			// 04 - Soft Lime
-			new Color(65, 125, 35),
-
-			// 05 - Soft Green
-			new Color(30, 125, 60),
-
-			// 06 - Soft Mint
-			new Color(15, 135, 105),
-
-			// 07 - Soft Turquoise
-			new Color(15, 125, 135),
-
-			// 08 - Soft Cyan
-			new Color(15, 110, 160),
-
-			// 09 - Soft Sky Blue
-			new Color(30, 95, 175),
-
-			// 10 - Soft Blue
-			new Color(45, 65, 170),
-
-			// 11 - Soft Periwinkle
-			new Color(65, 55, 170),
-
-			// 12 - Soft Lavender
-			new Color(100, 45, 170) };
+	Color[] accentColors = { new Color(205, 55, 65), new Color(215, 90, 25), new Color(190, 135, 10),
+			new Color(65, 125, 35), new Color(30, 125, 60), new Color(15, 135, 105), new Color(15, 125, 135),
+			new Color(15, 110, 160), new Color(30, 95, 175), new Color(45, 65, 170), new Color(65, 55, 170),
+			new Color(100, 45, 170),new Color(205, 55, 65) };
 	/*
 	 * Color[] colors = { new Color(245, 90, 100), new Color(245, 125, 30), new
 	 * Color(245, 175, 20), new Color(75, 155, 75), new Color(35, 155, 190), new
@@ -214,67 +70,11 @@ public class IndexPage extends BasePage {
 	 * Color(245, 75, 80), new Color(80, 165, 75), new Color(65, 80, 210), new
 	 * Color(120, 55, 170), new Color(65, 80, 210), new Color(120, 55, 170) };
 	 */
-	Color[] colors = {
-
-			// 01 - Crimson
-			new Color(210, 35, 55),
-
-			// 02 - Burnt Orange
-			new Color(220, 90, 25),
-
-			// 03 - Golden
-			new Color(220, 165, 20),
-
-			// 04 - Olive
-			new Color(125, 145, 25),
-
-			// 05 - Forest Green
-			new Color(35, 125, 55),
-
-			// 06 - Emerald
-			new Color(20, 165, 115),
-
-			// 07 - Teal
-			new Color(20, 145, 160),
-
-			// 08 - Cyan
-			new Color(20, 175, 205),
-
-			// 09 - Sky Blue
-			new Color(45, 140, 215),
-
-			// 10 - Royal Blue
-			new Color(45, 75, 190),
-
-			// 11 - Navy
-			new Color(35, 55, 130),
-
-			// 12 - Indigo
-			new Color(75, 55, 175),
-
-			// 13 - Violet
-			new Color(125, 55, 195),
-
-			// 14 - Purple
-			new Color(160, 55, 175),
-
-			// 15 - Magenta
-			new Color(205, 40, 145),
-
-			// 16 - Hot Pink
-			new Color(225, 45, 105),
-
-			// 17 - Rose
-			new Color(215, 55, 85),
-
-			// 18 - Brown
-			new Color(145, 75, 35),
-
-			// 19 - Copper
-			new Color(185, 95, 35),
-
-			// 20 - Charcoal Blue
-			new Color(70, 95, 125) };
+	Color[] colors = { new Color(210, 35, 55), new Color(220, 90, 25), new Color(220, 165, 20), new Color(125, 145, 25),
+			new Color(35, 125, 55), new Color(20, 165, 115), new Color(20, 145, 160), new Color(20, 175, 205),
+			new Color(45, 140, 215), new Color(45, 75, 190), new Color(35, 55, 130), new Color(75, 55, 175),
+			new Color(125, 55, 195), new Color(160, 55, 175), new Color(205, 40, 145), new Color(225, 45, 105),
+			new Color(215, 55, 85), new Color(145, 75, 35), new Color(185, 95, 35), new Color(70, 95, 125) };
 
 	public PDPage drawIndexPage(PDDocument document, PDType0Font poppinsRegularFont, PDType0Font krutiDevRegularFont,
 			ArrayList<PageInfo> list) throws IOException {
@@ -295,18 +95,17 @@ public class IndexPage extends BasePage {
 			Color darkRed = new Color(125, 0, 15);
 			Color darkBlue = new Color(35, 48, 82);
 			Color gold = new Color(205, 155, 55);
-			// drawIndexDecoration(cs, pageWidth / 2f, pageHeight - 48f, gold);
 			drawCenteredText("vuqØef.kdk", pageWidth / 2f, pageHeight - 70f, 45, krutiDevRegularFont, darkRed);
-			drawCenteredText("vkidh T;ksfr\"k fjiksVZ dks le>us dh laiw.kZ ekxZnf'kZdk", pageWidth / 2f,
-					pageHeight - 100f, 12, krutiDevRegularFont, darkBlue);
+			drawColorShape.drawCenteredText("vkidh T;ksfr\"k fjiksVZ dks le>us dh laiw.kZ ekxZnf'kZdk",
+					pageWidth / 2f - 100f, pageWidth / 2f + 100f, pageHeight - 100f, krutiDevRegularFont, 14, darkBlue);
 			drawIndexDecoration(cs, pageWidth / 2f, pageHeight - 120f, gold);
-
 			float itemWidth = pageWidth - 100;
-			float itemHeight = 35f;
+			float itemHeight = 40f;
 			float leftX = 50f;
 			float rightX = 50f;
-			float startY = pageHeight - 210f;
+			float startY = pageHeight - 200f;
 			float gap = 10f;
+			System.out.println("List Size--"+list.size());
 			for (int i = 0; i < list.size(); i++) {
 				float itemY = startY - i * (itemHeight + gap);
 				PageInfo pageInfo = list.get(i);
@@ -315,9 +114,8 @@ public class IndexPage extends BasePage {
 			}
 
 			float bottomY = 28f;
-			drawIndexDecoration(cs, pageWidth / 2f, bottomY + 48f, gold);
-			drawCenteredText("The right direction brings a brighter tomorrow", pageWidth / 2f, bottomY + 15f, 13,
-					poppinsRegularFont, darkBlue);
+			drawColorShape.drawCenteredText("lgh fn'kk vkids dy dks vkSj mTToy cukrh gSA", pageWidth / 2f - 100f,
+					pageWidth / 2f + 100f, bottomY + 15f, krutiDevRegularFont, 14, darkBlue);
 			drawIndexDecoration(cs, pageWidth / 2f, bottomY, gold);
 			return page;
 		}
@@ -389,12 +187,11 @@ public class IndexPage extends BasePage {
 		drawCenteredText(String.format("%02d", pageCount++), diamondCenterX, diamondCenterY - 5, 12, font, Color.WHITE);
 		float textX = x + 30;
 		float textY = utility.getTextBaseline(font, y, height, 12);
-
-		drawText(contentStream, pageInfo.getPageTitle(), textX, textY, 15, krutiDevRegularFont, textColors[index]);
+		drawColorShape.drawBoldText(textX, textY, pageInfo.getPageTitle(), krutiDevRegularFont, 18, textColors[index]);
 		drawColorShape.drawDotLine(textX + utility.getTextWidth(pageInfo.getPageTitle(), krutiDevRegularFont, 15) + 5,
 				y + height / 2 - 1f, x + width - 45);
-		drawText(contentStream, "i`\"B Ø- " + String.format("%02d", pageInfo.getStartPageNo()), x + width - 40, textY,
-				12, krutiDevRegularFont, textColors[index]);
+		drawText(contentStream, "i`\"B Ø- " + String.format("%02d", pageInfo.getStartPageNo()), x + width - 45, textY,
+				14, krutiDevRegularFont, textColors[index]);
 
 	}
 
@@ -451,22 +248,8 @@ public class IndexPage extends BasePage {
 	private void drawIndexDecoration(PDPageContentStream cs, float centerX, float centerY, Color gold)
 			throws IOException {
 
-		/*
-		 * cs.saveGraphicsState(); cs.setStrokingColor(gold);
-		 * cs.setNonStrokingColor(gold); cs.setLineWidth(0.8f); float lineWidth = 55f;
-		 * float gap = 13f; cs.moveTo(centerX - gap - lineWidth, centerY);
-		 * cs.lineTo(centerX - gap, centerY); cs.moveTo(centerX + gap, centerY);
-		 * cs.lineTo(centerX + gap + lineWidth, centerY); cs.stroke();
-		 */
-		drawGradientLine(
-		        contentStream,
-		        centerX,
-		        centerY,
-		        55f,
-		        2f,
-		        new Color(184, 134, 11),  // dark gold
-		        new Color(242, 210, 122)  // light gold
-		);
+		drawTaperedLine(contentStream, centerX - 175f, centerX - 25f, centerY, 0.7f, 2.2f, gold);
+		drawTaperedLine(contentStream, centerX + 25f, centerX + 175f, centerY, 2.2f, 0.7f, gold);
 		// Center diamond
 		float s = 4f;
 		drawColorShape.drawFourPointStar(centerX, centerY, 8f, gold);
@@ -599,5 +382,36 @@ public class IndexPage extends BasePage {
 		contentStream.shadingFill(shading);
 
 		contentStream.restoreGraphicsState();
+	}
+
+	private void drawTaperedLine(PDPageContentStream cs, float x1, float x2, float centerY, float startWidth,
+			float endWidth, Color color) throws IOException {
+
+		cs.saveGraphicsState();
+
+		cs.setNonStrokingColor(color);
+
+		int segments = 30;
+
+		for (int i = 0; i < segments; i++) {
+
+			float t1 = i / (float) segments;
+			float t2 = (i + 1) / (float) segments;
+
+			float xa = x1 + (x2 - x1) * t1;
+			float xb = x1 + (x2 - x1) * t2;
+
+			float wa = startWidth + (endWidth - startWidth) * t1;
+			float wb = startWidth + (endWidth - startWidth) * t2;
+
+			cs.moveTo(xa, centerY - wa / 2f);
+			cs.lineTo(xb, centerY - wb / 2f);
+			cs.lineTo(xb, centerY + wb / 2f);
+			cs.lineTo(xa, centerY + wa / 2f);
+			cs.closePath();
+			cs.fill();
+		}
+
+		cs.restoreGraphicsState();
 	}
 }

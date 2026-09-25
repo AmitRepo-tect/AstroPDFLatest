@@ -14,14 +14,19 @@ import com.sunastrix.astropdf.model.PageInfo;
 import com.sunastrix.astropdf.model.PrastharashtakvargaModel;
 
 public class PrastakvragaPage extends BasePage {
-	Color[] planetColors = { new Color(105, 20, 55), new Color(110, 20, 80), new Color(105, 60, 0),
-			new Color(20, 65, 110), new Color(110, 30, 40), new Color(20, 85, 85), new Color(105, 60, 0),
-			new Color(20, 45, 100), new Color(15, 75, 40) };
+	/*
+	 * Color[] planetColors = { new Color(105, 20, 55), new Color(110, 20, 80), new
+	 * Color(105, 60, 0), new Color(20, 65, 110), new Color(110, 30, 40), new
+	 * Color(20, 85, 85), new Color(105, 60, 0), new Color(20, 45, 100), new
+	 * Color(15, 75, 40) };
+	 */
 	Color[] rashiColors = { new Color(115, 25, 25), new Color(30, 65, 35), new Color(15, 75, 40), new Color(20, 50, 95),
 			new Color(115, 55, 10), new Color(75, 55, 35), new Color(85, 25, 95), new Color(90, 15, 30),
 			new Color(110, 75, 15), new Color(45, 50, 55), new Color(15, 30, 75), new Color(80, 40, 75) };
 	ArrayList<PrastharashtakvargaModel> prashtakVargaList;
 	int count = 0;
+
+	String[] headings;
 
 	public PrastakvragaPage(DesktopHoroNew desktopHoro) {
 		this.desktopHoro = desktopHoro;
@@ -33,6 +38,7 @@ public class PrastakvragaPage extends BasePage {
 		this.poppinsRegularFont = poppinsRegularFont;
 		this.krutiDevRegularFont = krutiDevRegularFont;
 		prashtakVargaList = new PrashtakVargaCalculation(desktopHoro).getPrashtakVargaData();
+		headings = constantHindi.prastakvargaLabels;
 		PageInfo pageInfo = drawPage();
 		drawPage();
 		drawPage();
@@ -55,17 +61,17 @@ public class PrastakvragaPage extends BasePage {
 			float tableX = 39f;
 			float tableY = 670f;
 			float tableWidth = pageWidth - 80;
-			float tableHeight = 30 + 9 * 22 + 9;
+			float tableHeight = 30 + 9 * 24 + 9;
 
 			float bgX = tableX - 10f;
-			float bgY = tableY - tableHeight + 26 - 8f;
+			float bgY = tableY - tableHeight + 26 - 10f;
 			float bgWidth = tableWidth + 19f;
 			float bgHeight = tableHeight + 37f;
 
 			float headWidth = 170f;
 			float headHeight = 30f;
 			float headMargin = 15.2f;
-			drawBgWithHeader(bgX, bgY, bgWidth, bgHeight, headWidth, headHeight, headMargin, "Navamsa Chart", 14);
+			drawBgWithHeader(bgX, bgY, bgWidth, bgHeight, headWidth, headHeight, headMargin, headings[count], 14);
 			drawTable(tableX, tableY, tableWidth, tableHeight);
 			populatePrastakTable(tableX, tableY, tableWidth, tableHeight);
 
@@ -78,7 +84,7 @@ public class PrastakvragaPage extends BasePage {
 			headWidth = 170f;
 			headHeight = 30f;
 			headMargin = 15.2f;
-			drawBgWithHeader(bgX, bgY, bgWidth, bgHeight, headWidth, headHeight, headMargin, "Navamsa Chart", 12);
+			drawBgWithHeader(bgX, bgY, bgWidth, bgHeight, headWidth, headHeight, headMargin, headings[count], 12);
 			drawTable(tableX, tableY, tableWidth, tableHeight);
 			populatePrastakTable(tableX, tableY, tableWidth, tableHeight);
 
@@ -95,7 +101,7 @@ public class PrastakvragaPage extends BasePage {
 		float tx = x;
 		float ty = y;
 		float headerHeight = 30;
-		float rowHeight = 22f;
+		float rowHeight = 24f;
 		float radius = 8;
 		int rowCount = 9;
 		float divider = 1f;
@@ -104,7 +110,7 @@ public class PrastakvragaPage extends BasePage {
 		Color headerBorderColor = new Color(205, 50, 0);
 		Color outerBorderColor = new Color(215, 125, 40);
 		Color gridColor = new Color(225, 215, 200);
-		Color alternateRowColor = new Color(255, 250, 240);
+		Color alternateRowColor = new Color(251, 241, 225);//new Color(255, 250, 240);
 		Color rowColor;
 		drawColorShape.drawTopRoundedGradientRect(tx, ty, width, headerHeight, radius - 2, gradientStart, gradientEnd,
 				false);
@@ -115,9 +121,10 @@ public class PrastakvragaPage extends BasePage {
 		for (int i = 0; i < rowCount; i++) {
 			ty = ty - rowHeight;
 			if (i % 2 == 0) {
-				rowColor = alternateRowColor;
-			} else {
 				rowColor = Color.WHITE;
+				
+			} else {
+				rowColor = alternateRowColor;
 			}
 			contentStream.setNonStrokingColor(rowColor);
 			if (i == rowCount - 1) {
@@ -148,18 +155,18 @@ public class PrastakvragaPage extends BasePage {
 	}
 
 	void populatePrastakTable(float x, float y, float width, float height) throws IOException {
-		String[] planets = { "Sun", "Mon", "Mar", "Mec", "Jup", "Ven", "Sat", "Asc", "total" };
-		String[] rashi = { "", "Ari", "Tau", "Gem", "Can", "Leo", "Vir", "Lib", "Sco", "Sag", "Cap", "Aqu", "Pis",
-				"total" };
+		String[] planets = constantHindi.praPlaFullName;// { "Sun", "Mon", "Mar", "Mec", "Jup", "Ven", "Sat", "Asc",
+														// "total" };
+		String[] rashi = constantHindi.rashiNames;
 		float headerHeight = 30;
 		float tx = x;
-		float ty = utility.getTextBaseline(poppinsRegularFont, y, headerHeight, 12);
-		float rowHeight = 22f;
+		float ty = utility.getTextBaseline(krutiDevRegularFont, y, headerHeight, 16);
+		float rowHeight = 24f;
 		float boxWidth = 50;
 		float horizontalGap = (width - boxWidth) / 13;
 
 		for (int i = 0; i < rashi.length; i++) {
-			drawColorShape.drawCenteredBoldText(tx, boxWidth, ty, rashi[i], 11, poppinsRegularFont, Color.black);
+			drawColorShape.drawCenteredBoldText(tx, boxWidth, ty, rashi[i], 16, krutiDevRegularFont, Color.WHITE);
 			tx += boxWidth;
 			boxWidth = horizontalGap;
 
@@ -168,7 +175,7 @@ public class PrastakvragaPage extends BasePage {
 		boxWidth = 50;
 		ty = utility.getTextBaseline(poppinsRegularFont, y - rowHeight - 1, rowHeight, 12);
 		for (int i = 0; i < planets.length; i++) {
-			drawColorShape.drawCenteredBoldText(tx, boxWidth, ty, planets[i], 11, poppinsRegularFont, rashiColors[i]);
+			drawColorShape.drawCenteredBoldText(tx, boxWidth, ty, planets[i], 16, krutiDevRegularFont, planetColors[i]);
 			ty -= (rowHeight + 1);
 		}
 		tx = x + boxWidth;

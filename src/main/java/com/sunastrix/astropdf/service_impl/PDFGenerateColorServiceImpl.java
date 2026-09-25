@@ -79,12 +79,16 @@ public class PDFGenerateColorServiceImpl implements PDFGenerateColorService {
 	DrawShape drawShape = new DrawShape();
 	int pageNumber;
 	Utility utility;
-	ArrayList<PageInfo> pageList = new ArrayList<PageInfo>();
-	ArrayList<PageInfo> pageList2 = new ArrayList<PageInfo>();
-	ArrayList<PageInfo> pageList3 = new ArrayList<PageInfo>();
-	public static int pageNo = 0;
+	ArrayList<PageInfo> pageList;
+	ArrayList<PageInfo> pageList2;
+	ArrayList<PageInfo> pageList3;
+	public static int pageNo;
 
 	public byte[] generatePDF(BirthDetailBean birthDetailBean) throws IOException {
+		pageNo = 0;
+		pageList = new ArrayList<PageInfo>();
+		pageList2 = new ArrayList<PageInfo>();
+		pageList3 = new ArrayList<PageInfo>();
 		PDDocument document = new PDDocument();
 		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 		pageNumber = 1;
@@ -165,11 +169,12 @@ public class PDFGenerateColorServiceImpl implements PDFGenerateColorService {
 		pageList2.add(pageInfo);
 		pageInfo = new KpCilPage(desktopHoro).drawPage(document, poppinsRegularFont, krutiDevRegularFont);
 		pageList2.add(pageInfo);
-		pageInfo =new KpRulingPage(desktopHoro).drawPage(document, poppinsRegularFont, krutiDevRegularFont);
+		pageInfo = new KpRulingPage(desktopHoro).drawPage(document, poppinsRegularFont, krutiDevRegularFont);
 		pageList2.add(pageInfo);
-		pageInfo =new VrashfalPage(desktopHoro).drawPage(document, poppinsRegularFont, krutiDevRegularFont);
+		pageInfo = new VrashfalPage(desktopHoro).drawPage(document, poppinsRegularFont, krutiDevRegularFont);
 		pageList3.add(pageInfo);
-		pageInfo =new VarshfalTablePage(desktopHoro, birthDetailBean).drawPage(document, poppinsRegularFont, krutiDevRegularFont);
+		pageInfo = new VarshfalTablePage(desktopHoro, birthDetailBean).drawPage(document, poppinsRegularFont,
+				krutiDevRegularFont);
 		pageList3.add(pageInfo);
 		IndexPage indexPage = new IndexPage();
 		document.getPages().insertBefore(

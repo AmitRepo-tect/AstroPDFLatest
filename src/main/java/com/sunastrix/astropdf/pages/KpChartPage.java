@@ -26,7 +26,7 @@ public class KpChartPage extends BasePage {
 	}
 
 	public PageInfo drawPage(PDDocument document, PDType0Font poppinsRegularFont, PDType0Font krutiDevRegularFont) {
-		String pageHeading = "foa'kksÙkjh varj n'kk";
+		String pageHeading = "dsih pkVZ vkSj xzg fLFkfr";
 		this.document = document;
 		this.poppinsRegularFont = poppinsRegularFont;
 		this.krutiDevRegularFont = krutiDevRegularFont;
@@ -53,7 +53,7 @@ public class KpChartPage extends BasePage {
 			float headHeight = 26f;
 			float headMargin = 13.2f;
 			int[] planetArray = getIntArray(desktopHoro.getPositionForShodasvarg(0), 0);
-			drawBgWithHeader(bgX, bgY, bgWidth, bgHeight, headWidth, headHeight, headMargin, "yXu pkVZ", 14);
+			drawBgWithHeader(bgX, bgY, bgWidth, bgHeight, headWidth, headHeight, headMargin, "dsih dqaMyh pkVZ", 14);
 			drawChart(tableX, tableY, tableWidth, tableHeight, 12, planetArray, planetArray[12]);
 			tableX = 315f;
 			tableY = 480f;
@@ -66,7 +66,7 @@ public class KpChartPage extends BasePage {
 			headWidth = 170f;
 			headHeight = 26f;
 			headMargin = 13.2f;
-			drawBgWithHeader(bgX, bgY, bgWidth, bgHeight, headWidth, headHeight, headMargin, "uoeka'k pkVZ", 14);
+			drawBgWithHeader(bgX, bgY, bgWidth, bgHeight, headWidth, headHeight, headMargin, "jkf'k dqaMyh pkVZ", 14);
 			drawChart(tableX, tableY, tableWidth, tableHeight, 12, planetArray, planetArray[12]);
 			// Draw Basic Details
 			tableX = 39f;

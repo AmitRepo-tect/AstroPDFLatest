@@ -19,10 +19,13 @@ import com.sunastrix.astropdf.model.PageInfo;
 import com.sunastrix.astropdf.service_impl.PDFGenerateColorServiceImpl;
 
 public class PlanetPosPage extends BasePage {
-	Color[] planetColors = { new Color(105, 20, 55), new Color(110, 20, 80), new Color(105, 60, 0),
-			new Color(20, 65, 110), new Color(110, 30, 40), new Color(20, 85, 85), new Color(105, 60, 0),
-			new Color(20, 45, 100), new Color(15, 75, 40), new Color(90, 45, 105), new Color(120, 70, 20),
-			new Color(40, 100, 55), new Color(75, 35, 90) };
+	/*
+	 * Color[] planetColors = { new Color(105, 20, 55), new Color(110, 20, 80), new
+	 * Color(105, 60, 0), new Color(20, 65, 110), new Color(110, 30, 40), new
+	 * Color(20, 85, 85), new Color(105, 60, 0), new Color(20, 45, 100), new
+	 * Color(15, 75, 40), new Color(90, 45, 105), new Color(120, 70, 20), new
+	 * Color(40, 100, 55), new Color(75, 35, 90) };
+	 */
 
 	public PlanetPosPage(DesktopHoroNew desktopHoro, BirthDetailBean birthDetailBean) {
 		this.desktopHoro = desktopHoro;
@@ -50,7 +53,7 @@ public class PlanetPosPage extends BasePage {
 			float tableX = 39f;
 			float tableY = 680f;
 			float tableWidth = 514f;
-			float tableHeight = 26 + 12 * 20 + 12 * 1;
+			float tableHeight = 26 + 13 * 19 + 7 * 1;
 
 			float bgX = tableX - 10f;
 			float bgY = tableY - tableHeight + 26 - 15f;
@@ -102,7 +105,7 @@ public class PlanetPosPage extends BasePage {
 		for (int i = 0; i < rowCount; i++) {
 			ty = ty - rowHeight - .5f;
 			if (i % 2 == 0) {
-				rowColor = new Color(252, 246, 235);
+				rowColor = Color.white; // new Color(252, 246, 235);
 			} else {
 				rowColor = new Color(251, 241, 225);
 			}
@@ -157,20 +160,45 @@ public class PlanetPosPage extends BasePage {
 			basicPlanetDataModel = list.get(i);
 			tx = x;
 
-			drawColorShape.drawCenteredText(basicPlanetDataModel.getPlaName(), tx, tx + columnWidth[0], starty,
-					krutiDevRegularFont, 14, planetColors[i]);
+			drawColorShape.drawCenteredBoldText(tx, columnWidth[0], starty, basicPlanetDataModel.getPlaName(), 14,
+					krutiDevRegularFont, planetColors[i]);
+			/*
+			 * drawColorShape.drawCenteredText(basicPlanetDataModel.getPlaName(), tx, tx +
+			 * columnWidth[0], starty, krutiDevRegularFont, 14, planetColors[i]);
+			 */
 			tx += columnWidth[0];
-			drawColorShape.drawCenteredText(String.valueOf(basicPlanetDataModel.getSign()), tx, tx + columnWidth[1],
-					starty, krutiDevRegularFont, 14, planetColors[i]);
+			drawColorShape.drawCenteredBoldText(tx, columnWidth[1], starty,
+					String.valueOf(basicPlanetDataModel.getSign()), 14, krutiDevRegularFont, planetColors[i]);
+
+			/*
+			 * drawColorShape.drawCenteredText(String.valueOf(basicPlanetDataModel.getSign()
+			 * ), tx, tx + columnWidth[1], starty, krutiDevRegularFont, 14,
+			 * planetColors[i]);
+			 */
 			tx += columnWidth[1];
-			drawColorShape.drawCenteredText(basicPlanetDataModel.getDegree(), tx, tx + columnWidth[2], starty,
-					poppinsRegularFont, 10, planetColors[i]);
+			drawColorShape.drawCenteredBoldText(tx, columnWidth[2], starty, basicPlanetDataModel.getDegree(), 10,
+					poppinsRegularFont, planetColors[i]);
+
+			/*
+			 * drawColorShape.drawCenteredText(basicPlanetDataModel.getDegree(), tx, tx +
+			 * columnWidth[2], starty, poppinsRegularFont, 10, planetColors[i]);
+			 */
 			tx += columnWidth[2];
-			drawColorShape.drawCenteredText(String.valueOf(basicPlanetDataModel.getNaks()), tx, tx + columnWidth[3],
-					starty, krutiDevRegularFont, 14, planetColors[i]);
+			drawColorShape.drawCenteredBoldText(tx, columnWidth[3], starty,
+					String.valueOf(basicPlanetDataModel.getNaks()), 14, krutiDevRegularFont, planetColors[i]);
+			/*
+			 * drawColorShape.drawCenteredText(String.valueOf(basicPlanetDataModel.getNaks()
+			 * ), tx, tx + columnWidth[3], starty, krutiDevRegularFont, 14,
+			 * planetColors[i]);
+			 */
 			tx += columnWidth[3];
-			drawColorShape.drawCenteredText(String.valueOf(basicPlanetDataModel.getPlaCharan()), tx,
-					tx + columnWidth[4], starty, poppinsRegularFont, 10, planetColors[i]);
+			drawColorShape.drawCenteredBoldText(tx, columnWidth[4], starty,
+					String.valueOf(basicPlanetDataModel.getPlaCharan()), 10, poppinsRegularFont, planetColors[i]);
+			/*
+			 * drawColorShape.drawCenteredText(String.valueOf(basicPlanetDataModel.
+			 * getPlaCharan()), tx, tx + columnWidth[4], starty, poppinsRegularFont, 10,
+			 * planetColors[i]);
+			 */
 			starty -= rowHeight + 1;
 		}
 
@@ -200,7 +228,7 @@ public class PlanetPosPage extends BasePage {
 		for (int i = 0; i < rowCount; i++) {
 			ty = ty - rowHeight - .5f;
 			if (i % 2 == 0) {
-				rowColor = new Color(252, 246, 235);
+				rowColor = Color.WHITE;// new Color(252, 246, 235);
 			} else {
 				rowColor = new Color(251, 241, 225);
 			}
@@ -257,24 +285,53 @@ public class PlanetPosPage extends BasePage {
 		for (int i = 0; i < list.size(); i++) {
 			basicPlanetSubDataModel = list.get(i);
 			tx = x;
-			drawColorShape.drawCenteredText(basicPlanetSubDataModel.getPlaName(), tx, tx + columnWidth[0], starty,
-					krutiDevRegularFont, 14, planetColors[i]);
+			drawColorShape.drawCenteredBoldText(tx, columnWidth[0], starty, basicPlanetSubDataModel.getPlaName(), 14,
+					krutiDevRegularFont, planetColors[i]);
+			/*
+			 * drawColorShape.drawCenteredText(basicPlanetSubDataModel.getPlaName(), tx, tx
+			 * + columnWidth[0], starty, krutiDevRegularFont, 14, planetColors[i]);
+			 */
 			tx += columnWidth[0];
-			drawColorShape.drawCenteredText(String.valueOf(basicPlanetSubDataModel.getPlaDeg()), tx,
-					tx + columnWidth[1], starty, poppinsRegularFont, 10, planetColors[i]);
+			drawColorShape.drawCenteredBoldText(tx, columnWidth[1], starty,
+					String.valueOf(basicPlanetSubDataModel.getPlaDeg()), 10, poppinsRegularFont, planetColors[i]);
+			/*
+			 * drawColorShape.drawCenteredText(String.valueOf(basicPlanetSubDataModel.
+			 * getPlaDeg()), tx, tx + columnWidth[1], starty, poppinsRegularFont, 10,
+			 * planetColors[i]);
+			 */
 			tx += columnWidth[1];
-			drawColorShape.drawCenteredText(basicPlanetSubDataModel.getSignLord(), tx, tx + columnWidth[2], starty,
-					krutiDevRegularFont, 14, planetColors[i]);
+			drawColorShape.drawCenteredBoldText(tx, columnWidth[2], starty, basicPlanetSubDataModel.getSignLord(), 14,
+					krutiDevRegularFont, planetColors[i]);
+
+			/*
+			 * drawColorShape.drawCenteredText(basicPlanetSubDataModel.getSignLord(), tx, tx
+			 * + columnWidth[2], starty, krutiDevRegularFont, 14, planetColors[i]);
+			 */
 
 			tx += columnWidth[2];
-			drawColorShape.drawCenteredText(String.valueOf(basicPlanetSubDataModel.getNakshLord()), tx,
-					tx + columnWidth[3], starty, krutiDevRegularFont, 14, planetColors[i]);
+			drawColorShape.drawCenteredBoldText(tx, columnWidth[3], starty,
+					String.valueOf(basicPlanetSubDataModel.getNakshLord()), 14, krutiDevRegularFont, planetColors[i]);
+			/*
+			 * drawColorShape.drawCenteredText(String.valueOf(basicPlanetSubDataModel.
+			 * getNakshLord()), tx, tx + columnWidth[3], starty, krutiDevRegularFont, 14,
+			 * planetColors[i]);
+			 */
 			tx += columnWidth[3];
-			drawColorShape.drawCenteredText(String.valueOf(basicPlanetSubDataModel.getSubLord()), tx,
-					tx + columnWidth[4], starty, krutiDevRegularFont, 14, planetColors[i]);
+			drawColorShape.drawCenteredBoldText(tx, columnWidth[4], starty,
+					String.valueOf(basicPlanetSubDataModel.getSubLord()), 14, krutiDevRegularFont, planetColors[i]);
+			/*
+			 * drawColorShape.drawCenteredText(String.valueOf(basicPlanetSubDataModel.
+			 * getSubLord()), tx, tx + columnWidth[4], starty, krutiDevRegularFont, 14,
+			 * planetColors[i]);
+			 */
 			tx += columnWidth[4];
-			drawColorShape.drawCenteredText(String.valueOf(basicPlanetSubDataModel.getSubLord()), tx,
-					tx + columnWidth[5], starty, krutiDevRegularFont, 14, planetColors[i]);
+			drawColorShape.drawCenteredBoldText(tx, columnWidth[5], starty,
+					String.valueOf(basicPlanetSubDataModel.getSubLord()), 14, krutiDevRegularFont, planetColors[i]);
+			/*
+			 * drawColorShape.drawCenteredText(String.valueOf(basicPlanetSubDataModel.
+			 * getSubLord()), tx, tx + columnWidth[5], starty, krutiDevRegularFont, 14,
+			 * planetColors[i]);
+			 */
 
 			starty -= rowHeight + 1;
 		}

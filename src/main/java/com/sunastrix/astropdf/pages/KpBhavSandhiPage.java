@@ -28,7 +28,7 @@ public class KpBhavSandhiPage extends BasePage {
 	}
 
 	public PageInfo drawPage(PDDocument document, PDType0Font poppinsRegularFont, PDType0Font krutiDevRegularFont) {
-		String pageHeading = "foa'kksÙkjh varj n'kk ";
+		String pageHeading = "Hkko laf/k vkSj xzg funsZ'ku";
 		this.document = document;
 		this.poppinsRegularFont = poppinsRegularFont;
 		this.krutiDevRegularFont = krutiDevRegularFont;
@@ -56,7 +56,7 @@ public class KpBhavSandhiPage extends BasePage {
 			float headWidth = 170f;
 			float headHeight = 26f;
 			float headMargin = 13.2f;
-			drawBgWithHeader(bgX, bgY, bgWidth, bgHeight, headWidth, headHeight, headMargin, "lc xzg fLFkfr", 14);
+			drawBgWithHeader(bgX, bgY, bgWidth, bgHeight, headWidth, headHeight, headMargin, "Hkko laf/k", 14);
 			drawSubPlanetTable(tableX, tableY, tableWidth);
 			tableX = 39f;
 			tableY = 320f;

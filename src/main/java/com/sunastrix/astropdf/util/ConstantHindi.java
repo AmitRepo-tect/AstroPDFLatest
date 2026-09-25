@@ -37,6 +37,9 @@ public class ConstantHindi {
 	public String[] monthName = { "January", "February", "March", "April", "May", "June", "July", "August", "September",
 			"October", "November", "December" };
 	public String[] praPlaName = { "lq", "p", "ea", "cq", "xq", "'kq", "'k", "y", ";ks" };
+	public String[] praPlaFullName = { "lw;Z", "pUnz", "eaxy", "cq/k", "xq:", "'kqØ", "'kfu", "yXu", ";ksx" };
+	public String[] rashiNames= { "", "es\"k", "o`\"kHk", "feFkqu", "ddZ", "flag", "dU;k", "rqyk", "o`f'p", "/kuq",
+			"edj", "dqaHk", "ehu", ";ksx" };
 //	public String[] rashiName = { "मेष", "वृष", "मिथुन", "कर्क", "सिंह", "कन्या", "तुला", "वृश्चिक", "धनु", "मकर", "कुंभ",
 //			"मीन" };
 	public String[] plaAndLagnaNames = { "yXu", "lw;Z", "paæ", "eax", "cq/k", "xq#", "'kqØ", "'kfu", "jkgq", "dsrq",
@@ -159,5 +162,18 @@ public class ConstantHindi {
 			"xzg" };
 	public static String[] favourableLabels = { "HkkX;kad", "'kqHk vad", "'kqHk o\"kZ", "HkkX;'kkyh fnu", "'kqHk xzg",
 			"fe= jkf'k;ka", "'kqHk yXu", "HkkX;'kkyh /kkrq", "HkkX; jRu" };
+
+	public static String[] prastakvargaLabels = { "lw;Z", "paæ", "eaxy", "cq/k", "xq#", "'kqØ", "'kfu ", "jkgq" };
+	public String[] planets = {
+		    "jkf'k",   // राशि
+		    "lw;Z",    // सूर्य
+		    "pUnz",    // चन्द्र
+		    "eaxy",    // मंगल
+		    "cq/k",     // बुध
+		    "xq:",     // गुरु
+		    "'kqØ",    // शुक्र
+		    "'kfu",    // शनि
+		    "dqy"      // कुल
+		};
 
 }

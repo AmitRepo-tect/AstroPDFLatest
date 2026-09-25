@@ -20,18 +20,13 @@ import com.sunastrix.astropdf.model.PageInfo;
 import com.sunastrix.astropdf.model.VarshfalPlanetData;
 
 public class VarshfalTablePage extends BasePage {
-	Color[] planetColors = { new Color(105, 20, 55), new Color(110, 20, 80), new Color(105, 60, 0),
-			new Color(20, 65, 110), new Color(110, 30, 40), new Color(20, 85, 85), new Color(105, 60, 0),
-			new Color(20, 45, 100), new Color(15, 75, 40), new Color(90, 45, 105), new Color(120, 70, 20),
-			new Color(40, 100, 55), new Color(75, 35, 90) };
-
 	public VarshfalTablePage(DesktopHoroNew desktopHoro, BirthDetailBean birthDetailBean) {
 		this.desktopHoro = desktopHoro;
 		this.birthDetailBean = birthDetailBean;
 	}
 
 	public PageInfo drawPage(PDDocument document, PDType0Font poppinsRegularFont, PDType0Font krutiDevRegularFont) {
-		String pageHeading = "xzg vkSj lc xzg fLFkfr";
+		String pageHeading = "o\"kZQy xzg fLFkfr";
 		this.document = document;
 		this.poppinsRegularFont = poppinsRegularFont;
 		this.krutiDevRegularFont = krutiDevRegularFont;
@@ -44,16 +39,16 @@ public class VarshfalTablePage extends BasePage {
 			drawColorShape.initialize(pageHeight, pageWidth, document, cs);
 			drawPageBorder(document, pageDetail.getPage());
 			drawCornerImages();
-			drawHeader(pageWidth, pageHeight, krutiDevRegularFont, "xzg vkSj lc xzg fLFkfr");
+			drawHeader(pageWidth, pageHeight, krutiDevRegularFont, "o\"kZQy xzg fLFkfr");
 
 			// Draw Basic Details
 			float tableX = 39f;
 			float tableY = 680f;
 			float tableWidth = 514f;
-			float tableHeight = 26 + 12 * 20 + 12 * 1;
+			float tableHeight = 30 + 13 * 24 + 12 * 1;
 
 			float bgX = tableX - 10f;
-			float bgY = tableY - tableHeight + 26 - 15f;
+			float bgY = tableY - tableHeight + 26 - 10f;
 			float bgWidth = tableWidth + 19f;
 			float bgHeight = tableHeight + 37f;
 
@@ -75,8 +70,8 @@ public class VarshfalTablePage extends BasePage {
 	private void drawPlanetTable(float x, float y, float width) throws IOException {
 		float tx = x;
 		float ty = y;
-		float headerHeight = 26f;
-		float rowHeight = 19f;
+		float headerHeight = 30f;
+		float rowHeight = 24f;
 		float radius = 8;
 		int rowCount = 13;
 		float divider = 1f;
@@ -96,7 +91,7 @@ public class VarshfalTablePage extends BasePage {
 		for (int i = 0; i < rowCount; i++) {
 			ty = ty - rowHeight - .5f;
 			if (i % 2 == 0) {
-				rowColor = new Color(252, 246, 235);
+				rowColor = Color.WHITE;// new Color(252, 246, 235);
 			} else {
 				rowColor = new Color(251, 241, 225);
 			}
@@ -137,27 +132,55 @@ public class VarshfalTablePage extends BasePage {
 		float headerHeight = 26f;
 		float tx = x;
 		float starty = utility.getTextBaseline(krutiDevRegularFont, y, headerHeight, 14);
-		float rowHeight = 19f;
+		float rowHeight = 24f;
 		float boxWidth = 50;
 		float horizontalGap = width / 3;
 		for (int i = 0; i < heading.length; i++) {
-			drawColorShape.drawBoldText(tx + 15, starty, heading[i], krutiDevRegularFont, 16, Color.WHITE);
+			drawColorShape.drawCenteredBoldText(tx, horizontalGap, starty, heading[i], 18, krutiDevRegularFont,
+					Color.WHITE);
 			tx += horizontalGap;
 		}
-		starty = starty - headerHeight - 3f;
+		starty = y - rowHeight - 1;
 		starty = utility.getTextBaseline(krutiDevRegularFont, starty, rowHeight, 14);
 		VarshfalPlanetData varshfalPlanetData;
 		for (int i = 0; i < list.size(); i++) {
 			varshfalPlanetData = list.get(i);
 			tx = x;
-			drawColorShape.drawText(tx + 15, starty, varshfalPlanetData.getPlaName(), krutiDevRegularFont, 14,
-					planetColors[i]);
+
+			/*
+			 * drawColorShape.drawCenteredBoldText(varshfalPlanetData.getPlaName(), tx, tx +
+			 * horizontalGap, starty, krutiDevRegularFont, 16, planetColors[i]);
+			 */
+			drawColorShape.drawCenteredBoldText(tx, horizontalGap, starty, varshfalPlanetData.getPlaName(), 16,
+					krutiDevRegularFont, planetColors[i]);
+			/*
+			 * drawColorShape.drawText(tx + 15, starty, varshfalPlanetData.getPlaName(),
+			 * krutiDevRegularFont, 16, planetColors[i]);
+			 */
 			tx += horizontalGap;
-			drawColorShape.drawText(tx + 15, starty, String.valueOf(varshfalPlanetData.getSign()), krutiDevRegularFont,
-					14, planetColors[i]);
+			/*
+			 * drawColorShape.drawText(tx + 15, starty,
+			 * String.valueOf(varshfalPlanetData.getSign()), krutiDevRegularFont, 16,
+			 * planetColors[i]);
+			 */
+			/*
+			 * drawColorShape.drawCenteredBoldText(String.valueOf(varshfalPlanetData.getSign
+			 * ()), tx, tx + horizontalGap, starty, krutiDevRegularFont, 16,
+			 * planetColors[i]);
+			 */
+			drawColorShape.drawCenteredBoldText(tx, horizontalGap, starty, String.valueOf(varshfalPlanetData.getSign()),
+					16, krutiDevRegularFont, planetColors[i]);
 			tx += horizontalGap;
-			drawColorShape.drawText(tx + 15, starty, varshfalPlanetData.getDegree(), poppinsRegularFont, 10,
-					planetColors[i]);
+			/*
+			 * drawColorShape.drawText(tx + 15, starty, varshfalPlanetData.getDegree(),
+			 * poppinsRegularFont, 12, planetColors[i]);
+			 */
+			/*
+			 * drawColorShape.drawCenteredBoldText(varshfalPlanetData.getDegree(), tx, tx +
+			 * horizontalGap, starty, poppinsRegularFont, 12, planetColors[i]);
+			 */
+			drawColorShape.drawCenteredBoldText(tx, horizontalGap, starty, varshfalPlanetData.getDegree(), 12,
+					poppinsRegularFont, planetColors[i]);
 
 			starty -= rowHeight + 1;
 		}

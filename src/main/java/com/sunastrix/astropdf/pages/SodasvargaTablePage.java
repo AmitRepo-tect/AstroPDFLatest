@@ -15,23 +15,17 @@ import com.sunastrix.astroganitlib.model.BirthDetailBean;
 import com.sunastrix.astropdf.model.PageInfo;
 
 public class SodasvargaTablePage extends BasePage {
-	Color[] planetColors = { new Color(220, 45, 75), // 1 - Crimson
-			new Color(205, 45, 155), // 2 - Magenta
-			new Color(225, 125, 15), // 3 - Orange
-			new Color(25, 105, 205), // 4 - Blue
-			new Color(220, 55, 45), // 5 - Red
-			new Color(0, 145, 145), // 6 - Teal
-			new Color(225, 145, 15), // 7 - Golden
-			new Color(55, 75, 200), // 8 - Indigo
-			new Color(20, 140, 65), // 9 - Green
-			new Color(145, 55, 185), // 10 - Purple
-			new Color(190, 90, 15), // 11 - Burnt Orange
-			new Color(20, 145, 190), // 12 - Sky Blue
-			new Color(200, 55, 105), // 13 - Rose
-			new Color(225, 70, 30), // 14 - Vermilion
-			new Color(100, 65, 190), // 15 - Violet
-			new Color(0, 125, 100) // 16 - Emerald Teal
-	};
+	/*
+	 * Color[] planetColors = { new Color(220, 45, 75), // 1 - Crimson new
+	 * Color(205, 45, 155), // 2 - Magenta new Color(225, 125, 15), // 3 - Orange
+	 * new Color(25, 105, 205), // 4 - Blue new Color(220, 55, 45), // 5 - Red new
+	 * Color(0, 145, 145), // 6 - Teal new Color(225, 145, 15), // 7 - Golden new
+	 * Color(55, 75, 200), // 8 - Indigo new Color(20, 140, 65), // 9 - Green new
+	 * Color(145, 55, 185), // 10 - Purple new Color(190, 90, 15), // 11 - Burnt
+	 * Orange new Color(20, 145, 190), // 12 - Sky Blue new Color(200, 55, 105), //
+	 * 13 - Rose new Color(225, 70, 30), // 14 - Vermilion new Color(100, 65, 190),
+	 * // 15 - Violet new Color(0, 125, 100) // 16 - Emerald Teal };
+	 */
 
 	public SodasvargaTablePage(DesktopHoroNew desktopHoro, BirthDetailBean birthDetailBean) {
 		this.desktopHoro = desktopHoro;
@@ -73,10 +67,10 @@ public class SodasvargaTablePage extends BasePage {
 			float tableX = 39f;
 			float tableY = 680f;
 			float tableWidth = 514f;
-			float tableHeight = 26 + 15 * 20 + 15 * 1;
+			float tableHeight = 30 + 16 * 24 + 12 * 1;
 
 			float bgX = tableX - 10f;
-			float bgY = tableY - tableHeight + 26 - 15f;
+			float bgY = tableY - tableHeight + 26 - 10f;
 			float bgWidth = tableWidth + 19f;
 			float bgHeight = tableHeight + 37f;
 
@@ -98,8 +92,8 @@ public class SodasvargaTablePage extends BasePage {
 	private void drawPlanetTable(float x, float y, float width, int tableNo) throws IOException {
 		float tx = x;
 		float ty = y;
-		float headerHeight = 26f;
-		float rowHeight = 19f;
+		float headerHeight = 30f;
+		float rowHeight = 24f;
 		float radius = 8;
 		int rowCount = 16;
 		float divider = 1f;
@@ -119,7 +113,7 @@ public class SodasvargaTablePage extends BasePage {
 		for (int i = 0; i < rowCount; i++) {
 			ty = ty - rowHeight - .5f;
 			if (i % 2 == 0) {
-				rowColor = new Color(252, 246, 235);
+				rowColor = Color.WHITE;// new Color(252, 246, 235);
 			} else {
 				rowColor = new Color(251, 241, 225);
 			}
@@ -135,7 +129,7 @@ public class SodasvargaTablePage extends BasePage {
 
 		}
 
-		float firstColumnWidth = 60f;
+		float firstColumnWidth = 65f;
 		float columnWidth = (width - firstColumnWidth) / 10;
 		float cx = x + firstColumnWidth;
 
@@ -161,19 +155,26 @@ public class SodasvargaTablePage extends BasePage {
 	void populateSodavargaTable(float x, float y, float width) throws IOException {
 		String[] heading = constantHindi.shodasHeading;
 		String columnName[] = constantHindi.shodasColumnNew;
-		float headerHeight = 26f;
+		float headerHeight = 30f;
 		float tx = x;
-		float starty = utility.getTextBaseline(krutiDevRegularFont, y, headerHeight, 14);
-		float rowHeight = 19f;
-		float boxWidth = 60f;
+		float starty = utility.getTextBaseline(krutiDevRegularFont, y, headerHeight, 18);
+		float rowHeight = 24f;
+		float boxWidth = 65f;
 		float horizontalGap = (width - boxWidth) / 10;
 		for (int i = 0; i < heading.length; i++) {
-			drawColorShape.drawCenteredBoldText(tx, boxWidth, starty, heading[i], 16, krutiDevRegularFont, Color.WHITE);
+			if (i == 0) {
+				drawColorShape.drawBoldText(tx + 5, starty, heading[i], krutiDevRegularFont, 18, Color.WHITE);
+
+			} else {
+				drawColorShape.drawCenteredBoldText(tx, boxWidth, starty, heading[i], 18, krutiDevRegularFont,
+						Color.WHITE);
+
+			}
 			tx += boxWidth;
 			boxWidth = horizontalGap;
 		}
-		starty = starty - headerHeight - 3f;
-		starty = utility.getTextBaseline(krutiDevRegularFont, starty, rowHeight, 14);
+		starty = y - rowHeight - 1f;
+		starty = utility.getTextBaseline(krutiDevRegularFont, starty, rowHeight, 16);
 
 		int[] arr1 = getIntArray(desktopHoro.getPositionForShodasvarg(0), 0);
 		int[] arr2 = getIntArray(desktopHoro.getPositionForShodasvarg(1), 0);
@@ -214,16 +215,21 @@ public class SodasvargaTablePage extends BasePage {
 			tx = x;
 			for (int j = 0; j < 11; j++) {
 				if (j == 0) {
-					drawColorShape.drawText(tx + 7, starty, columnName[i], krutiDevRegularFont, 14, planetColors[i]);
+					// drawColorShape.drawText(tx + 7, starty, columnName[i], krutiDevRegularFont,
+					// 14, planetColors[i]);
+					drawColorShape.drawBoldText(tx + 5, starty, columnName[i], krutiDevRegularFont, 16,
+							planetColors[i]);
 					tx += boxWidth;
 				} else {
 					if (j == 1) {
-						drawColorShape.drawCenteredText(String.valueOf(arr[12]), tx, tx + horizontalGap, starty,
-								poppinsRegularFont, 10, Color.black);
+
+						drawColorShape.drawCenteredBoldText(tx, horizontalGap, starty, String.valueOf(arr[12]), 12,
+								poppinsRegularFont, Color.black);
 
 					} else {
-						drawColorShape.drawCenteredText(String.valueOf(arr[j - 2]), tx, tx + horizontalGap, starty,
-								poppinsRegularFont, 10, Color.black);
+
+						drawColorShape.drawCenteredBoldText(tx, horizontalGap, starty, String.valueOf(arr[j - 2]), 12,
+								poppinsRegularFont, Color.black);
 
 					}
 					tx += horizontalGap;
@@ -238,19 +244,19 @@ public class SodasvargaTablePage extends BasePage {
 	void populateSodavargaBhavTable(float x, float y, float width) throws IOException {
 		String[] heading = constantHindi.shodasHeading;
 		String columnName[] = constantHindi.shodasColumnNew;
-		float headerHeight = 26f;
+		float headerHeight = 30f;
 		float tx = x;
 		float starty = utility.getTextBaseline(krutiDevRegularFont, y, headerHeight, 14);
-		float rowHeight = 19f;
-		float boxWidth = 60f;
+		float rowHeight = 24f;
+		float boxWidth = 65f;
 		float horizontalGap = (width - boxWidth) / 10;
 		for (int i = 0; i < heading.length; i++) {
 			drawColorShape.drawCenteredBoldText(tx, boxWidth, starty, heading[i], 16, krutiDevRegularFont, Color.WHITE);
 			tx += boxWidth;
 			boxWidth = horizontalGap;
 		}
-		starty = starty - headerHeight - 3f;
-		starty = utility.getTextBaseline(krutiDevRegularFont, starty, rowHeight, 14);
+		starty = y - rowHeight - 1f;
+		starty = utility.getTextBaseline(krutiDevRegularFont, starty, rowHeight, 16);
 
 		int[] arr1 = getIntArray(desktopHoro.getPositionForShodasvarg(0), 0);
 		int[] arr2 = getIntArray(desktopHoro.getPositionForShodasvarg(1), 0);
@@ -295,13 +301,21 @@ public class SodasvargaTablePage extends BasePage {
 					 * drawColorShape.drawCenteredText(columnName[i], tx, tx + boxWidth, starty,
 					 * krutiDevRegularFont, 14, planetColors[i]);
 					 */
-
-					drawColorShape.drawText(tx + 7, starty, columnName[i], krutiDevRegularFont, 14, planetColors[i]);
+					drawColorShape.drawBoldText(tx + 5, starty, columnName[i], krutiDevRegularFont, 16,
+							planetColors[i]);
+					/*
+					 * drawColorShape.drawText(tx + 7, starty, columnName[i], krutiDevRegularFont,
+					 * 14, planetColors[i]);
+					 */
 					tx += boxWidth;
 				} else {
 					if (j == 1) {
-						drawColorShape.drawCenteredText(String.valueOf(arr[12]), tx, tx + horizontalGap, starty,
-								poppinsRegularFont, 10, Color.black);
+						/*
+						 * drawColorShape.drawCenteredText(String.valueOf(arr[12]), tx, tx +
+						 * horizontalGap, starty, poppinsRegularFont, 10, Color.black);
+						 */
+						drawColorShape.drawCenteredBoldText(tx, horizontalGap, starty, String.valueOf(arr[12]), 12,
+								poppinsRegularFont, Color.black);
 
 					} else {
 						int lagna = arr[12];
@@ -314,8 +328,12 @@ public class SodasvargaTablePage extends BasePage {
 							}
 						}
 
-						drawColorShape.drawCenteredText(String.valueOf(bhav), tx, tx + horizontalGap, starty,
-								poppinsRegularFont, 10, Color.black);
+						/*
+						 * drawColorShape.drawCenteredText(String.valueOf(bhav), tx, tx + horizontalGap,
+						 * starty, poppinsRegularFont, 10, Color.black);
+						 */
+						drawColorShape.drawCenteredBoldText(tx, horizontalGap, starty, String.valueOf(bhav), 12,
+								poppinsRegularFont, Color.black);
 
 					}
 					tx += horizontalGap;

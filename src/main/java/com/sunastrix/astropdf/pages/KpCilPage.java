@@ -30,7 +30,7 @@ public class KpCilPage extends BasePage {
 	}
 
 	public PageInfo drawPage(PDDocument document, PDType0Font poppinsRegularFont, PDType0Font krutiDevRegularFont) {
-		String pageHeading = "tUe fooj.k vkSj vodgM+k pØ";
+		String pageHeading = "dLiy baVjfyaDl ¼lc lc½";
 		this.document = document;
 		this.poppinsRegularFont = poppinsRegularFont;
 		this.krutiDevRegularFont = krutiDevRegularFont;
@@ -58,8 +58,7 @@ public class KpCilPage extends BasePage {
 			float headWidth = 170f;
 			float headHeight = 26f;
 			float headMargin = 13.2f;
-			drawBgWithHeader(bgX, bgY, bgWidth, bgHeight, headWidth, headHeight, headMargin, "dLiy baVjfyaDl ¼lc lc½",
-					14);
+			drawBgWithHeader(bgX, bgY, bgWidth, bgHeight, headWidth, headHeight, headMargin, pageHeading, 14);
 			drawCILSubSubTable(tableX, tableY, tableWidth);
 			tableX = 39f;
 			tableY = 400f;

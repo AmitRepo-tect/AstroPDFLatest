@@ -15,25 +15,14 @@ import com.sunastrix.astropdf.calculation.AshtakVargaCalculation;
 import com.sunastrix.astropdf.model.PageInfo;
 
 public class AstakvargPage extends BasePage {
-	Color[] planetColors = {
-			// Ketu - Dark Magenta
-			new Color(105, 20, 55),
-			// Venus - Dark Purple/Magenta
-			new Color(110, 20, 80),
-			// Sun - Dark Brown/Gold
-			new Color(105, 60, 0),
-			// Moon - Dark Blue
-			new Color(20, 65, 110),
-			// Mars - Dark Red
-			new Color(110, 30, 40),
-			// Rahu - Dark Teal
-			new Color(20, 85, 85),
-			// Jupiter - Dark Golden Brown
-			new Color(105, 60, 0),
-			// Saturn - Dark Navy Blue
-			new Color(20, 45, 100),
-			// Mercury - Dark Green
-			new Color(15, 75, 40) };
+	/*
+	 * Color[] planetColors = { // Ketu - Dark Magenta new Color(105, 20, 55), //
+	 * Venus - Dark Purple/Magenta new Color(110, 20, 80), // Sun - Dark Brown/Gold
+	 * new Color(105, 60, 0), // Moon - Dark Blue new Color(20, 65, 110), // Mars -
+	 * Dark Red new Color(110, 30, 40), // Rahu - Dark Teal new Color(20, 85, 85),
+	 * // Jupiter - Dark Golden Brown new Color(105, 60, 0), // Saturn - Dark Navy
+	 * Blue new Color(20, 45, 100), // Mercury - Dark Green new Color(15, 75, 40) };
+	 */
 	Color[] rashiColors = {
 			// 1. Aries (Mesh) - Deep Fire Red (Ruled by Mars)
 			new Color(115, 25, 25),
@@ -65,7 +54,7 @@ public class AstakvargPage extends BasePage {
 		this.desktopHoro = desktopHoro;
 	}
 
-	public PageInfo drawPage(PDDocument document, PDType0Font poppinsRegularFont,PDType0Font krutiDevRegularFont) {
+	public PageInfo drawPage(PDDocument document, PDType0Font poppinsRegularFont, PDType0Font krutiDevRegularFont) {
 		String pageHeading = "v\"VdoxZ rkfydk";
 		this.document = document;
 		this.poppinsRegularFont = poppinsRegularFont;
@@ -90,11 +79,11 @@ public class AstakvargPage extends BasePage {
 			float tableX = 39f;
 			float tableY = 660f;
 			float tableWidth = pageWidth - 80;
-			float tableHeight = 30+12*22+12;
+			float tableHeight = 30 + 12 * 24 + 12;
 			float radius = 8f;
 
 			float bgX = tableX - 10f;
-			float bgY = tableY-tableHeight+30 - 8f;
+			float bgY = tableY - tableHeight + 30 - 10f;
 			float bgWidth = tableWidth + 19f;
 			float bgHeight = tableHeight + 37f;
 
@@ -117,7 +106,7 @@ public class AstakvargPage extends BasePage {
 		float tx = x;
 		float ty = y;
 		float headerHeight = 30;
-		float rowHeight = 22f;
+		float rowHeight = 24f;
 		float radius = 8;
 		int rowCount = 12;
 		float lineWidth = .5f;
@@ -129,7 +118,7 @@ public class AstakvargPage extends BasePage {
 		Color headerBorderColor = new Color(205, 50, 0);
 		Color outerBorderColor = new Color(215, 125, 40);
 		Color gridColor = new Color(225, 215, 200);
-		Color alternateRowColor = new Color(255, 250, 240);
+		Color alternateRowColor = new Color(251, 241, 225);// new Color(255, 250, 240);
 		Color rowColor;
 		drawColorShape.drawTopRoundedGradientRect(tx, ty, width, headerHeight, radius - 2, gradientStart, gradientEnd,
 				false);
@@ -140,9 +129,10 @@ public class AstakvargPage extends BasePage {
 		for (int i = 0; i < rowCount; i++) {
 			ty = ty - rowHeight;
 			if (i % 2 == 0) {
-				rowColor = alternateRowColor;
-			} else {
 				rowColor = Color.WHITE;
+
+			} else {
+				rowColor = alternateRowColor;
 			}
 			contentStream.setNonStrokingColor(rowColor);
 			if (i == rowCount - 1) {
@@ -174,17 +164,19 @@ public class AstakvargPage extends BasePage {
 
 	void populateAstakvargaTable(float x, float y, float width, float height) throws IOException {
 		String[] ashtakvarg = new AshtakVargaCalculation(desktopHoro).getAshtakVargaData();
-		String[] planets = { "Rashi", "Sun", "Mon", "Mar", "Mec", "Jup", "Ven", "Sat", "total" };
-		String[] rashi = { "Ari", "Tau", "Gem", "Can", "Leo", "Vir", "Lib", "Sco", "Sag", "Cap", "Aqu", "Pis" };
+		String[] planets = constantHindi.planets;// { "Rashi", "Sun", "Mon", "Mar", "Mec", "Jup", "Ven", "Sat", "total"
+													// };
+		String[] rashi = constantHindi.rashiName;// { "Ari", "Tau", "Gem", "Can", "Leo", "Vir", "Lib", "Sco", "Sag",
+													// "Cap", "Aqu", "Pis" };
 		float headerHeight = 30;
 		float tx = x;
 		float ty = utility.getTextBaseline(poppinsRegularFont, y, headerHeight, 12);
-		float rowHeight = 22f;
+		float rowHeight = 24f;
 		float boxWidth = 80;
 		float horizontalGap = (width - boxWidth) / 8;
 
 		for (int i = 0; i < planets.length; i++) {
-			drawColorShape.drawCenteredBoldText(tx, boxWidth, ty, planets[i], 12, poppinsRegularFont, Color.black);
+			drawColorShape.drawCenteredBoldText(tx, boxWidth, ty, planets[i], 18, krutiDevRegularFont, Color.WHITE);
 			tx += boxWidth;
 			boxWidth = horizontalGap;
 
@@ -193,7 +185,7 @@ public class AstakvargPage extends BasePage {
 		boxWidth = 80;
 		ty = utility.getTextBaseline(poppinsRegularFont, y - rowHeight - 1, rowHeight, 12);
 		for (int i = 0; i < rashi.length; i++) {
-			drawColorShape.drawCenteredBoldText(tx, boxWidth, ty, rashi[i], 12, poppinsRegularFont, rashiColors[i]);
+			drawColorShape.drawCenteredBoldText(tx, boxWidth, ty, rashi[i], 16, krutiDevRegularFont, planetColors[i]);
 			ty -= (rowHeight + 1);
 		}
 		tx = x + boxWidth;

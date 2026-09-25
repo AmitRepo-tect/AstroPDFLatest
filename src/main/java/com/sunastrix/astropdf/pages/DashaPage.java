@@ -50,9 +50,12 @@ public class DashaPage extends BasePage {
 			{ new Color(190, 213, 255), new Color(135, 174, 245) },
 			{ new Color(195, 242, 207), new Color(145, 220, 170) } };
 
-	Color[] planetColors = { new Color(105, 20, 55), new Color(110, 20, 80), new Color(105, 60, 0),
-			new Color(20, 65, 110), new Color(110, 30, 40), new Color(20, 85, 85), new Color(105, 60, 0),
-			new Color(20, 45, 100), new Color(15, 75, 40) };
+	/*
+	 * Color[] planetColors = { new Color(105, 20, 55), new Color(110, 20, 80), new
+	 * Color(105, 60, 0), new Color(20, 65, 110), new Color(110, 30, 40), new
+	 * Color(20, 85, 85), new Color(105, 60, 0), new Color(20, 45, 100), new
+	 * Color(15, 75, 40) };
+	 */
 	int hCount = 0;
 	int rCount = 0;
 	String dashaStartDate;
@@ -261,6 +264,7 @@ public class DashaPage extends BasePage {
 			for (int j = 0; j < innerlist.size(); j++) {
 				drawColorShape.drawText(vx, ty, innerlist.get(j).getPlanetName(), krutiDevRegularFont, 13,
 						planetColors[innerlist.get(j).getPlanetNo()]);
+
 				drawColorShape.drawText(vx + tableWidth / 2 - 15, ty, innerlist.get(j).getDasaTimeStr(),
 						poppinsRegularFont, 9, planetColors[innerlist.get(j).getPlanetNo()]);
 				ty = ty - rowHeight;

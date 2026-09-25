@@ -29,7 +29,7 @@ public class KPSignificatorPage extends BasePage {
 	}
 
 	public PageInfo drawPage(PDDocument document, PDType0Font poppinsRegularFont, PDType0Font krutiDevRegularFont) {
-		String pageHeading = "tUe fooj.k vkSj vodgM+k pØ";
+		String pageHeading = "Hkko funsZ'ku vkSj xzg funsZ'ku¼ [kkdk 2½";
 		this.document = document;
 		this.poppinsRegularFont = poppinsRegularFont;
 		this.krutiDevRegularFont = krutiDevRegularFont;

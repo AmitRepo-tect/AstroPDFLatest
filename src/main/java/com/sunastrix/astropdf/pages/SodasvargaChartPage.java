@@ -34,7 +34,7 @@ public class SodasvargaChartPage extends BasePage {
 
 	public PageInfo drawPage(PDDocument document, PDType0Font poppinsRegularFont, PDType0Font krutiDevRegularFont,
 			int[] planetArray, int lagna) {
-		String pageHeading = " 'kksM\"koxZ pkVZ";
+		String pageHeading = "'kksM\"koxZ pkVZ";
 		this.document = document;
 		this.poppinsRegularFont = poppinsRegularFont;
 		this.krutiDevRegularFont = krutiDevRegularFont;

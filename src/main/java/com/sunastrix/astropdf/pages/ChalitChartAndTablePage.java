@@ -19,10 +19,13 @@ import com.sunastrix.astropdf.model.PageInfo;
 import com.sunastrix.astropdf.model.TransitModel;
 
 public class ChalitChartAndTablePage extends BasePage {
-	Color[] planetColors = { new Color(230, 30, 70), new Color(200, 30, 160), new Color(230, 110, 0),
-			new Color(0, 90, 210), new Color(220, 30, 30), new Color(0, 150, 150), new Color(210, 130, 0),
-			new Color(50, 60, 200), new Color(0, 135, 60), new Color(140, 40, 190), new Color(180, 80, 0),
-			new Color(0, 130, 190), new Color(200, 40, 90) };
+	/*
+	 * Color[] planetColors = { new Color(230, 30, 70), new Color(200, 30, 160), new
+	 * Color(230, 110, 0), new Color(0, 90, 210), new Color(220, 30, 30), new
+	 * Color(0, 150, 150), new Color(210, 130, 0), new Color(50, 60, 200), new
+	 * Color(0, 135, 60), new Color(140, 40, 190), new Color(180, 80, 0), new
+	 * Color(0, 130, 190), new Color(200, 40, 90) };
+	 */
 
 	public ChalitChartAndTablePage(DesktopHoroNew desktopHoro, BirthDetailBean birthDetailBean) {
 		this.desktopHoro = desktopHoro;
@@ -88,10 +91,10 @@ public class ChalitChartAndTablePage extends BasePage {
 			tableX = 39f;
 			tableY = 390f;
 			tableWidth = 514f;
-			tableHeight = 26 + 12 * 22 + 5 * 1;
+			tableHeight = 26 + 12 * 24 + 12 * 1;
 
 			bgX = tableX - 10f;
-			bgY = tableY - tableHeight + 26 - 15f;
+			bgY = tableY - tableHeight + 26 - 10f;
 			bgWidth = tableWidth + 19f;
 			bgHeight = tableHeight + 37f;
 
@@ -113,8 +116,8 @@ public class ChalitChartAndTablePage extends BasePage {
 	private void drawBhavTable(float x, float y, float width) throws IOException {
 		float tx = x;
 		float ty = y;
-		float headerHeight = 26f;
-		float rowHeight = 22f;
+		float headerHeight = 30f;
+		float rowHeight = 24f;
 		float radius = 8;
 		int rowCount = 12;
 		float divider = 1f;
@@ -171,10 +174,10 @@ public class ChalitChartAndTablePage extends BasePage {
 	void populatePlanetDetail(float x, float y, float width) throws IOException {
 		ArrayList<KundliChalitTableModel> list = new ChalitCalculation(desktopHoro).getChalitTableData();
 		String[] heading = constantHindi.chalitTableHeading;
-		float headerHeight = 26f;
+		float headerHeight = 30f;
 		float tx = x;
 		float starty = utility.getTextBaseline(krutiDevRegularFont, y - 1, headerHeight, 14);
-		float rowHeight = 22f;
+		float rowHeight = 24f;
 		float boxWidth = 50;
 		float[] columnWidth = { 55f, 90f, 140f, 90f, 140f };
 		for (int i = 0; i < heading.length; i++) {
@@ -188,20 +191,45 @@ public class ChalitChartAndTablePage extends BasePage {
 		for (int i = 0; i < list.size(); i++) {
 			kundliChalitTableModel = list.get(i);
 			tx = x;
-			drawColorShape.drawCenteredText(String.valueOf(kundliChalitTableModel.getBhav()), tx, tx + columnWidth[0],
-					starty, krutiDevRegularFont, 14, planetColors[i]);
+			drawColorShape.drawCenteredBoldText(tx, columnWidth[0], starty,
+					String.valueOf(kundliChalitTableModel.getBhav()), 16, krutiDevRegularFont, planetColors[i]);
+			/*
+			 * drawColorShape.drawCenteredBoldText(String.valueOf(kundliChalitTableModel.
+			 * getBhav()), tx, tx + columnWidth[0], starty, krutiDevRegularFont, 14,
+			 * planetColors[i]);
+			 */
 			tx += columnWidth[0];
-			drawColorShape.drawCenteredText(String.valueOf(kundliChalitTableModel.getBhBegSign()), tx,
-					tx + columnWidth[1], starty, krutiDevRegularFont, 14, planetColors[i]);
+			drawColorShape.drawCenteredBoldText(tx, columnWidth[1], starty,
+					String.valueOf(kundliChalitTableModel.getBhBegSign()), 16, krutiDevRegularFont, planetColors[i]);
+			/*
+			 * drawColorShape.drawCenteredText(String.valueOf(kundliChalitTableModel.
+			 * getBhBegSign()), tx, tx + columnWidth[1], starty, krutiDevRegularFont, 14,
+			 * planetColors[i]);
+			 */
 			tx += columnWidth[1];
-			drawColorShape.drawCenteredText(String.valueOf(kundliChalitTableModel.getBhBegDeg()), tx,
-					tx + columnWidth[2], starty, poppinsRegularFont, 10, planetColors[i]);
+			drawColorShape.drawCenteredBoldText(tx, columnWidth[2], starty,
+					String.valueOf(kundliChalitTableModel.getBhBegDeg()), 12, poppinsRegularFont, planetColors[i]);
+			/*
+			 * drawColorShape.drawCenteredText(String.valueOf(kundliChalitTableModel.
+			 * getBhBegDeg()), tx, tx + columnWidth[2], starty, poppinsRegularFont, 10,
+			 * planetColors[i]);
+			 */
 			tx += columnWidth[2];
-			drawColorShape.drawCenteredText(String.valueOf(kundliChalitTableModel.getBhMidSign()), tx,
-					tx + columnWidth[3], starty, krutiDevRegularFont, 14, planetColors[i]);
+			drawColorShape.drawCenteredBoldText(tx, columnWidth[3], starty,
+					String.valueOf(kundliChalitTableModel.getBhMidSign()), 16, krutiDevRegularFont, planetColors[i]);
+			/*
+			 * drawColorShape.drawCenteredText(String.valueOf(kundliChalitTableModel.
+			 * getBhMidSign()), tx, tx + columnWidth[3], starty, krutiDevRegularFont, 14,
+			 * planetColors[i]);
+			 */
 			tx += columnWidth[3];
-			drawColorShape.drawCenteredText(String.valueOf(kundliChalitTableModel.getBhMidDeg()), tx,
-					tx + columnWidth[4], starty, poppinsRegularFont, 10, planetColors[i]);
+			drawColorShape.drawCenteredBoldText(tx, columnWidth[4], starty,
+					String.valueOf(kundliChalitTableModel.getBhMidDeg()), 12, poppinsRegularFont, planetColors[i]);
+			/*
+			 * drawColorShape.drawCenteredText(String.valueOf(kundliChalitTableModel.
+			 * getBhMidDeg()), tx, tx + columnWidth[4], starty, poppinsRegularFont, 10,
+			 * planetColors[i]);
+			 */
 
 			starty -= (rowHeight + 1f);
 		}
